@@ -65,7 +65,7 @@ a:focus-visible, .btn:focus-visible, .burger:focus-visible {
   border-bottom: 1px solid rgba(255, 255, 255, .10);
   box-shadow: 0 8px 30px rgba(0, 0, 0, .38);
 }
-.header-row { display: flex; align-items: center; gap: 18px; min-height: 64px; position: relative; }
+.header-row { display: flex; align-items: center; gap: clamp(12px, 1.4vw, 18px); min-height: 64px; position: relative; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); }
 .logo:hover { text-decoration: none; }
 .logo-mark {
@@ -74,9 +74,11 @@ a:focus-visible, .btn:focus-visible, .burger:focus-visible {
   display: grid; place-items: center; color: #fff; font-size: 15px; font-weight: 700;
   box-shadow: 0 8px 22px rgba(47, 124, 246, .45), inset 0 1px 0 rgba(255, 255, 255, .45);
 }
-.nav { display: flex; gap: 20px; margin-left: auto; font-size: 15px; }
-.nav a { color: var(--muted); }
+/* меню и кнопка шапки: текст никогда не переносится, отступы сжимаются на узких экранах */
+.nav { display: flex; flex-wrap: nowrap; gap: clamp(10px, 1.35vw, 20px); margin-left: auto; font-size: clamp(14px, 1.05vw, 15px); }
+.nav a { color: var(--muted); white-space: nowrap; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--text); text-decoration: none; }
+.header-row > .btn { flex: 0 0 auto; white-space: nowrap; padding-inline: 16px; }
 .burger { display: none; margin-left: auto; }
 
 /* кнопки */
@@ -333,6 +335,13 @@ p { margin: 0 0 14px; }
 }
 
 /* адаптив */
+/* В шапке кнопка всегда короткая (@CheckHab): с полным «Написать в …» она не помещается рядом
+   с семью пунктами меню даже на 1440 px — шапка рвалась на две строки. Полный текст — в title. */
+.header-row .cta-lead { display: none; }
+/* ещё уже: кнопку из шапки убираем — CTA есть в контенте, а на телефоне в липкой панели */
+@media (max-width: 980px) {
+  .header-row > .btn-primary { display: none; }
+}
 @media (max-width: 900px) {
   h1 { font-size: 32px; }
   h2 { font-size: 24px; }
