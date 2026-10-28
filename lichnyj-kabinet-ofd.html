@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Личный кабинет ОФД: вход у 5 операторов и выгрузка чеков | ЧекХаб</title>
+  <meta name="description" content="Адреса личных кабинетов ОФД: Платформа ОФД (Эвотор ОФД), Такском, Первый ОФД, Астрал, Яндекс ОФД. Как войти, если нет логина, что можно выгрузить из кабинета и за какой период доступны чеки.">
+  <link rel="canonical" href="https://chekhub.ru/lichnyj-kabinet-ofd.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/lichnyj-kabinet-ofd.html">
+  <meta property="og:title" content="Личный кабинет ОФД: вход у 5 операторов и выгрузка чеков">
+  <meta property="og:description" content="Адреса личных кабинетов ОФД: Платформа ОФД (Эвотор ОФД), Такском, Первый ОФД, Астрал, Яндекс ОФД. Как войти, если нет логина, что можно выгрузить из кабинета и за какой период доступны чеки.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Личный кабинет ОФД: вход у 5 операторов и выгрузка чеков">
+  <meta name="twitter:description" content="Адреса личных кабинетов ОФД: Платформа ОФД (Эвотор ОФД), Такском, Первый ОФД, Астрал, Яндекс ОФД. Как войти, если нет логина, что можно выгрузить из кабинета и за какой период доступны чеки.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "Личный кабинет ОФД: вход у операторов и выгрузка чеков",
+        "description": "Адреса личных кабинетов операторов фискальных данных и что в них можно выгрузить: чеки, отчёты, данные для 1С.",
+        "url": "https://chekhub.ru/lichnyj-kabinet-ofd.html",
+        "inLanguage": "ru",
+        "isPartOf": { "@type": "WebSite", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
+        "hasPart": [
+          { "@type": "WebPage", "name": "Выгрузка из Платформы ОФД", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-platformy-ofd.html" },
+          { "@type": "WebPage", "name": "Выгрузка из Такском ОФД", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-takskom-ofd.html" },
+          { "@type": "WebPage", "name": "Выгрузка из Первого ОФД", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-1-ofd.html" },
+          { "@type": "WebPage", "name": "Выгрузка чеков из ОФД в Excel", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-v-excel.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Где взять логин и пароль от личного кабинета ОФД?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "У вашего оператора фискальных данных: доступ выдаётся по договору на обслуживание касс. Логин обычно приходит на почту при регистрации, пароль восстанавливается на странице входа. Если кассы ставил подрядчик или сервисный центр, договор может быть оформлен на него — тогда доступ запрашивают у него либо переоформляют договор на себя."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можно ли посмотреть чеки без входа в кабинет ОФД?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Отдельные чеки — да: покупатель может проверить чек по QR-коду на сайте ФНС или в приложении своего ОФД. Но весь список чеков за период, отчёты и выгрузка данных доступны только в личном кабинете или через API оператора."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "За какой период в кабинете доступны чеки?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Фискальные документы хранятся у оператора не менее пяти лет, но выгрузка из кабинета ограничена максимальным периодом и числом строк за один отчёт. Длинные периоды делят на интервалы и склеивают файлы между собой."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можно ли дать доступ к кабинету бухгалтеру?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да. У большинства операторов есть несколько пользователей с разными правами: можно создать отдельного сотрудника только для просмотра чеков и отчётов, не передавая пароль владельца кабинета."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Почему в кабинете нет позиций чеков?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Позиции с наименованиями товаров хранятся внутри чека, но в стандартный отчёт попадают не всегда: часть операторов отдаёт их только за определённый период, только через API или на отдельных тарифах. Если нужен состав чеков, его забирают через API или сервисом выгрузки."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="index.html">Главная</a>
+      <a href="proverka-cheka-po-qr.html">Проверить чек</a>
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="ai-katalog.html">ИИ-каталог</a>
+      <a href="uslugi.html">Услуги и цены</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="#" data-tg>Написать в <span data-tg-label>Telegram</span></a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Главная</a> / Личный кабинет ОФД</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Личный кабинет ОФД: куда входить и что можно выгрузить</h1>
+        <p class="lead">Личный кабинет есть у каждого оператора фискальных данных, но адреса у всех разные и набор отчётов отличается. Ниже — кабинеты пяти операторов с адресами входа, что в них лежит, как получить доступ, если логин потерян, и что делать, когда нужных данных в кабинете просто нет.</p>
+
+        <blockquote>
+          Кабинет — это не архив «на всякий случай», а рабочий инструмент с ограничениями: он показывает кассы и чеки, но выгрузка за длинный период почти всегда режется по числу строк, а позиции товаров отдаёт не на всех тарифах.
+        </blockquote>
+
+        <h2>Что есть в кабинете любого ОФД</h2>
+        <p>Названия разделов у операторов отличаются, но набор функций примерно один. Если вы впервые попали в кабинет, ищите эти пять вещей:</p>
+        <ul>
+          <li><strong>Список касс</strong> — все ККТ, привязанные к договору, с адресами точек и статусом: работает, снята с учёта, нет связи.</li>
+          <li><strong>Чеки и документы</strong> — построчный список фискальных документов: приходы, возвраты, коррекции, отчёты о закрытии смены.</li>
+          <li><strong>Отчёты</strong> — выручка по дням и сменам, свод по кассам, статистика кассиров. Здесь же обычно лежит кнопка «Выгрузить в Excel».</li>
+          <li><strong>Пользователи</strong> — сотрудники с правами доступа. Отдельный пользователь «только просмотр» удобен для бухгалтера.</li>
+          <li><strong>Настройки и API</strong> — реквизиты для подключения касс, иногда ключи интеграций и документация для разработчиков.</li>
+        </ul>
+        <div class="note">
+          Если в кабинете нет ни одной кассы — скорее всего вы вошли не в тот договор. У операторов бывает несколько юрлиц и кабинетов на один ИНН: проверьте, тот ли логин выдал сервисный центр.
+        </div>
+
+        <h2>Кабинеты операторов: адреса и что внутри</h2>
+        <p>Ниже — адреса входа и то, что реально можно забрать из каждого кабинета. Если ссылка из старой инструкции не открывается, заходите с главного сайта оператора по кнопке «Войти» — адреса кабинетов у операторов периодически меняются.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Оператор</th>
+                <th>Кабинет</th>
+                <th>Что можно выгрузить</th>
+                <th>Инструкция</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Платформа ОФД<br><span class="muted small">она же Эвотор ОФД</span></td>
+                <td><code>lk.platformaofd.ru</code><br><span class="muted small">кнопка «Войти» на platformaofd.ru</span></td>
+                <td>Чеки и документы по кассам, отчёты по выручке и сменам, аналитика продаж, интеграция ОФД с 1С</td>
+                <td><a href="articles/kak-vygruzit-cheki-iz-platformy-ofd.html">Платформа ОФД</a></td>
+              </tr>
+              <tr>
+                <td>Такском</td>
+                <td><code>lk-ofd.taxcom.ru</code></td>
+                <td>Отчёт по продажам в Excel за период, документы по кассам, статистика кассиров, синхронизация с 1С, API</td>
+                <td><a href="articles/kak-vygruzit-cheki-iz-takskom-ofd.html">Такском</a></td>
+              </tr>
+              <tr>
+                <td>Первый ОФД</td>
+                <td><code>lk.1-ofd.ru</code></td>
+                <td>Документы по кассам, сервис «Контроль выручки», «Поток чеков», синхронизация с 1С</td>
+                <td><a href="articles/kak-vygruzit-cheki-iz-1-ofd.html">Первый ОФД</a></td>
+              </tr>
+              <tr>
+                <td>Астрал ОФД</td>
+                <td><code>ofd.astralnalog.ru</code><br><span class="muted small">кнопка «Войти в ЛК»</span></td>
+                <td>Список переданных чеков, чек в печатном виде и в JSON, отправка копии чека по SMS или e-mail, отчёты в Excel, автоотчёты на почту</td>
+                <td><span class="muted small">готовится</span></td>
+              </tr>
+              <tr>
+                <td>Яндекс ОФД</td>
+                <td><code>ofd.yandex.ru</code><br><span class="muted small">раздел «Личный кабинет»</span></td>
+                <td>Папки касс и точек, «Отчёты 2.0» по продажам, аналитика в реальном времени, проверка чеков</td>
+                <td><span class="muted small">готовится</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small muted">Отдельного кабинета «Эвотор ОФД» нет: это тот же оператор, что Платформа ОФД, вход — в кабинет Платформы.</p>
+
+        <h2>Как войти, если логина нет</h2>
+        <p>Типовая последовательность одинаковая у всех операторов:</p>
+        <ol>
+          <li><strong>Найдите договор с ОФД.</strong> В нём есть название оператора, номер договора и ИНН. Если документов нет — посмотрите в отчёте о регистрации кассы или в настройках ККТ: там указан сервер ОФД.</li>
+          <li><strong>Проверьте почту.</strong> Логин приходит письмом при регистрации кассы. Ищите письма от оператора, в том числе в спаме.</li>
+          <li><strong>Восстановите пароль.</strong> На странице входа есть ссылка «Забыли пароль» — новый пароль приходит на привязанную почту или телефон.</li>
+          <li><strong>Позвоните в поддержку оператора.</strong> Если почта недоступна, доступ восстанавливают по ИНН и номеру кассы — у всех операторов есть горячая линия.</li>
+        </ol>
+        <div class="note">
+          Отдельная ситуация — кассы обслуживает сервисный центр или подрядчик, и договор с ОФД оформлен на него. Тогда данных в вашем кабинете не будет вообще. Решение: переоформить договор на себя или запросить выгрузку у подрядчика.
+        </div>
+
+        <h2>Чего в кабинете обычно нет</h2>
+        <p>Пять ограничений, из-за которых люди чаще всего ищут альтернативу кабинету:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Что нужно</th>
+                <th>Что происходит в кабинете</th>
+                <th>Как решают</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Чеки за год одним файлом</td>
+                <td>Отчёт режется по периоду или числу строк</td>
+                <td>Выгрузка интервалами и склейка без дублей</td>
+              </tr>
+              <tr>
+                <td>Позиции товаров в чеке</td>
+                <td>В отчёте только суммы, состав чека не отдаётся</td>
+                <td>API оператора или сервис выгрузки с позициями</td>
+              </tr>
+              <tr>
+                <td>Свод по нескольким кассам и точкам</td>
+                <td>Данные по каждой кассе отдельно</td>
+                <td>Сводная таблица по точкам, сменам и дням</td>
+              </tr>
+              <tr>
+                <td>Данные сразу в 1С</td>
+                <td>Есть модуль синхронизации, но не для всех конфигураций</td>
+                <td>Загрузка из файла или через API</td>
+              </tr>
+              <tr>
+                <td>Автоматическая выгрузка по расписанию</td>
+                <td>Только ручное формирование отчётов</td>
+                <td>Скрипт или сервис, который забирает данные сам</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Как проверить отдельный чек без кабинета</h2>
+        <p>Если нужен не весь массив, а один чек — кабинет не обязателен. Покупатель может отсканировать QR-код с бумажного чека или ввести данные вручную на сайте ФНС и в приложении «Проверка чека». У операторов тоже есть свои сервисы проверки: например, у Яндекс ОФД — <code>ofd.yandex.ru/check</code>, у Платформы ОФД — раздел «Проверить чек» на главной странице.</p>
+        <p>Но проверка одного чека не заменяет выгрузку: она показывает, что документ существует и передан в ФНС, а не даёт таблицу всех продаж за период.</p>
+
+        <div class="card" style="margin-top:22px">
+          <h3>Нужен не кабинет, а готовый файл?</h3>
+          <p class="muted small">Соберём чеки из любого из этих ОФД в Excel или CSV: по кассам, точкам, сменам и товарам, с проверкой дублей и сверкой сумм. Или настроим автоматическую выгрузку по расписанию.</p>
+          <div class="hero-actions" style="margin:0">
+            <a class="btn btn-primary" href="uslugi.html">Услуги и цены</a>
+            <a class="btn btn-ghost" href="#" data-tg>Написать в Telegram</a>
+          </div>
+        </div>
+
+        <h2>Частые вопросы</h2>
+        <h3>Где взять логин и пароль от личного кабинета ОФД?</h3>
+        <p>У своего оператора: доступ выдаётся по договору на обслуживание касс. Логин обычно приходит на почту при регистрации, пароль восстанавливается на странице входа. Если кассы ставил подрядчик и договор оформлен на него — доступ запрашивают у подрядчика или переоформляют договор на себя.</p>
+
+        <h3>Можно ли посмотреть чеки без входа в кабинет?</h3>
+        <p>Отдельные чеки — да: по QR-коду на сайте ФНС или в приложении «Проверка чека». Весь список чеков за период, отчёты и выгрузку данных отдают только кабинет или API оператора.</p>
+
+        <h3>За какой период доступны чеки?</h3>
+        <p>Фискальные документы хранятся у оператора не менее пяти лет, но выгрузка из кабинета ограничена максимальным периодом и числом строк за один отчёт. Длинные периоды делят на интервалы и склеивают файлы.</p>
+
+        <h3>Можно ли дать доступ к кабинету бухгалтеру?</h3>
+        <p>Да. У большинства операторов есть несколько пользователей с разными правами: можно создать сотрудника только для просмотра чеков и отчётов, не передавая пароль владельца кабинета.</p>
+
+        <h3>Почему в кабинете нет позиций чеков?</h3>
+        <p>Позиции хранятся внутри чека, но в стандартный отчёт попадают не всегда: часть операторов отдаёт их только через API, только за определённый период или на отдельных тарифах. Состав чеков забирают через API или сервисом выгрузки — подробнее в статье <a href="articles/kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">о выгрузке с позициями</a>.</p>
+      </article>
+
+      <p class="small muted" style="margin-top:18px">Смотрите также: <a href="articles/kak-vygruzit-cheki-iz-ofd-v-excel.html">выгрузка чеков из ОФД в Excel</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-v-1s.html">выгрузка в 1С</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-za-mesyac.html">выгрузка за месяц</a>, <a href="articles/kak-vygruzit-cheki-iz-platformy-ofd.html">Платформа ОФД</a>, <a href="articles/kak-vygruzit-cheki-iz-takskom-ofd.html">Такском</a>, <a href="articles/kak-vygruzit-cheki-iz-1-ofd.html">Первый ОФД</a>, <a href="chto-takoe-ofd.html">что такое ОФД</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Не хотите разбираться с кабинетами?</h2>
+        <p>Напишите, какой у вас ОФД и за какой период нужны чеки — ответим с ценой и сроком. Или сразу пришлите доступ, и мы соберём файл.</p>
+        <div class="hero-actions" style="margin-bottom:0">
+          <a class="btn btn-primary btn-lg" href="uslugi.html">Услуги и цены</a>
+          <a class="btn btn-ghost btn-lg" href="#" data-tg>Написать в Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="uslugi.html">Услуги</a>
+      <a href="zayavka.html">Заявка</a>
+      <a href="politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

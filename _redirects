@@ -1,0 +1,7 @@
+# Убираем дубли: одна страница = один адрес (важно для индексации)
+/index.html          /                 301!
+/uslugi              /uslugi.html      301!
+# Короткие адреса — удобно вставлять в посты, объявления и визитки
+/proverka-cheka-po-qr /proverka-cheka-po-qr.html 301!
+/zayavka              /zayavka.html              301!
+/articles/index.html  /articles/                 301!

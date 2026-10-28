@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Проверить чек по QR-коду — расшифровка ФН, ФД, ФПД | ЧекХаб</title>
+  <meta name="description" content="Разберите QR-код кассового чека онлайн: дата, сумма, ФН, ФД и ФПД расшифровываются автоматически, с проверкой формата и выгрузкой в CSV. Бесплатно, без регистрации — данные чека не отправляются на сервер.">
+  <link rel="canonical" href="https://chekhub.ru/proverka-cheka-po-qr.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/proverka-cheka-po-qr.html">
+  <meta property="og:title" content="Проверить чек по QR-коду — расшифровка ФН, ФД, ФПД">
+  <meta property="og:description" content="Разберите QR-код кассового чека онлайн: дата, сумма, ФН, ФД и ФПД расшифровываются автоматически, с проверкой формата и выгрузкой в CSV. Бесплатно, без регистрации — данные чека не отправляются на…">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-qr.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — проверка чека по QR-коду: дата, сумма, ФН, ФД, ФПД">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Проверить чек по QR-коду — расшифровка ФН, ФД, ФПД">
+  <meta name="twitter:description" content="Разберите QR-код кассового чека онлайн: дата, сумма, ФН, ФД и ФПД расшифровываются автоматически, с проверкой формата и выгрузкой в CSV. Бесплатно, без регистрации — данные чека не отправляются на…">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-qr.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Проверка чека по QR-коду",
+        "url": "https://chekhub.ru/proverka-cheka-po-qr.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Браузер (Windows, macOS, Linux, Android, iOS)",
+        "browserRequirements": "Нужен JavaScript",
+        "inLanguage": "ru",
+        "description": "Расшифровка QR-кода кассового чека: дата и время, сумма, номер фискального накопителя, номер фискального документа и ФПД с проверкой формата и выгрузкой в CSV.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" },
+        "provider": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Где взять QR-код чека?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "QR-код печатается внизу бумажного чека. В электронном чеке (письмо или SMS) он приходит картинкой вместе со ссылкой на страницу чека. Текст QR-кода можно получить любым сканером QR — это строка вида t=20261024T1830&s=1999.00&fn=…&i=…&fp=…&n=1."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Что означают параметры в QR-коде чека?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "t — дата и время расчёта в формате ГГГГММДДTччмм, s — сумма в рублях, fn — номер фискального накопителя (16 цифр), i — номер фискального документа, fp — фискальный признак документа (ФПД), n — признак расчёта: 1 приход, 2 возврат прихода, 3 расход, 4 возврат расхода."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Инструмент проверяет, настоящий ли чек?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Нет. Он расшифровывает QR и проверяет формат реквизитов — ловит опечатки и обрезанные номера до обращения в ФНС. Подтвердить, что чек зарегистрирован, может только официальный сервис ФНС или личный кабинет вашего ОФД."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Что такое ФПД?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ФПД — фискальный признак документа, 9–10 цифр. Это криптографическая подпись конкретного чека, которую фискальный накопитель формирует вместе с номером документа. По паре ФН + ФД + ФПД чек ищется в базе ФНС."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Данные чека куда-то отправляются?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Нет. Разбор QR выполняется в браузере на вашем устройстве: ни ФН, ни суммы, ни ФПД не уходят на сервер и не сохраняются. CSV-файл тоже собирается локально."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://chekhub.ru/" },
+          { "@type": "ListItem", "position": 2, "name": "Проверка чека по QR", "item": "https://chekhub.ru/proverka-cheka-po-qr.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="index.html">Главная</a>
+      <a href="proverka-cheka-po-qr.html" aria-current="page">Проверить чек</a>
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="ai-katalog.html">ИИ-каталог</a>
+      <a href="uslugi.html">Услуги и цены</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="zayavka.html">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / Проверка чека по QR</nav>
+  </div>
+
+  <section class="hero" style="padding-top:24px">
+    <div class="wrap">
+      <h1>Проверить чек по QR-коду: расшифровать ФН, ФД и ФПД</h1>
+      <p class="lead">Вставьте строку из QR-кода чека — инструмент разберёт её на реквизиты, проверит формат каждого номера и покажет, что именно вы вводите в ФНС или в кабинет ОФД. Всё считается в браузере: данные чека не уходят на сервер.</p>
+      <ul class="hero-facts">
+        <li>Без регистрации и оплаты</li>
+        <li>Сколько угодно строк за раз</li>
+        <li>Результат в CSV для Excel</li>
+      </ul>
+    </div>
+  </section>
+
+  <section style="padding-top:0" id="tool">
+    <div class="wrap">
+      <div class="card">
+        <div class="tool-input-wrap">
+          <label class="tool-label" for="qr-input">Строка QR-кода (по одной на строку)</label>
+          <textarea id="qr-input" class="tool-textarea" spellcheck="false" autocomplete="off" placeholder="t=20261024T1830&amp;s=1999.00&amp;fn=7380440700123456&amp;i=12345&amp;fp=1234567890&amp;n=1"></textarea>
+          <div class="tool-actions">
+            <button class="btn btn-primary" id="qr-parse" type="button">Разобрать QR</button>
+            <button class="btn btn-ghost" id="qr-example" type="button">Показать пример</button>
+            <button class="btn btn-ghost" id="qr-clear" type="button">Очистить</button>
+            <button class="btn btn-ghost" id="qr-csv" type="button" disabled>Скачать CSV</button>
+          </div>
+          <p class="small muted" id="qr-hint" style="margin:14px 0 0">Подсказка: в QR-коде чека нет ИНН и адреса — только дата, сумма и три фискальных номера. Если строк несколько, каждая разбирается отдельно.</p>
+        </div>
+        <div class="tool-result" id="qr-result" aria-live="polite">
+          <p class="small muted" style="margin:0">Результат появится здесь: дата, сумма, ФН, ФД и ФПД.</p>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:18px">
+        <strong>Как получить строку QR.</strong> Сканируйте QR-код на чеке любым приложением-сканером: оно покажет текст вида
+        <code>t=…&amp;s=…&amp;fn=…&amp;i=…&amp;fp=…&amp;n=1</code> — этот текст можно скопировать и вставить выше.
+        Второй путь — навести камеру в приложении ФНС «Проверка чека»: оно само разберёт код и покажет карточку расчёта.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Что означает каждый параметр QR-кода</h2>
+        <p class="muted">QR-код чека — это шесть пар «ключ=значение», разделённых символом &amp;. Ровно в таком виде эти данные приходят и в выгрузке из ОФД.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ключ</th><th>Что это</th><th>Формат</th><th>Пример</th></tr></thead>
+          <tbody>
+            <tr><td><code>t</code></td><td>Дата и время расчёта</td><td>ГГГГММДДTччмм</td><td>20261024T1830</td></tr>
+            <tr><td><code>s</code></td><td>Итоговая сумма чека, ₽</td><td>число с копейками</td><td>1999.00</td></tr>
+            <tr><td><code>fn</code></td><td>Номер фискального накопителя</td><td>16 цифр</td><td>7380440700123456</td></tr>
+            <tr><td><code>i</code></td><td>Номер фискального документа (ФД)</td><td>до 10 цифр</td><td>12345</td></tr>
+            <tr><td><code>fp</code></td><td>Фискальный признак документа (ФПД)</td><td>9–10 цифр</td><td>1234567890</td></tr>
+            <tr><td><code>n</code></td><td>Признак расчёта</td><td>1–4</td><td>1 — приход</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">Связка ФН + ФД + ФПД уникальна: по ней чек ищется в базе ФНС. Одна перепутанная цифра — и поиск вернёт «сведений не найдено», поэтому опечатки лучше ловить до проверки.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Как проверить чек официально</h2>
+        <p class="muted">Разбор выше проверяет формат реквизитов. Сам расчёт подтверждает сервис ФНС или ваш ОФД.</p>
+      </div>
+      <div class="cards cards-3">
+        <article class="card">
+          <div class="step-num">1</div>
+          <h3>Приложение ФНС «Проверка чека»</h3>
+          <p class="muted small">Самый быстрый способ: наведите камеру на QR — приложение покажет состав расчёта и статус чека. Регистрация не нужна.</p>
+        </article>
+        <article class="card">
+          <div class="step-num">2</div>
+          <h3>Сервис на сайте ФНС</h3>
+          <p class="muted small">Реквизиты вводятся вручную: ФН, ФД, ФПД, сумма и дата — ровно то, что показывает разбор. <a href="https://www.nalog.gov.ru/rn77/service/" target="_blank" rel="noopener nofollow">Открыть сервисы ФНС</a>.</p>
+        </article>
+        <article class="card">
+          <div class="step-num">3</div>
+          <h3>Личный кабинет ОФД</h3>
+          <p class="muted small">В кабинете оператора чек ищется по номеру ФД, там же видно, передан ли документ в ФНС. Адреса кабинетов — в разделе <a href="lichnyj-kabinet-ofd.html">«Кабинеты ОФД»</a>.</p>
+        </article>
+      </div>
+      <div class="note" style="margin-top:22px">
+        <strong>Если чек не находится.</strong> Сверьте цифры с бумажным чеком — чаще всего путают ФД и ФПД. Проверьте, что ККТ ещё стоит на учёте, и подождите несколько часов: данные от ОФД доходят в ФНС не мгновенно. Если реквизиты верные, а чека нет больше суток — пишите в поддержку своего ОФД.
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>Частые вопросы</h2></div>
+      <div class="cards cards-2">
+        <article class="card">
+          <h3>Где взять QR-код чека?</h3>
+          <p class="muted small" style="margin:0">На бумажном чеке он напечатан внизу. В электронном чеке (письмо или SMS) приходит картинкой вместе со ссылкой на страницу расчёта.</p>
+        </article>
+        <article class="card">
+          <h3>Инструмент проверяет, настоящий ли чек?</h3>
+          <p class="muted small" style="margin:0">Нет. Он расшифровывает QR и проверяет формат реквизитов — ловит опечатки и обрезанные номера. Факт регистрации подтверждает только ФНС или ваш ОФД.</p>
+        </article>
+        <article class="card">
+          <h3>Что такое ФПД?</h3>
+          <p class="muted small" style="margin:0">Фискальный признак документа, 9–10 цифр. Это подпись конкретного чека, которую фискальный накопитель формирует вместе с номером документа.</p>
+        </article>
+        <article class="card">
+          <h3>Данные чека куда-то отправляются?</h3>
+          <p class="muted small" style="margin:0">Нет. Разбор и CSV собираются в браузере: ни ФН, ни суммы, ни ФПД не уходят на сервер и не сохраняются.</p>
+        </article>
+        <article class="card">
+          <h3>Можно разобрать сразу много чеков?</h3>
+          <p class="muted small" style="margin:0">Да — вставьте по строке на чек. Инструмент разберёт все, покажет ошибки по каждой строке и отдаст общий CSV.</p>
+        </article>
+        <article class="card">
+          <h3>Как проверить сразу тысячу чеков?</h3>
+          <p class="muted small" style="margin:0">По одному QR это долго. Быстрее выгрузить весь период из ОФД в Excel — это наша основная услуга, от 1 500 ₽. <a href="zayavka.html">Оставить заявку</a>.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="zayavka">
+    <div class="wrap">
+      <div class="card">
+        <div class="section-head" style="margin-bottom:18px">
+          <h2>Нужны все чеки за период в Excel?</h2>
+          <p class="muted" style="margin:0">Оставьте контакты — уточним детали и назовём цену. Или напишите в <a href="#" data-tg>Telegram</a> / на <a href="#" data-email>почту</a>.</p>
+        </div>
+        <form class="lead-form" name="zayavka-quick">
+          <input type="hidden" name="source" value="">
+          <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="qf-name">Как к вам обращаться</label>
+              <input id="qf-name" name="name" type="text" placeholder="Имя" required maxlength="80" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="qf-contact">Телефон, Telegram или e-mail</label>
+              <input id="qf-contact" name="contact" type="text" placeholder="+7… / @nickname / mail@…" required maxlength="120">
+            </div>
+            <div class="field field-full">
+              <label for="qf-task">Что нужно</label>
+              <input id="qf-task" name="task" type="text" placeholder="Чеки за сентябрь в Excel, 3 кассы, Платформа ОФД" maxlength="300">
+              <div class="hint">Доступ к кабинету ОФД на этом шаге не нужен — сначала оценим объём.</div>
+            </div>
+          </div>
+          <label class="form-consent"><input type="checkbox" name="consent" value="да" required> Согласен на обработку контактных данных для ответа на заявку. <a href="politika.html">Политика обработки данных</a></label>
+          <div class="tool-actions">
+            <button class="btn btn-primary" type="submit">Отправить в Telegram</button>
+          </div>
+          <p class="form-status" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="uslugi.html">Услуги</a>
+      <a href="zayavka.html">Заявка</a>
+      <a href="politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
+

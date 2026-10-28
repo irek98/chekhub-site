@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Инструкции: выгрузка чеков из ОФД в Excel и 1С | ЧекХаб</title>
+  <meta name="description" content="Пошаговые инструкции по выгрузке чеков из ОФД: в Excel и CSV, загрузка в 1С, разбор типичных ошибок — дубли, кодировки, лимиты выгрузки, позиции чеков.">
+  <link rel="canonical" href="https://chekhub.ru/articles/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/articles/">
+  <meta property="og:title" content="Инструкции: выгрузка чеков из ОФД в Excel и 1С">
+  <meta property="og:description" content="Пошаговые инструкции по выгрузке чеков из ОФД: в Excel и CSV, загрузка в 1С, разбор типичных ошибок — дубли, кодировки, лимиты выгрузки, позиции чеков.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Инструкции: выгрузка чеков из ОФД в Excel и 1С">
+  <meta name="twitter:description" content="Пошаговые инструкции по выгрузке чеков из ОФД: в Excel и CSV, загрузка в 1С, разбор типичных ошибок — дубли, кодировки, лимиты выгрузки, позиции чеков.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="../index.html">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="../index.html">Главная</a>
+      <a href="../proverka-cheka-po-qr.html">Проверить чек</a>
+      <a href="index.html" aria-current="page">Инструкции</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="../ai-katalog.html">ИИ-каталог</a>
+      <a href="../uslugi.html">Услуги и цены</a>
+      <a href="../index.html#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="#" data-tg>Написать в <span data-tg-label>Telegram</span></a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Главная</a> / Инструкции</div>
+    <h1 style="font-size:34px">Инструкции по выгрузке чеков</h1>
+    <p class="lead" style="max-width:760px">Пишем о том, что реально встречается в работе: лимиты выгрузки, кодировки, дубли, позиции чеков и перенос данных в 1С.</p>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="card" style="margin-bottom:22px">
+        <h3>Инструмент: проверка чека по QR</h3>
+        <p class="muted small" style="margin:0 0 12px">Бесплатно расшифровывает QR-код чека — дата, сумма, ФН, ФД, ФПД — с проверкой формата и выгрузкой разбора в CSV. Данные не уходят на сервер.</p>
+        <a class="btn btn-ghost" href="../proverka-cheka-po-qr.html">Открыть инструмент</a>
+      </div>
+      <div class="article-list">
+        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-v-excel.html">
+          <h3>Как выгрузить чеки из ОФД в Excel: 4 способа и пошаговая инструкция</h3>
+          <p class="muted small" style="margin:0">Личный кабинет ОФД, API, сервисы-конвертеры и выгрузка под ключ. Что делать, если Excel «съедает» колонки и суммы.</p>
+        </a>
+        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-v-1s.html">
+          <h3>Как выгрузить чеки из ОФД в 1С: файл, обработка или обмен</h3>
+          <p class="muted small" style="margin:0">От чего зависит способ загрузки, какие конфигурации поддерживают обмен и где обычно возникают ошибки.</p>
+        </a>
+        <a class="article-item" href="kak-vygruzit-cheki-iz-platformy-ofd.html">
+          <h3>Как выгрузить чеки из Платформы ОФД: личный кабинет и Excel</h3>
+          <p class="muted small" style="margin:0">Какие отчёты есть в кабинете, как выбрать кассу и период, чем ограничена выгрузка и что делать, если нужны позиции чеков.</p>
+        </a>
+        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">
+          <h3>Как выгрузить чеки из ОФД с позициями (наименованиями товаров)</h3>
+          <p class="muted small" style="margin:0">Чем отличаются шапка чека и позиции, какими способами забирают состав чека и как проверить, что приехали все наименования.</p>
+        </a>
+        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-za-mesyac.html">
+          <h3>Как выгрузить чеки из ОФД за месяц: разбивка периода и свод в Excel</h3>
+          <p class="muted small" style="margin:0">Что делать, если кабинет режет период и число строк: интервалы, склейка файлов без дублей, свод по дням и кассам.</p>
+        </a>
+        <a class="article-item" href="kak-vygruzit-cheki-iz-takskom-ofd.html">
+          <h3>Как выгрузить чеки из Такском ОФД: кабинет, Excel и API</h3>
+          <p class="muted small" style="margin:0">Что есть в кабинете lk-ofd.taxcom.ru, как выгрузить отчёт по продажам, забрать позиции чеков и не задвоить строки.</p>
+        </a>
+        <a class="article-item" href="kak-vygruzit-cheki-iz-1-ofd.html">
+          <h3>Как выгрузить чеки из Первого ОФД (1-ОФД) в Excel</h3>
+          <p class="muted small" style="margin:0">Кабинет lk.1-ofd.ru, сервис «Контроль выручки», синхронизация с 1С и что делать, если нужны позиции чеков.</p>
+        </a>
+      </div>
+
+      <div class="card" style="margin-top:22px">
+        <h3>Справочники</h3>
+        <p class="muted small" style="margin:0 0 8px">Если нужен не пошаговый разбор, а общая картина:</p>
+        <ul class="muted small" style="padding-left:18px;margin:0">
+          <li><a href="../lichnyj-kabinet-ofd.html">Личный кабинет ОФД</a> — адреса кабинетов пяти операторов и что в них можно выгрузить</li>
+          <li><a href="../chto-takoe-ofd.html">Что такое ОФД простыми словами</a> — зачем нужен, как работает, сколько стоит</li>
+        </ul>
+      </div>
+
+
+      <div class="card" style="margin-top:22px">
+        <h3>В работе</h3>
+        <p class="muted small" style="margin:0 0 8px">Готовим материалы по запросам из спроса:</p>
+        <ul class="muted small" style="padding-left:18px;margin:0">
+          <li>Выгрузка из Яндекс ОФД, Астрал, Эвотор</li>
+          <li>Возвраты и коррекции: как свести с выручкой</li>
+          <li>Свод по выручке и сменам в одну таблицу</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Не хочется разбираться самому?</h2>
+        <p>Сделаем выгрузку под ключ: пришлёте доступ к ОФД — получите готовый Excel или загрузку в 1С.</p>
+        <div class="hero-actions" style="margin-bottom:0">
+          <a class="btn btn-primary btn-lg" href="../uslugi.html">Услуги и цены</a>
+          <a class="btn btn-ghost btn-lg" href="#" data-tg>Написать в Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Инструкции</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="../uslugi.html">Услуги</a>
+      <a href="../zayavka.html">Заявка</a>
+      <a href="../politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

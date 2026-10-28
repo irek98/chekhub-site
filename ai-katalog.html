@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>ИИ-сервисы под задачу: каталог с оплатой из РФ | ЧекХаб</title>
+  <meta name="description" content="Каталог нейросетей по задачам: текст, картинки, видео, голос, код, автоматизация, распознавание. У каждой — цена и честная пометка, можно ли оплатить из России.">
+  <link rel="canonical" href="https://chekhub.ru/ai-katalog.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/ai-katalog.html">
+  <meta property="og:title" content="ИИ-сервисы под задачу: каталог с оплатой из РФ">
+  <meta property="og:description" content="24 нейросети по задачам — с ценой и пометкой, можно ли оплатить из России.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    [hidden] { display: none !important; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+    .chip {
+      font: inherit; font-size: 14px; cursor: pointer; padding: 8px 14px; border-radius: 999px;
+      color: var(--text); background: var(--card); border: 1px solid var(--line); transition: .15s;
+    }
+    .chip:hover { border-color: var(--accent); }
+    .chip[aria-pressed="true"] { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
+    .svc-top { display: flex; flex-wrap: wrap; gap: 6px; }
+    .svc .badge { font-size: 12px; padding: 3px 10px; }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ItemList","name":"Каталог ИИ-сервисов по задачам","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"SoftwareApplication","name":"ChatGPT","applicationCategory":"текст","url":"https://chatgpt.com"}},{"@type":"ListItem","position":2,"item":{"@type":"SoftwareApplication","name":"Claude","applicationCategory":"текст","url":"https://claude.ai"}},{"@type":"ListItem","position":3,"item":{"@type":"SoftwareApplication","name":"DeepSeek","applicationCategory":"текст","url":"https://chat.deepseek.com"}},{"@type":"ListItem","position":4,"item":{"@type":"SoftwareApplication","name":"GigaChat","applicationCategory":"текст","url":"https://giga.chat"}},{"@type":"ListItem","position":5,"item":{"@type":"SoftwareApplication","name":"Алиса с YandexGPT","applicationCategory":"текст","url":"https://alice.yandex.ru"}},{"@type":"ListItem","position":6,"item":{"@type":"SoftwareApplication","name":"Qwen Chat","applicationCategory":"текст","url":"https://chat.qwen.ai"}},{"@type":"ListItem","position":7,"item":{"@type":"SoftwareApplication","name":"Gemini","applicationCategory":"текст","url":"https://gemini.google.com"}},{"@type":"ListItem","position":8,"item":{"@type":"SoftwareApplication","name":"Midjourney","applicationCategory":"картинки","url":"https://www.midjourney.com"}},{"@type":"ListItem","position":9,"item":{"@type":"SoftwareApplication","name":"Kandinsky","applicationCategory":"картинки","url":"https://fusionbrain.ai"}},{"@type":"ListItem","position":10,"item":{"@type":"SoftwareApplication","name":"Шедеврум","applicationCategory":"картинки","url":"https://shedevrum.ai"}},{"@type":"ListItem","position":11,"item":{"@type":"SoftwareApplication","name":"Recraft","applicationCategory":"картинки","url":"https://www.recraft.ai"}},{"@type":"ListItem","position":12,"item":{"@type":"SoftwareApplication","name":"Flux (через fal.ai)","applicationCategory":"картинки","url":"https://fal.ai"}},{"@type":"ListItem","position":13,"item":{"@type":"SoftwareApplication","name":"HeyGen","applicationCategory":"видео","url":"https://www.heygen.com"}},{"@type":"ListItem","position":14,"item":{"@type":"SoftwareApplication","name":"Runway","applicationCategory":"видео","url":"https://runwayml.com"}},{"@type":"ListItem","position":15,"item":{"@type":"SoftwareApplication","name":"ElevenLabs","applicationCategory":"голос","url":"https://elevenlabs.io"}},{"@type":"ListItem","position":16,"item":{"@type":"SoftwareApplication","name":"Yandex SpeechKit","applicationCategory":"голос","url":"https://yandex.cloud/ru/services/speechkit"}},{"@type":"ListItem","position":17,"item":{"@type":"SoftwareApplication","name":"Silero TTS","applicationCategory":"голос","url":"https://github.com/snakers4/silero-models"}},{"@type":"ListItem","position":18,"item":{"@type":"SoftwareApplication","name":"Cursor","applicationCategory":"код","url":"https://cursor.com"}},{"@type":"ListItem","position":19,"item":{"@type":"SoftwareApplication","name":"GitHub Copilot","applicationCategory":"код","url":"https://github.com/features/copilot"}},{"@type":"ListItem","position":20,"item":{"@type":"SoftwareApplication","name":"n8n","applicationCategory":"автоматизация","url":"https://n8n.io"}},{"@type":"ListItem","position":21,"item":{"@type":"SoftwareApplication","name":"Make","applicationCategory":"автоматизация","url":"https://www.make.com"}},{"@type":"ListItem","position":22,"item":{"@type":"SoftwareApplication","name":"Whisper","applicationCategory":"распознавание","url":"https://github.com/openai/whisper"}},{"@type":"ListItem","position":23,"item":{"@type":"SoftwareApplication","name":"Yandex Vision OCR","applicationCategory":"распознавание","url":"https://yandex.cloud/ru/services/vision"}},{"@type":"ListItem","position":24,"item":{"@type":"SoftwareApplication","name":"Хостинг и VPS (Beget)","applicationCategory":"инфраструктура","url":"https://beget.com"}}]}
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="index.html">Главная</a>
+      <a href="proverka-cheka-po-qr.html">Проверить чек</a>
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="ai-katalog.html" aria-current="page">ИИ-каталог</a>
+      <a href="uslugi.html">Услуги и цены</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="#" data-tg>Написать в <span data-tg-label>Telegram</span></a>
+  </div>
+</header>
+
+<main>
+  <section style="padding-top:26px">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">Главная</a> / ИИ-каталог</div>
+      <div class="section-head">
+        <h1 style="font-size:34px">Каталог ИИ-сервисов: что выбрать под задачу</h1>
+        <p class="lead">24 сервисов по задачам — текст, картинки, видео, голос, код, автоматизация, распознавание.
+        У каждого указана цена и честная пометка: можно ли оплатить из России. Цены — ориентир на 10.2026,
+        перед оплатой сверяйте на сайте сервиса.</p>
+      </div>
+      <div class="chips">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">Все (24)</button>
+        <button class="chip" type="button" data-filter="текст" aria-pressed="false">текст (7)</button>
+        <button class="chip" type="button" data-filter="картинки" aria-pressed="false">картинки (5)</button>
+        <button class="chip" type="button" data-filter="видео" aria-pressed="false">видео (2)</button>
+        <button class="chip" type="button" data-filter="голос" aria-pressed="false">голос (3)</button>
+        <button class="chip" type="button" data-filter="код" aria-pressed="false">код (2)</button>
+        <button class="chip" type="button" data-filter="автоматизация" aria-pressed="false">автоматизация (2)</button>
+        <button class="chip" type="button" data-filter="распознавание" aria-pressed="false">распознавание (2)</button>
+        <button class="chip" type="button" data-filter="инфраструктура" aria-pressed="false">инфраструктура (1)</button>
+      </div>
+      <div class="cards cards-3" id="svc-grid">
+    <article class="card svc" data-task="текст">
+      <div class="svc-top"><span class="badge">текст</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">ChatGPT</h3>
+      <p class="muted small" style="margin:0 0 10px">Универсальный чат: тексты, разбор документов, таблицы, картинки. Лучший «первый инструмент», если нужна одна подписка на всё.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; Plus ≈ $20/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">карта РФ не проходит, нужна зарубежная или посредник</p>
+      <a class="btn btn-ghost" href="https://chatgpt.com" target="_blank" rel="nofollow noopener" data-svc-click="chatgpt">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="текст">
+      <div class="svc-top"><span class="badge">текст</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Claude</h3>
+      <p class="muted small" style="margin:0 0 10px">Длинные тексты и документы: договоры, отчёты, инструкции. Держит контекст лучше конкурентов на больших файлах.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; Pro ≈ $20/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://claude.ai" target="_blank" rel="nofollow noopener" data-svc-click="claude">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="текст">
+      <div class="svc-top"><span class="badge">текст</span><span class="badge badge-ok">бесплатно</span></div>
+      <h3 style="margin:12px 0 6px">DeepSeek</h3>
+      <p class="muted small" style="margin:0 0 10px">Чат и код бесплатно, без VPN. Слабее на длинных текстах, но для рабочих задач хватает.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">регистрация по e-mail, карта не нужна</p>
+      <a class="btn btn-ghost" href="https://chat.deepseek.com" target="_blank" rel="nofollow noopener" data-svc-click="deepseek">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="текст">
+      <div class="svc-top"><span class="badge">текст</span><span class="badge badge-ok">оплата из РФ</span></div>
+      <h3 style="margin:12px 0 6px">GigaChat</h3>
+      <p class="muted small" style="margin:0 0 10px">Российский чат от Сбера: работает без VPN, данные не уходят за границу, есть API для ботов и сайтов.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; тарифы API в ₽</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">оплата картой РФ, для API — договор со Сбером</p>
+      <a class="btn btn-ghost" href="https://giga.chat" target="_blank" rel="nofollow noopener" data-svc-click="gigachat">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="текст">
+      <div class="svc-top"><span class="badge">текст</span><span class="badge badge-ok">оплата из РФ</span></div>
+      <h3 style="margin:12px 0 6px">Алиса с YandexGPT</h3>
+      <p class="muted small" style="margin:0 0 10px">Чат в экосистеме Яндекса, хорошо понимает русский контекст, базовый доступ бесплатный.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; Про — подписка в ₽</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">подписка Яндекса оплачивается картой РФ</p>
+      <a class="btn btn-ghost" href="https://alice.yandex.ru" target="_blank" rel="nofollow noopener" data-svc-click="alisa">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="текст">
+      <div class="svc-top"><span class="badge">текст</span><span class="badge badge-ok">бесплатно</span></div>
+      <h3 style="margin:12px 0 6px">Qwen Chat</h3>
+      <p class="muted small" style="margin:0 0 10px">Бесплатный чат с сильной моделью для кода и таблиц, понимает русский. Работает без оплаты.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">карта не нужна</p>
+      <a class="btn btn-ghost" href="https://chat.qwen.ai" target="_blank" rel="nofollow noopener" data-svc-click="qwen">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="текст">
+      <div class="svc-top"><span class="badge">текст</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Gemini</h3>
+      <p class="muted small" style="margin:0 0 10px">Чат Google: хорош в поиске по свежим данным и в разборе видео и PDF. Бесплатный уровень щедрый.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; AI Pro ≈ $20/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта и VPN</p>
+      <a class="btn btn-ghost" href="https://gemini.google.com" target="_blank" rel="nofollow noopener" data-svc-click="gemini">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="картинки">
+      <div class="svc-top"><span class="badge">картинки</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Midjourney</h3>
+      <p class="muted small" style="margin:0 0 10px">Эталон качества для иллюстраций и обложек. Работает через сайт и Discord.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> от $10/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://www.midjourney.com" target="_blank" rel="nofollow noopener" data-svc-click="midjourney">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="картинки">
+      <div class="svc-top"><span class="badge">картинки</span><span class="badge badge-ok">бесплатно</span></div>
+      <h3 style="margin:12px 0 6px">Kandinsky</h3>
+      <p class="muted small" style="margin:0 0 10px">Картинки от Сбера: бесплатно, по-русски, без VPN. Для соцсетей и карточек товара хватает.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">вход по аккаунту Сбер ID</p>
+      <a class="btn btn-ghost" href="https://fusionbrain.ai" target="_blank" rel="nofollow noopener" data-svc-click="kandinsky">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="картинки">
+      <div class="svc-top"><span class="badge">картинки</span><span class="badge badge-ok">бесплатно</span></div>
+      <h3 style="margin:12px 0 6px">Шедеврум</h3>
+      <p class="muted small" style="margin:0 0 10px">Генерация картинок и коротких видео от Яндекса, бесплатно с телефона, без зарубежных карт.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">вход по Яндекс ID</p>
+      <a class="btn btn-ghost" href="https://shedevrum.ai" target="_blank" rel="nofollow noopener" data-svc-click="shedevrum">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="картинки">
+      <div class="svc-top"><span class="badge">картинки</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Recraft</h3>
+      <p class="muted small" style="margin:0 0 10px">Векторные иллюстрации и иконки в одном стиле — то, что не умеет Midjourney. На выходе SVG.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; от $12/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://www.recraft.ai" target="_blank" rel="nofollow noopener" data-svc-click="recraft">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="картинки">
+      <div class="svc-top"><span class="badge">картинки</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Flux (через fal.ai)</h3>
+      <p class="muted small" style="margin:0 0 10px">Открытая модель для фотореалистичных картинок. Платят за генерации, а не за подписку — удобно для разовых задач.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> оплата за генерацию, центы</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://fal.ai" target="_blank" rel="nofollow noopener" data-svc-click="flux">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="видео">
+      <div class="svc-top"><span class="badge">видео</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">HeyGen</h3>
+      <p class="muted small" style="margin:0 0 10px">Говорящий аватар по вашему фото и тексту: реклама и обучающие ролики без съёмки.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно (коротко); от $24/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://www.heygen.com" target="_blank" rel="nofollow noopener" data-svc-click="heygen">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="видео">
+      <div class="svc-top"><span class="badge">видео</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Runway</h3>
+      <p class="muted small" style="margin:0 0 10px">Видео из текста и картинки плюс монтажные функции. Сильный инструмент для коротких роликов.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно (кредиты); от $12/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://runwayml.com" target="_blank" rel="nofollow noopener" data-svc-click="runway">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="голос">
+      <div class="svc-top"><span class="badge">голос</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">ElevenLabs</h3>
+      <p class="muted small" style="margin:0 0 10px">Озвучка и клонирование голоса: звучит живо, поддерживает русский. Для роликов и аудиокурсов.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно (коротко); от $5/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://elevenlabs.io" target="_blank" rel="nofollow noopener" data-svc-click="elevenlabs">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="голос">
+      <div class="svc-top"><span class="badge">голос</span><span class="badge badge-ok">оплата из РФ</span></div>
+      <h3 style="margin:12px 0 6px">Yandex SpeechKit</h3>
+      <p class="muted small" style="margin:0 0 10px">Синтез и распознавание речи от Яндекса: оплата в рублях, встраивается в бота или колл-центр.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> по тарифу за символы и секунды, ₽</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">оплата картой РФ через Яндекс Облако</p>
+      <a class="btn btn-ghost" href="https://yandex.cloud/ru/services/speechkit" target="_blank" rel="nofollow noopener" data-svc-click="speechkit">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="голос">
+      <div class="svc-top"><span class="badge">голос</span><span class="badge badge-ok">бесплатно</span></div>
+      <h3 style="margin:12px 0 6px">Silero TTS</h3>
+      <p class="muted small" style="margin:0 0 10px">Открытая модель озвучки: работает локально на своём компьютере, бесплатно и без интернета.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">ничего покупать не нужно</p>
+      <a class="btn btn-ghost" href="https://github.com/snakers4/silero-models" target="_blank" rel="nofollow noopener" data-svc-click="silero">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="код">
+      <div class="svc-top"><span class="badge">код</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Cursor</h3>
+      <p class="muted small" style="margin:0 0 10px">Редактор кода с ИИ внутри: пишет и правит код по описанию. Для тех, кто сам что-то собирает.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; Pro $20/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://cursor.com" target="_blank" rel="nofollow noopener" data-svc-click="cursor">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="код">
+      <div class="svc-top"><span class="badge">код</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">GitHub Copilot</h3>
+      <p class="muted small" style="margin:0 0 10px">Автодополнение кода в привычных редакторах. Есть бесплатный уровень для личного использования.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно (лимит); от $10/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://github.com/features/copilot" target="_blank" rel="nofollow noopener" data-svc-click="copilot">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="автоматизация">
+      <div class="svc-top"><span class="badge">автоматизация</span><span class="badge badge-ok">оплата из РФ</span></div>
+      <h3 style="margin:12px 0 6px">n8n</h3>
+      <p class="muted small" style="margin:0 0 10px">Сборка сценариев «пришло письмо — записалось в таблицу». Бесплатен на своём сервере, без лимитов по операциям.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно (свой сервер); облако от €20/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужен свой VPS у российского хостера, оплата в ₽</p>
+      <a class="btn btn-ghost" href="https://n8n.io" target="_blank" rel="nofollow noopener" data-svc-click="n8n">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="автоматизация">
+      <div class="svc-top"><span class="badge">автоматизация</span><span class="badge badge-err">нужна зарубежная карта</span></div>
+      <h3 style="margin:12px 0 6px">Make</h3>
+      <p class="muted small" style="margin:0 0 10px">Облачные сценарии без сервера: 1000 операций в месяц бесплатно, интерфейс нагляднее n8n.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно; от $9/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">нужна зарубежная карта</p>
+      <a class="btn btn-ghost" href="https://www.make.com" target="_blank" rel="nofollow noopener" data-svc-click="make">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="распознавание">
+      <div class="svc-top"><span class="badge">распознавание</span><span class="badge badge-ok">бесплатно</span></div>
+      <h3 style="margin:12px 0 6px">Whisper</h3>
+      <p class="muted small" style="margin:0 0 10px">Расшифровка аудио и видео в текст: работает локально, бесплатно, прилично понимает русский.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> бесплатно</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">ничего покупать не нужно</p>
+      <a class="btn btn-ghost" href="https://github.com/openai/whisper" target="_blank" rel="nofollow noopener" data-svc-click="whisper">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="распознавание">
+      <div class="svc-top"><span class="badge">распознавание</span><span class="badge badge-ok">оплата из РФ</span></div>
+      <h3 style="margin:12px 0 6px">Yandex Vision OCR</h3>
+      <p class="muted small" style="margin:0 0 10px">Распознавание текста на фото документов и чеков, оплата в рублях. Полезно, когда надо разобрать сканы пачкой.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> по тарифу за изображения, ₽</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">оплата картой РФ через Яндекс Облако</p>
+      <a class="btn btn-ghost" href="https://yandex.cloud/ru/services/vision" target="_blank" rel="nofollow noopener" data-svc-click="vision-ocr">Открыть сайт</a>
+    </article>
+    <article class="card svc" data-task="инфраструктура">
+      <div class="svc-top"><span class="badge">инфраструктура</span><span class="badge badge-ok">оплата из РФ</span></div>
+      <h3 style="margin:12px 0 6px">Хостинг и VPS (Beget)</h3>
+      <p class="muted small" style="margin:0 0 10px">Где живут боты, парсеры и сайты, которые мы делаем: виртуальный хостинг — для сайтов, VPS — для ботов и n8n.</p>
+      <p class="small" style="margin:0 0 6px"><b>Цена:</b> хостинг от ~200 ₽/мес, VPS от ~300 ₽/мес</p>
+      <p class="small" style="margin:0 0 14px;color:var(--muted)">оплата картой РФ, поддержка на русском</p>
+      <a class="btn btn-ghost" href="https://beget.com/p2723254" target="_blank" rel="sponsored nofollow noopener" data-svc-click="beget">Открыть сайт</a>
+      <p class="small" style="color:var(--muted);margin:10px 0 0">Партнёрская ссылка: нам платят процент с заказа, цена для вас от этого не меняется.</p>
+    </article>
+      </div>
+      <p class="small muted" style="margin-top:18px">Не нашли свой сервис — напишите, добавим в каталог.
+      Где стоит пометка «партнёрская ссылка», мы получаем процент с заказа: цена для вас не меняется,
+      а каталог живёт без рекламы.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Как выбрать сервис</h2>
+        <p class="muted">Порядок, который экономит деньги: сначала бесплатный уровень, потом подписка.</p>
+      </div>
+      <div class="cards cards-2">
+        <article class="card">
+          <h3>1. Проверьте, хватит ли бесплатного</h3>
+          <p class="muted small" style="margin:0">У большинства сервисов есть бесплатный уровень: DeepSeek, Qwen, Kandinsky, Шедеврум, Whisper и Silero вообще не требуют оплаты. Для пробной задачи этого хватает почти всегда.</p>
+        </article>
+        <article class="card">
+          <h3>2. Посмотрите на способ оплаты</h3>
+          <p class="muted small" style="margin:0">Половина западных сервисов не принимает карты РФ. Если в карточке написано «нужна зарубежная карта» — либо ищем российский аналог (GigaChat, Kandinsky, SpeechKit), либо берём подписку через посредника.</p>
+        </article>
+        <article class="card">
+          <h3>3. Считайте не подписку, а задачу</h3>
+          <p class="muted small" style="margin:0">Подписка $20/мес имеет смысл, если вы ею пользуетесь каждый день. Для разовой задачи дешевле оплата за генерации (Flux через fal.ai) или наш разовый заказ.</p>
+        </article>
+        <article class="card">
+          <h3>4. Не разбираетесь — спросите</h3>
+          <p class="muted small" style="margin:0">Напишите задачу словами («нужно 200 карточек товара с описаниями»), мы скажем, каким сервисом это делается и сколько будет стоить под ключ.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Нужно не «подобрать сервис», а готовый результат?</h2>
+        <p class="muted">Боты, парсеры, автоматизация и выгрузка чеков — делаем под ключ на Python. Каталог подскажет инструмент, мы сделаем работу.</p>
+        <a class="btn btn-primary btn-lg" href="uslugi.html">Услуги и цены</a>
+        <a class="btn btn-ghost btn-lg" href="#" data-tg>Написать в Telegram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="ai-katalog.html">ИИ-каталог</a>
+      <a href="uslugi.html">Услуги</a>
+      <a href="zayavka.html">Заявка</a>
+      <a href="politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var MID = (window.CH_CONFIG && window.CH_CONFIG.metrikaId) || 113762680;
+  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  var cards = [].slice.call(document.querySelectorAll('.svc'));
+  chips.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.getAttribute('data-filter');
+      chips.forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      cards.forEach(function (c) {
+        c.hidden = (t !== 'all' && c.getAttribute('data-task') !== t);
+      });
+      if (window.ym) { try { ym(MID, 'reachGoal', 'ai_filter'); } catch (e) {} }
+    });
+  });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('[data-svc-click]') : null;
+    if (!a) return;
+    if (window.ym) {
+      try { ym(MID, 'reachGoal', 'ai_card_click', { service: a.getAttribute('data-svc-click') }); } catch (err) {}
+    }
+  });
+})();
+</script>
+</body>
+</html>

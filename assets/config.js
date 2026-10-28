@@ -1,0 +1,22 @@
+// Единая точка настроек сайта. Меняем здесь — меняется везде.
+window.CH_CONFIG = {
+  // Название сайта (можно поменять одной строкой)
+  name: "ЧекХаб",
+  tagline: "Чеки из ОФД в Excel и 1С — без ручной работы",
+  // Куда приходят заявки
+  telegram: "https://t.me/CheckHab",
+  telegramLabel: "@CheckHab",
+  email: "startq182@gmail.com",
+  // Базовый адрес сайта (домен: chekhub.ru)
+  site: "https://chekhub.ru",
+  // Номер счётчика Яндекс.Метрики (для целей: telegram_click, email_click, calc_copy)
+  metrikaId: 113762680,
+  // Базовые цены для калькулятора (₽)
+  price: {
+    base: 1500,          // базовая выгрузка
+    perCashbox: 500,     // каждая дополнительная касса
+    perMonthCoef: 0.15,  // наценка за каждый доп. месяц периода
+    format1c: 1500,      // доплата за выгрузку в 1С
+    urgentCoef: 1.5      // срочность
+  }
+};
