@@ -15,8 +15,14 @@
   zayavka.html                                форма заявки (уходит в Telegram)
   politika.html                               политика обработки данных (noindex)
   404.html                                    своя страница «не найдено» (noindex, абсолютные ссылки)
-  netlify.toml                                заголовки безопасности и кэш статики
-  _redirects                                  короткие адреса (/zayavka, /proverka-cheka-po-qr)
+  ai-katalog.html                             витрина ИИ-сервисов (карточки, фильтр по задачам)
+  uslugi/index.html                           заглушка: meta refresh → /uslugi.html (noindex)
+  zayavka/index.html                          заглушка: meta refresh → /zayavka.html (noindex)
+  proverka-cheka-po-qr/index.html             заглушка: meta refresh → /proverka-cheka-po-qr.html (noindex)
+  netlify.toml                                справка: заголовки безопасности и кэш статики (на GitHub Pages не применяется)
+  _redirects                                  справка: короткие адреса Netlify (на GitHub Pages не применяется — см. папки-заглушки)
+  CNAME                                       домен chekhub.ru для GitHub Pages
+  .nojekyll                                   отключает сборку Jekyll на GitHub Pages
   files/
     example-vygruzka-chekov.csv                пример файла выгрузки (тестовые данные)
   articles/
@@ -32,6 +38,7 @@
     style.css                                 все стили
     app.js                                    меню, подстановка контактов, калькулятор, префилл заявки
     config.js                                 НАСТРОЙКИ: название, Telegram, почта, цены
+    ai_services.json                          данные каталога ИИ-сервисов (24 карточки)
     og-cover.png                              превью ссылок 1200×630 (основное)
     og-qr.png                                 превью ссылок 1200×630 (для страницы инструмента)
     bg.webp                                   фон
@@ -88,20 +95,39 @@ python "C:\Users\marsf\Desktop\Порядок\Софт 2026\_tools\_domain_check
 
 Результат: `_tools\domain_out\domains.csv`.
 
-## Публикация (бесплатно)
+## Публикация: GitHub Pages (текущая схема)
 
-Пошаговая инструкция для домена `chekhub.ru`: `Софт 2026\КАК_ОПУБЛИКОВАТЬ.md`.
+- Репозиторий: `https://github.com/irek98/chekhub-site` — ветка `main`, корень (`/`).
+- Домен: `chekhub.ru` (файл `CNAME`), HTTPS от GitHub с принудительным перенаправлением
+  (`Enforce HTTPS` включён).
+- Переезд с Netlify (октябрь 2026): у бесплатного тарифа закончились кредиты сборок
+  (300 кредитов, по 15 за прод-деплой), новые деплои блокируются до 22-го числа.
 
-1. **Netlify Drop** (проще всего) — https://app.netlify.com/drop, перетащить `chekhub_site.zip`
-   (собирается `_tools\_build_site_zip.py`), затем привязать домен и прописать A-запись
-   `75.2.60.5` + CNAME `www` в DNS-панели регистратора.
-2. **Cloudflare Pages** — «Create project → Direct upload», загрузить папку `сайт_чеки`;
-   домен подключается переводом NS на Cloudflare.
-3. **Vercel** — то же самое, «Add New → Project», папка с `index.html`.
-4. **GitHub Pages** — если заведём репозиторий.
+**Как обновить сайт:** поправить файлы в `сайт_чеки` → `git add -A`, `git commit`,
+`git push` → через 30–60 секунд сайт обновлён. Лимитов на число публикаций нет.
 
-Архив для загрузки: `python _tools\_build_site_zip.py` → `Софт 2026\chekhub_site.zip`
-(логи и служебные файлы в архив не попадают).
+**DNS (панель Timeweb, домен на NS Timeweb, TTL 600):**
+
+| Тип | Хост | Значение |
+|---|---|---|
+| A | `@` | `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` |
+| CNAME | `www` | `irek98.github.io` |
+
+`MX` (mx1/mx2.timeweb.ru), `SPF` и TXT-подтверждения Google/Яндекса остались прежними —
+почта и права в вебмастерах переезд не заметили.
+
+**Первичная настройка (если репозиторий пересоздаётся):**
+
+```powershell
+gh repo create chekhub-site --public --source=. --remote=origin --push
+gh api -X POST repos/irek98/chekhub-site/pages -f 'source[branch]=main' -f 'source[path]=/'
+# сертификат выпускается сам за 10–40 минут, проверить: gh api repos/irek98/chekhub-site/pages
+gh api -X PUT repos/irek98/chekhub-site/pages -F 'https_enforced=true'
+```
+
+**Другие бесплатные варианты, если GitHub не подойдёт:** Cloudflare Pages (прямая загрузка
+папки, домен — переводом NS), Vercel («Add New → Project»), Netlify Drop (архив собирается
+`python _tools\_build_site_zip.py` → `Софт 2026\chekhub_site.zip`).
 
 ## После публикации
 
