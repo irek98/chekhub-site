@@ -19,8 +19,6 @@
   uslugi/index.html                           заглушка: meta refresh → /uslugi.html (noindex)
   zayavka/index.html                          заглушка: meta refresh → /zayavka.html (noindex)
   proverka-cheka-po-qr/index.html             заглушка: meta refresh → /proverka-cheka-po-qr.html (noindex)
-  netlify.toml                                справка: заголовки безопасности и кэш статики (на GitHub Pages не применяется)
-  _redirects                                  справка: короткие адреса Netlify (на GitHub Pages не применяется — см. папки-заглушки)
   CNAME                                       домен chekhub.ru для GitHub Pages
   .nojekyll                                   отключает сборку Jekyll на GitHub Pages
   files/
@@ -165,7 +163,7 @@ python "...\_tools\_add_og.py" --dry    # показать, что измени�
 `/zayavka.html?kass=3&months=2&format=1c&urgent=1&sum=6600&from=/uslugi.html`.
 На странице заявки `assets/app.js` подставляет кассы, формат и текст задачи,
 показывает плашку «Подставил данные из калькулятора» и пишет ориентир по цене
-в скрытое поле `plan` (оно есть в форме Netlify — по нему видно расчёт клиента).
+в скрытое поле `plan` — по нему в сообщении видно расчёт клиента.
 
 Без параметров страница работает как раньше: плашка скрыта, поля пустые.
 Параметры читаются только на форме `zayavka`, короткая `zayavka-quick`
@@ -173,21 +171,25 @@ python "...\_tools\_add_og.py" --dry    # показать, что измени�
 
 ## Заголовки, кэш и 404
 
-`netlify.toml`: `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`,
-`Permissions-Policy`; `assets/*` — `max-age=3600, must-revalidate`, HTML — `max-age=0`.
-Год у ассетов ставить нельзя: имена файлов без хэшей, иначе правки `app.js` не долетят
-до вернувшихся посетителей.
+На GitHub Pages своих заголовков задать нельзя: `Cache-Control: max-age=600` для всех файлов,
+заголовков безопасности (`X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`,
+`Permissions-Policy`) нет. Старый `netlify.toml` с ними удалён 28.10.2026 — нужны заголовки,
+значит перед сайтом ставится Cloudflare (прокси), иначе никак. Практический риск невелик:
+сайт статический, без форм-приёмников и без чужих скриптов; `Referrer-Policy` в Chrome и Firefox
+по умолчанию и так `strict-origin-when-cross-origin`.
+
+`max-age=600` (10 минут) для `app.js` и `style.css` терпимо: файлы без хэшей в имени, но правки
+долетают максимум за 10 минут. Год у ассетов ставить нельзя в любом случае.
 
 `404.html` отдаётся на любой несуществующий адрес. Внутри — абсолютные пути (`/zayavka.html`),
 поэтому страница работает и на вложенных адресах. `_site_check.py` научен разрешать такие
 ссылки от корня сайта. Липкая кнопка «Заявка» в `app.js` тоже строит абсолютный адрес
 `/zayavka.html` — иначе на вложенном 404 (`/foo/bar`) она вела бы на `/foo/zayavka.html`.
 
-Короткие адреса (`_redirects`): `/zayavka`, `/proverka-cheka-po-qr`, `/articles/index.html` → `/articles/`.
-
-Правило `/articles → /articles/` с флагом `301!` **даёт петлю** (Netlify сам нормализует папки,
-а форс-редирект зацикливает внутренний rewrite на `index.html`). Поэтому для статей оставлено
-только правило с `index.html`.
+Короткие адреса: `/uslugi`, `/zayavka`, `/proverka-cheka-po-qr` — папки с `index.html`
+(`meta refresh` на нужную страницу + `canonical` + `noindex`), потому что серверных 301
+на GitHub Pages нет. GitHub сам добавляет 301 `/uslugi` → `/uslugi/`. Старый `_redirects`
+(Netlify) удалён 28.10.2026 вместе с `netlify.toml`.
 
 ## Формы заявок (уходят в Telegram)
 
@@ -213,12 +215,14 @@ python "...\_tools\_add_og.py" --dry    # показать, что измени�
 Домен `chekhub.ru` указывает на GitHub Pages (файл `CNAME`). Публикация — коммит в `main`,
 через 30–60 секунд сайт обновлён; лимитов на число деплоев нет.
 
-- Короткие адреса из `_redirects` (`/zayavka`, `/uslugi`, `/proverka-cheka-po-qr`) на GitHub Pages
-  не работают: серверных 301 там нет. Вместо них — папки (`zayavka/index.html` и т.п.) с
-  `meta refresh` + `canonical` + `noindex`; плюс сам GitHub добавляет 301 `/zayavka` → `/zayavka/`.
+- Короткие адреса (`/zayavka`, `/uslugi`, `/proverka-cheka-po-qr`) — папки с `index.html`
+  (`meta refresh` + `canonical` + `noindex`): серверных 301 на Pages нет, сам GitHub добавляет
+  301 `/zayavka` → `/zayavka/`.
 - `.nojekyll` отключает сборку через Jekyll — файлы отдаются как есть.
-- `netlify.toml` и `_redirects` оставлены как справка (заголовки безопасности, правила Netlify).
-  На GitHub Pages заголовки из `netlify.toml` **не применяются**.
+- Заголовки из старого `netlify.toml` на Pages не применяются, сам файл удалён 28.10.2026
+  вместе с `_redirects`; проект Netlify `luxury-cajeta-c04e42` тоже удалён.
+- Домен подтверждён в аккаунте GitHub: TXT `_github-pages-challenge-irek98.chekhub.ru`
+  в DNS Timeweb (TTL 600) — защита от публикации чужого репозитория на нашем домене.
 - Почта домена (`MX` Timeweb) и подтверждения Вебмастера/GSC живут в DNS Timeweb и переезда не заметили.
 
 ## Ограничения прототипа
