@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ЧекХаб">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b6cf0"/>
-      <stop offset="1" stop-color="#12c2a0"/>
+      <stop offset="0" stop-color="#2f7cf6"/>
+      <stop offset="1" stop-color="#16c2b0"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="16" fill="url(#g)"/>
-  <path d="M44 20a14 14 0 1 0 0 24" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
-  <rect x="40" y="27" width="14" height="7" rx="3.5" fill="#fff"/>
+  <rect width="64" height="64" rx="20" fill="url(#g)"/>
+  <rect x="17" y="14" width="6.5" height="25" rx="1.6" fill="#fff"/>
+  <rect x="22" y="33" width="19" height="6" rx="1.6" fill="#fff"/>
+  <rect x="40.5" y="14" width="6.5" height="36" rx="1.6" fill="#fff"/>
 </svg>
