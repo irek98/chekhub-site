@@ -46,6 +46,21 @@
     el.addEventListener("click", function () { goal("email_click"); });
   });
 
+  // Клик по любой ссылке на страницу заявки (шапка, статьи, CTA-блоки, липкая
+  // панель, калькулятор) — одна цель lead_open на весь сайт.
+  // До 31.10 обработчик висел только на двух кнопках (липкая панель и калькулятор),
+  // поэтому в Метрике у цели lead_open было «нет данных». Ловим на фазе перехвата,
+  // чтобы событие уходило даже если ссылка ведёт на другую страницу.
+  document.addEventListener("click", function (e) {
+    var node = e.target;
+    if (!node || !node.closest) return;
+    var a = node.closest("a[href]");
+    if (!a) return;
+    var href = a.getAttribute("href") || "";
+    if (href.indexOf("zayavka.html") === -1) return;
+    goal("lead_open");
+  }, true);
+
   // 2.6 Липкая панель на мобильных: «Заявка» + Telegram.
   // Элемент создаём всегда, видимость ограничивает CSS (max-width: 900px).
   (function stickyCta() {
@@ -59,7 +74,6 @@
     lead.className = "btn btn-primary";
     lead.href = "/zayavka.html";
     lead.textContent = "Заявка";
-    lead.addEventListener("click", function () { goal("lead_open"); });
     bar.appendChild(lead);
 
     if (cfg.telegram) {
@@ -620,7 +634,6 @@
   var tgLink = $("#calc-tg");
   var copyBtn = $("#calc-copy");
   var leadLink = $("#calc-lead");
-  if (leadLink) leadLink.addEventListener("click", function () { goal("lead_open"); });
 
   function num(sel, def) {
     var el = $(sel);
