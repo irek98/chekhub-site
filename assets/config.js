@@ -7,6 +7,10 @@ window.CH_CONFIG = {
   telegram: "https://t.me/CheckHab",
   telegramLabel: "@CheckHab",
   email: "startq182@gmail.com",
+  // Приём заявок с формы. Пусто = форма работает через почту/копирование (без сервера).
+  // Вставьте адрес Formspree вида "https://formspree.io/f/abcdwxyz" — заявки начнут
+  // приходить на email автоматически, без правки кода.
+  formEndpoint: "",
   // Базовый адрес сайта (домен: chekhub.ru)
   site: "https://chekhub.ru",
   // Номер счётчика Яндекс.Метрики (для целей: telegram_click, email_click, calc_copy)

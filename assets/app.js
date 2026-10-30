@@ -81,6 +81,9 @@
 
   // 2.7 Заявки уходят прямо в Telegram: форма собирает текст и открывает чат
   // с уже заполненным сообщением. Сторонних сервисов нет — отправку подтверждает человек.
+  // 2.7 Формы заявки: отправка на сервер (если задан formEndpoint в config.js)
+  //     либо резервные способы — Яндекс.Почта, Gmail, почтовая программа, «Скопировать».
+  //     Раньше форма открывала только Telegram, который из РФ без VPN недоступен.
   (function leadForms() {
     var forms = $$("form.lead-form");
     if (!forms.length) return;
@@ -97,13 +100,111 @@
       comment: "Комментарий"
     };
 
-    // Источник заявки: ?from=… или страница, с которой пришли
+    function collect(form) {
+      var lines = [];
+      new FormData(form).forEach(function (value, key) {
+        if (key === "form-name" || key === "bot-field" || key === "consent") return;
+        var v = String(value == null ? "" : value).trim();
+        if (!v) return;
+        lines.push((LABELS[key] || key) + ": " + v);
+      });
+      return lines;
+    }
+
+    function mailLinks(text) {
+      var to = encodeURIComponent(cfg.email || "");
+      var subj = encodeURIComponent("Заявка с сайта " + location.hostname);
+      var body = encodeURIComponent(text);
+      return {
+        yandex: "https://mail.yandex.ru/compose?to=" + to + "&subject=" + subj + "&body=" + body,
+        gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=" + to + "&su=" + subj + "&body=" + body,
+        client: "mailto:" + (cfg.email || "") + "?subject=" + subj + "&body=" + body,
+        telegram: (cfg.telegram || "#") + "?text=" + encodeURIComponent(text.slice(0, 3500))
+      };
+    }
+
+    function legacyCopy(text, cb) {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      cb();
+    }
+
+    function copyText(text, btn) {
+      function done() { btn.textContent = "Скопировано ✓"; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done); });
+      } else {
+        legacyCopy(text, done);
+      }
+    }
+
     $$('input[name="source"]').forEach(function (el) {
       if (el.value) return;
       var from = "";
       try { from = new URLSearchParams(window.location.search).get("from") || ""; } catch (e) {}
       el.value = String(from || document.referrer || window.location.pathname).slice(0, 160);
     });
+    // Запасные способы: почта в браузере или «скопировать и вставить куда угодно».
+    function showFallback(form, text, failed) {
+      var status = form.querySelector(".form-status");
+      var box = form.querySelector(".form-fallback");
+      if (!box) {
+        box = document.createElement("div");
+        box.className = "form-fallback";
+        if (status && status.parentNode) status.parentNode.insertBefore(box, status.nextSibling);
+        else form.appendChild(box);
+      }
+      box.innerHTML = "";
+
+      if (status) {
+        status.className = "form-status warn";
+        status.textContent = failed
+          ? "Автоотправка не сработала — данные сохранились ниже. Выберите способ:"
+          : "Данные заявки готовы. Выберите способ отправки — текст уже подставлен:";
+      }
+
+      var links = mailLinks(text);
+
+      function addLink(href, label, cls, goalName) {
+        var a = document.createElement("a");
+        a.className = "btn " + (cls || "btn-ghost");
+        a.href = href;
+        a.textContent = label;
+        if (href.indexOf("http") === 0) { a.target = "_blank"; a.rel = "noopener"; }
+        a.addEventListener("click", function () { goal(goalName || "lead_form_mail"); });
+        box.appendChild(a);
+        return a;
+      }
+
+      addLink(links.yandex, "Отправить с Яндекс.Почты", "btn-primary");
+      addLink(links.gmail, "Отправить с Gmail");
+      addLink(links.client, "Почтовая программа");
+
+      var copy = document.createElement("button");
+      copy.type = "button";
+      copy.className = "btn btn-ghost";
+      copy.textContent = "Скопировать заявку";
+      copy.addEventListener("click", function () {
+        copyText(text, copy);
+        goal("lead_form_copy");
+      });
+      box.appendChild(copy);
+
+      var tg = document.createElement("a");
+      tg.className = "small muted";
+      tg.href = links.telegram;
+      tg.target = "_blank";
+      tg.rel = "noopener";
+      tg.textContent = "Или в Telegram (если открывается)";
+      box.appendChild(tg);
+    }
 
     forms.forEach(function (form) {
       var status = form.querySelector(".form-status");
@@ -114,37 +215,50 @@
 
         // Ловушка для ботов: поле скрыто от людей, бот его заполняет — молча выходим.
         var trap = form.querySelector('input[name="bot-field"]');
-        if (trap && trap.value) {
-          if (status) { status.className = "form-status ok"; status.textContent = "Заявка отправлена."; }
+        if (trap && trap.value) { return; }
+
+        var lines = collect(form);
+        var text = "Заявка с сайта " + location.hostname + "\n" + lines.join("\n");
+
+        // 1) Без адреса приёма сразу предлагаем почту/копирование — работает всегда.
+        if (!cfg.formEndpoint) {
+          goal("lead_form_fallback");
+          showFallback(form, text, false);
           return;
         }
 
-        var lines = [];
+        // 2) Есть адрес приёма заявок (Formspree) — отправляем на него.
+        var payload = {};
         new FormData(form).forEach(function (value, key) {
-          if (key === "form-name" || key === "bot-field" || key === "consent") return;
-          var v = String(value == null ? "" : value).trim();
-          if (!v) return;
-          lines.push((LABELS[key] || key) + ": " + v);
+          if (key === "bot-field") return;
+          payload[key] = String(value == null ? "" : value);
         });
+        payload._subject = "Заявка с сайта " + location.hostname;
 
-        var text = "Заявка с сайта " + location.hostname + "\n" + lines.join("\n");
-        var url = cfg.telegram + "?text=" + encodeURIComponent(text.slice(0, 3500));
+        if (status) { status.className = "form-status"; status.textContent = "Отправляем…"; }
 
-        if (status) {
-          status.className = "form-status ok";
-          status.textContent = "Открыли Telegram — нажмите там «Отправить». Не открылось? ";
-          var again = document.createElement("a");
-          again.href = url;
-          again.target = "_blank";
-          again.rel = "noopener";
-          again.textContent = "Открыть чат вручную";
-          status.appendChild(again);
-        }
-        goal("lead_form");
-        window.open(url, "_blank", "noopener");
+        fetch(cfg.formEndpoint, {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        }).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          if (status) {
+            status.className = "form-status ok";
+            status.textContent = "Заявка отправлена. Ответим в течение рабочего дня.";
+          }
+          var box = form.querySelector(".form-fallback");
+          if (box) box.innerHTML = "";
+          goal("lead_form_sent");
+          form.reset();
+        }).catch(function () {
+          goal("lead_form_error");
+          showFallback(form, text, true);
+        });
       });
     });
   })();
+
 
   // 2.8 Инструмент «Проверить чек по QR»: разбор QR-строки чека (тег 1192).
   // Всё считается в браузере — данные чека никуда не уходят.

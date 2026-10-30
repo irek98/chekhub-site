@@ -461,6 +461,13 @@ p { margin: 0 0 14px; }
 .form-status { margin: 12px 0 0; font-size: 14.5px; min-height: 20px; }
 .form-status.ok { color: #7ff0c0; }
 .form-status.err { color: #ffb3b3; }
+.form-status.warn { color: #ffd79a; }
+.form-fallback {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  margin-top: 12px;
+}
+.form-fallback .btn { font-size: 14px; }
+.form-fallback .small { flex-basis: 100%; }
 .form-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 /* плашка «данные из калькулятора подставлены» на странице заявки */
 .lead-prefill {
