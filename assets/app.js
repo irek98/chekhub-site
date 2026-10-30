@@ -607,6 +607,9 @@
     goal("lead_prefill");
   })();
 
+  // 2.9 «Содержание», полоса прогресса чтения, кнопка «наверх»
+  readingTools();
+
   // 3. Калькулятор стоимости
   var form = $("#calc-form");
   if (!form) return;
@@ -690,5 +693,129 @@
     });
   }
 
+  // 2.8 Удобство чтения: «Содержание» у длинной статьи, полоса прогресса,
+  //     кнопка «наверх». Разметку страниц не трогаем — всё строится здесь,
+  //     и только если на странице есть .prose с 4+ заголовками.
+  // Вызывается выше — до раннего return в блоке калькулятора.
+  // Объявление функции поднимается (hoisting), поэтому порядок в файле не важен.
+  function readingTools() {
+    var prose = $(".prose");
+    var heads = prose ? $$("h2", prose) : [];
+
+    // полоса прогресса чтения
+    var bar = document.createElement("div");
+    bar.className = "read-progress";
+    bar.setAttribute("aria-hidden", "true");
+    document.body.appendChild(bar);
+
+    // кнопка «наверх»
+    var top = document.createElement("button");
+    top.type = "button";
+    top.className = "to-top";
+    top.setAttribute("aria-label", "Наверх");
+    top.innerHTML = "&#8593;";
+    top.addEventListener("click", function () {
+      if (window.scrollTo) window.scrollTo({ top: 0, behavior: "smooth" });
+      else window.scrollTo(0, 0);
+    });
+    document.body.appendChild(top);
+
+    function onScroll() {
+      var doc = document.documentElement;
+      var height = doc.scrollHeight - window.innerHeight;
+      var y = window.pageYOffset || doc.scrollTop || 0;
+      var p = height > 0 ? Math.min(1, Math.max(0, y / height)) : 0;
+      bar.style.transform = "scaleX(" + p + ")";
+      top.classList.toggle("is-visible", y > 700);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+
+    if (!prose || heads.length < 4) return;
+    // страницы вроде «Политики», где .prose сам является контейнером .wrap:
+    // колонку слева от него не построить, оставляем только прогресс и «наверх»
+    if (prose.classList.contains("wrap")) return;
+
+    // обёртка: текст статьи + колонка «Содержание»
+    var layout = document.createElement("div");
+    layout.className = "article-layout";
+    prose.parentNode.insertBefore(layout, prose);
+    layout.appendChild(prose);
+
+    var toc = document.createElement("details");
+    toc.className = "toc";
+    toc.open = window.innerWidth > 1180;
+    toc.setAttribute("aria-label", "Содержание статьи");
+
+    var summary = document.createElement("summary");
+    summary.className = "toc-title";
+    summary.textContent = "Содержание";
+    toc.appendChild(summary);
+
+    var list = document.createElement("ol");
+    heads.forEach(function (h, i) {
+      if (!h.id) h.id = "razdel-" + (i + 1);
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = (h.textContent || "").replace(/\s+/g, " ").trim();
+      a.addEventListener("click", function () {
+        if (window.innerWidth <= 1180) toc.open = false;
+      });
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    toc.appendChild(list);
+
+    // мини-блок заказа внизу «Содержания» (на телефоне скрыт — там липкая панель)
+    var cta = document.createElement("div");
+    cta.className = "toc-cta";
+
+    var txt = document.createElement("p");
+    var strong = document.createElement("strong");
+    strong.textContent = "от 1 500 ₽ за кассу";
+    txt.appendChild(document.createTextNode("Нужен готовый файл с чеками?"));
+    txt.appendChild(document.createElement("br"));
+    txt.appendChild(strong);
+    txt.appendChild(document.createTextNode(", срок 1–3 дня."));
+    cta.appendChild(txt);
+
+    var lead = document.createElement("a");
+    lead.className = "btn btn-primary";
+    lead.href = "/zayavka.html";
+    lead.textContent = "Оставить заявку";
+    lead.addEventListener("click", function () { goal("lead_open"); });
+    cta.appendChild(lead);
+
+    if (cfg.telegram) {
+      var tg = document.createElement("a");
+      tg.className = "btn btn-ghost";
+      tg.href = cfg.telegram;
+      tg.textContent = cfg.telegramLabel || "Telegram";
+      tg.addEventListener("click", function () { goal("telegram_click"); });
+      cta.appendChild(tg);
+    }
+    toc.appendChild(cta);
+
+    layout.appendChild(toc);
+
+    // подсветка раздела, который сейчас на экране
+    var links = $$("a", list);
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var hash = "#" + en.target.id;
+          links.forEach(function (a) {
+            a.classList.toggle("is-active", a.getAttribute("href") === hash);
+          });
+        });
+      }, { rootMargin: "-90px 0px -72% 0px", threshold: 0 });
+      heads.forEach(function (h) { io.observe(h); });
+    }
+  }
+
   recalc();
 })();
+

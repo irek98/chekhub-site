@@ -40,10 +40,14 @@ body::before {
 }
 body::after {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  /* два мягких пятна по краям + сетка: на широком экране поля по бокам не «пустые» */
   background-image:
+    radial-gradient(52rem 34rem at 88% -8%, rgba(47, 124, 246, .16), transparent 62%),
+    radial-gradient(46rem 30rem at 4% 104%, rgba(22, 194, 176, .12), transparent 60%),
     linear-gradient(rgba(255, 255, 255, .030) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, .030) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-size: auto, auto, 64px 64px, 64px 64px;
+  background-repeat: no-repeat, no-repeat, repeat, repeat;
 }
 
 a { color: var(--accent); text-decoration: none; }
@@ -54,7 +58,11 @@ a:focus-visible, .btn:focus-visible, .burger:focus-visible {
   outline: 2px solid rgba(111, 179, 255, .7); outline-offset: 2px; border-radius: 10px;
 }
 
-.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+/* Ширина контента: 1200px — компромисс. Тянуть блок на всю ширину монитора нельзя:
+   строка длиннее ~100 знаков читается хуже и текст «расползается». 1200px + отступы
+   = на экране 1440 остаётся по ~100px полей, на 1920 — по ~340px (там поля уже
+   заполняет фон с подсветкой). На узких экранах отступы сжимаются. */
+.wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 2.5vw, 40px); }
 
 /* шапка — матовое стекло поверх контента */
 .site-header {
@@ -111,7 +119,7 @@ a:focus-visible, .btn:focus-visible, .burger:focus-visible {
 /* типографика блоков */
 section { padding: 56px 0; }
 .section-head { max-width: 720px; margin-bottom: 26px; }
-h1 { font-size: 40px; line-height: 1.15; margin: 0 0 16px; letter-spacing: -.5px; }
+h1 { font-size: clamp(30px, 3.4vw, 42px); line-height: 1.15; margin: 0 0 16px; letter-spacing: -.5px; }
 h2 { font-size: 28px; line-height: 1.25; margin: 0 0 12px; letter-spacing: -.3px; }
 h3 { font-size: 19px; margin: 0 0 8px; }
 p { margin: 0 0 14px; }
@@ -520,4 +528,137 @@ p { margin: 0 0 14px; }
   .card, .article-item, .btn { transition: none; }
   .card:hover, .article-item:hover, .btn-primary:hover { transform: none; }
 }
+
+/* ============================================================
+   30.10.2026 — удобство чтения (добавлено поверх, ничего не ломает)
+   1) якоря не прячутся под липкой шапкой;
+   2) у длинных статей справа появляется «Содержание»;
+   3) сверху — полоса прогресса чтения, снизу — кнопка «наверх».
+   Всё это включает assets/app.js; без JS разметка выглядит как раньше.
+   ============================================================ */
+
+/* 1. Высота липкой шапки учтена при переходе по #якорю */
+html { scroll-padding-top: 84px; }
+
+/* 2. Статья + колонка «Содержание» */
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 22px;
+  align-items: start;
+}
+.article-layout > .prose:not(.wrap) { max-width: 100%; }
+
+.toc {
+  position: sticky; top: 86px;
+  /* длинное содержание не должно «зависать» выше экрана — прокручиваем внутри */
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 14px 14px 12px;
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  font-size: 14px;
+}
+.toc > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  cursor: pointer; list-style: none;
+  font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); padding: 2px 4px;
+}
+.toc > summary::-webkit-details-marker { display: none; }
+.toc > summary::after { content: "▾"; font-size: 13px; transition: transform .2s; }
+.toc[open] > summary::after { transform: rotate(180deg); }
+.toc > summary:hover { color: var(--text); }
+.toc::-webkit-scrollbar { width: 8px; }
+.toc::-webkit-scrollbar-track { background: transparent; }
+.toc::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .16); border-radius: 8px; }
+.toc::-webkit-scrollbar-thumb:hover { background: rgba(111, 179, 255, .45); }
+
+.toc ol {
+  list-style: none; margin: 10px 0 0; padding: 0;
+  display: grid; gap: 2px; counter-reset: toc;
+}
+.toc li { counter-increment: toc; margin: 0; }
+.toc li > a {
+  display: block; padding: 6px 8px 6px 10px; border-radius: 9px;
+  border-left: 2px solid transparent;
+  color: var(--muted); line-height: 1.35; text-decoration: none;
+}
+.toc li > a::before { content: counter(toc) ". "; color: rgba(157, 176, 203, .6); }
+.toc li > a:hover { background: rgba(255, 255, 255, .07); color: var(--text); }
+.toc li > a.is-active {
+  color: var(--text); border-left-color: var(--accent);
+  background: rgba(111, 179, 255, .12);
+}
+
+/* мини-блок заказа под «Содержанием» */
+.toc-cta { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.toc-cta p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+.toc-cta strong { color: var(--text); white-space: nowrap; }
+.toc-cta .btn { width: 100%; padding: 9px 12px; font-size: 14px; }
+.toc-cta .btn + .btn { margin-top: 8px; }
+
+/* на планшете и телефоне «Содержание» уезжает наверх и сворачивается */
+@media (max-width: 1180px) {
+  /* minmax(0, 1fr), а не 1fr: иначе длинные строки в <pre> растягивают колонку
+     и страница начинает ехать вбок */
+  .article-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .toc { position: static; order: -1; }
+  .toc-cta { display: none; } /* внизу и так липкая панель «Заявка + Telegram» */
+}
+/* --- конец блока «Содержание» --- */
+
+/* 3. Полоса прогресса чтения (тонкая линия вверху) */
+.read-progress {
+  position: fixed; left: 0; right: 0; top: 0; height: 3px; z-index: 40;
+  background: linear-gradient(90deg, #2f7cf6, #16c2b0);
+  transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform .12s linear;
+  pointer-events: none;
+  box-shadow: 0 0 12px rgba(47, 124, 246, .55);
+}
+
+/* 3б. Кнопка «наверх» */
+.to-top {
+  position: fixed; right: 18px; bottom: 18px; z-index: 31;
+  width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; font-size: 18px; line-height: 1;
+  color: var(--text); background: rgba(16, 23, 38, .88);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .5);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity .2s, transform .2s, background .2s;
+}
+.to-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: rgba(47, 124, 246, .92); border-color: rgba(255, 255, 255, .5); }
+@media (max-width: 900px) {
+  /* не наезжаем на липкую панель «Заявка + Telegram» */
+  .to-top { bottom: 78px; right: 12px; width: 40px; height: 40px; font-size: 16px; }
+}
+
+/* 4. Читаемость текста статьи: чуть крупнее, ссылки видно в тексте */
+.prose { font-size: 16.8px; line-height: 1.72; }
+.prose a { text-decoration: underline; text-decoration-color: rgba(111, 179, 255, .45); text-underline-offset: 3px; }
+.prose a:hover { text-decoration-color: currentColor; }
+.prose h2 { line-height: 1.3; }
+.prose > p:first-of-type { font-size: 17.6px; color: #dbe7f7; }
+.prose table { font-size: 15.5px; }
+.prose ol { padding-left: 24px; }
+
+/* 5. Мелочи: крошки, подвал, полоса «о проекте» */
+.crumbs { margin: 18px 0 14px; }
+.crumbs a:hover { color: var(--text); }
+.site-footer { padding: 34px 0; }
+.footer-links { gap: 12px 26px; }
+.footer-links a { color: var(--muted); }
+.footer-links a:hover { color: var(--text); }
+
+
 
