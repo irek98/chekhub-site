@@ -173,14 +173,14 @@
       pair.box.appendChild(link);
     });
 
-    // Подсказка: Telegram из РФ обычно открывается без VPN, но если нет — есть почта.
+    // Подсказка: Telegram в РФ часто не открывается без VPN — поэтому рядом всегда почта.
     if (!pairs.length) return;
     var host = pairs[0].box.parentNode;
     if (host && !host.querySelector(".tg-hint")) {
       var hint = document.createElement("p");
       hint.className = "small muted tg-hint";
       hint.innerHTML = "Отвечаем и в чате " + (cfg.telegramLabel || "Telegram") + "." +
-        (cfg.email ? " Если Telegram не открывается без VPN — напишите на <a href=\"mailto:" +
+        (cfg.email ? " В РФ Telegram часто не открывается без VPN — если у вас так, напишите на <a href=\"mailto:" +
           cfg.email + "\">" + cfg.email + "</a>, почта работает всегда." : "");
       host.insertBefore(hint, pairs[0].box.nextSibling);
     }
