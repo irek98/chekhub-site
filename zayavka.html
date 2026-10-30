@@ -91,9 +91,14 @@
 
   <section style="padding-top:0">
     <div class="wrap">
-      <div class="tool-grid">
+      <div class="lead-page">
         <div class="card">
-          <form class="lead-form" name="zayavka">
+          <div class="yf-embed" id="yf-embed" hidden>
+            <iframe id="yf-frame" title="Форма заявки ЧекХаб" loading="lazy"
+                    data-src="https://forms.yandex.ru/u/6ae4061349af474be7cfc37a/"
+                    referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <form class="lead-form" id="lead-form" name="zayavka">
             <input type="hidden" name="source" value="">
             <input type="hidden" name="plan" value="">
             <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
@@ -148,7 +153,7 @@
               <button class="btn btn-primary" type="submit">Отправить заявку</button>
             </div>
             <p class="form-status" role="status"></p>
-            <p class="small muted" style="margin:0">После нажатия заявка уходит на нашу почту. Если отправка не сработает, появятся кнопки «Яндекс.Почта», «Gmail» и «Скопировать» — текст заявки уже будет подставлен. Отвечаем в течение рабочего дня.</p>
+            <p class="small muted" style="margin:0">Заявка уходит через Яндекс.Формы — сервис работает из РФ без VPN. Если форма не открылась, напишите на почту или в Telegram: контакты в подвале. Отвечаем в течение рабочего дня.</p>
           </form>
         </div>
         <aside class="card">

@@ -476,8 +476,31 @@ p { margin: 0 0 14px; }
   color: var(--text);
 }
 
+/* Страница заявки: одна колонка, форма Яндекс.Форм по центру */
+.lead-page {
+  display: grid; gap: 22px; justify-content: center;
+  grid-template-columns: minmax(0, 880px);
+}
+/* Встроенная Яндекс.Форма на странице заявки */
+.yf-embed { margin: 0; }
+.yf-embed iframe {
+  display: block; width: 100%; min-height: 1200px;
+  border: 0; border-radius: 14px; background: #fff;
+}
+.yf-embed .yf-alt { margin: 12px 0 0; }
+.yf-prefill {
+  margin: 0 0 14px; padding: 12px 14px; border-radius: 12px; font-size: 14.5px;
+  background: rgba(111, 179, 255, .12); border: 1px solid rgba(111, 179, 255, .38);
+  color: var(--text); display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.yf-prefill .btn { font-size: 13.5px; padding: 8px 12px; }
+.yf-prefill .small { flex-basis: 100%; }
+/* hidden должен побеждать display:grid у формы */
+.lead-form[hidden], .yf-embed[hidden] { display: none !important; }
+
 @media (max-width: 900px) {
   .tool-grid, .form-grid { grid-template-columns: 1fr; }
+  .yf-embed iframe { min-height: 1300px; }
   .tool-textarea { min-height: 120px; }
   .tool-table { min-width: 560px; font-size: 12.5px; }
   .tool-actions { gap: 8px; }

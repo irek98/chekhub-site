@@ -11,6 +11,10 @@ window.CH_CONFIG = {
   // Вставьте адрес Formspree вида "https://formspree.io/f/abcdwxyz" — заявки начнут
   // приходить на email автоматически, без правки кода.
   formEndpoint: "",
+  // Яндекс.Форма (forms.yandex.ru) — основной приём заявок: работает из РФ без VPN,
+  // ответы приходят в кабинет Яндекс.Форм и на почту аккаунта. Если адрес задан,
+  // на странице /zayavka.html показывается встроенная форма, а своя — скрывается.
+  yandexFormUrl: "https://forms.yandex.ru/u/6ae4061349af474be7cfc37a/",
   // Базовый адрес сайта (домен: chekhub.ru)
   site: "https://chekhub.ru",
   // Номер счётчика Яндекс.Метрики (для целей: telegram_click, email_click, calc_copy)

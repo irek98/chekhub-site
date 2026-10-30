@@ -81,6 +81,67 @@
 
   // 2.7 Заявки уходят прямо в Telegram: форма собирает текст и открывает чат
   // с уже заполненным сообщением. Сторонних сервисов нет — отправку подтверждает человек.
+  // 2.6б Яндекс.Форма — основной приём заявок (работает из РФ без VPN).
+  //     Адрес задаётся в config.js -> yandexFormUrl. Если он есть:
+  //     показываем встроенную форму, свою форму скрываем, под формой даём
+  //     резервные способы связи. Без адреса всё работает как раньше.
+  (function yandexForm() {
+    var box = $("#yf-embed");
+    var frame = $("#yf-frame");
+    if (!box || !frame) return;
+    var url = String(cfg.yandexFormUrl || "").trim();
+    if (!url) return;
+
+    frame.setAttribute("src", frame.getAttribute("data-src") || url);
+    box.hidden = false;
+
+    var own = $("#lead-form");
+    if (own) own.hidden = true;
+
+    var alt = document.createElement("p");
+    alt.className = "small muted yf-alt";
+    alt.innerHTML = 'Форма не открылась? <a href="' + url + '" target="_blank" rel="noopener">Открыть в новой вкладке</a>' +
+      (cfg.email ? ' или напишите на <a href="mailto:' + cfg.email + '">' + cfg.email + "</a>" : "") + ".";
+    box.appendChild(alt);
+
+    // Расчёт из калькулятора (?kass=&months=&format=&sum=) подсказываем текстом:
+    // в форму Яндекс.Форм нельзя подставить значения из URL, поэтому даём копирование.
+    try {
+      var q = new URLSearchParams(window.location.search);
+      var kass = q.get("kass");
+      var months = q.get("months");
+      var fmt = q.get("format");
+      var sum = q.get("sum");
+      if (kass || sum) {
+        var bits = [];
+        if (kass) bits.push("касс: " + kass);
+        if (months) bits.push("период: " + months + " мес.");
+        if (fmt) bits.push("формат: " + (fmt === "1c" ? "1С" : fmt === "csv" ? "CSV" : "Excel"));
+        if (sum) bits.push("ориентир: от " + sum + " ₽");
+        var text = "Расчёт с сайта:\n" + bits.join(", ") + "\nОФД: \nЗадача: ";
+
+        var note = document.createElement("div");
+        note.className = "yf-prefill";
+        note.innerHTML = "<b>Ваш расчёт:</b> " + bits.join(" · ") +
+          ' <button type="button" class="btn btn-ghost btn-sm">Скопировать расчёт</button>' +
+          '<span class="small muted" style="display:block;margin-top:6px">Вставьте его в поле «Задача» — так мы сразу увидим вводные.</span>';
+        box.parentNode.insertBefore(note, box);
+
+        var btn = note.querySelector("button");
+        btn.addEventListener("click", function () {
+          goal("lead_prefill_copy");
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () { btn.textContent = "Скопировано ✓"; });
+          } else {
+            window.prompt("Скопируйте расчёт:", text);
+          }
+        });
+      }
+    } catch (e) {}
+
+    goal("lead_form_view");
+  })();
+
   // 2.7 Формы заявки: отправка на сервер (если задан formEndpoint в config.js)
   //     либо резервные способы — Яндекс.Почта, Gmail, почтовая программа, «Скопировать».
   //     Раньше форма открывала только Telegram, который из РФ без VPN недоступен.
