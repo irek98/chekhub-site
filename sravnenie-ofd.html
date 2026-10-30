@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Сравнение ОФД: какой оператор выбрать для выгрузки чеков | ЧекХаб</title>
+  <meta name="description" content="Сравниваем Платформу ОФД (Эвотор), Такском, Первый ОФД, Астрал и Яндекс ОФД: что можно выгрузить из кабинета, где есть API, что проверить до оплаты тарифа и как не потерять архив при смене оператора.">
+  <link rel="canonical" href="https://chekhub.ru/sravnenie-ofd.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/sravnenie-ofd.html">
+  <meta property="og:title" content="Сравнение ОФД: какой оператор выбрать для выгрузки чеков">
+  <meta property="og:description" content="Платформа ОФД, Такском, Первый ОФД, Астрал, Яндекс ОФД: что выгружается из кабинета, где есть API, что проверить до оплаты тарифа.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — сравнение операторов фискальных данных">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Сравнение ОФД: какой оператор выбрать для выгрузки чеков">
+  <meta name="twitter:description" content="Платформа ОФД, Такском, Первый ОФД, Астрал, Яндекс ОФД: что выгружается из кабинета, где есть API, что проверить до оплаты тарифа.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Сравнение операторов ОФД: какой выбрать для выгрузки чеков",
+        "description": "Платформа ОФД (Эвотор), Такском, Первый ОФД, Астрал, Яндекс ОФД: вход в кабинет, что можно выгрузить, что проверить до оплаты тарифа и как не потерять архив при смене оператора.",
+        "datePublished": "2026-10-30",
+        "dateModified": "2026-10-30",
+        "inLanguage": "ru",
+        "mainEntityOfPage": "https://chekhub.ru/sravnenie-ofd.html",
+        "author": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
+        "publisher": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/", "logo": { "@type": "ImageObject", "url": "https://chekhub.ru/icon-512.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Какой ОФД лучше?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Универсального ответа нет. Смотрите на три вещи: отдаёт ли тариф позиции чеков, какой глубины архив доступен в кабинете и насколько удобно выгружать в Excel. Если нужна одна выгрузка в месяц, подойдёт любой оператор; если нужны позиции и автоматизация — проверяйте это до оплаты тарифа."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можно ли выгрузить чеки, если договор с ОФД оформлен на подрядчика?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Нет: данные будут в кабинете подрядчика, у вас их не будет. Нужно переоформить договор с оператором на себя или запросить выгрузку у подрядчика."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Как сменить ОФД и не потерять чеки?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Сначала выгрузите нужные периоды или запросите архив у текущего оператора, только потом расторгайте договор и перерегистрируйте кассу в ФНС. Чеки за прошлые периоды остаются у прежнего ОФД, и после расторжения доступ к ним обычно закрывается."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Сколько стоит выгрузка чеков под ключ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "От 1 500 ₽ за кассу за месяц. Подписка на ежемесячную выгрузку — от 2 000 ₽ в месяц. Обслуживание самого ОФД оплачивается отдельно: ориентир 250–400 ₽ в месяц за кассу."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "У всех ОФД есть API?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Техническая интеграция есть у крупных операторов, но условия зависят от тарифа: где-то API включён, где-то это отдельная услуга или доступ по запросу. Если нужна регулярная автоматическая выгрузка — уточняйте до покупки тарифа."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://chekhub.ru/" },
+          { "@type": "ListItem", "position": 2, "name": "Сравнение ОФД", "item": "https://chekhub.ru/sravnenie-ofd.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="index.html">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="index.html">Главная</a>
+      <a href="proverka-cheka-po-qr.html">Проверить чек</a>
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="ai-katalog.html">ИИ-каталог</a>
+      <a href="uslugi.html">Услуги и цены</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Главная</a> / Сравнение ОФД</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Сравнение ОФД: какой оператор выбрать для выгрузки чеков</h1>
+        <p class="lead">Все операторы фискальных данных делают одно и то же: принимают чеки с касс и передают их в ФНС. Разница начинается там, где нужен файл с данными: у одного в кабинете отчёт по продажам в Excel за минуту, у другого — только просмотр чеков по одному. Ниже — по каким критериям выбирать оператор именно под выгрузку, что можно достать из кабинетов пяти крупных ОФД и как сменить оператора, не потеряв архив.</p>
+
+        <blockquote>
+          Коротко: если нужна одна выгрузка в месяц — подойдёт любой оператор. Если нужны позиции чеков, глубинный архив и автоматическая выгрузка — эти три пункта проверяют до оплаты тарифа, а не после.
+        </blockquote>
+
+
+        <!-- terms:start -->
+        <div class="card" style="margin:0 0 22px">
+          <h3>Если разбираться некогда</h3>
+          <p class="muted small" style="margin:0 0 6px"><b>от 1 500 ₽</b> за кассу за месяц, срок <b>1–3 рабочих дня</b>. Позиции чеков, несколько касс, загрузка в 1С — цену считаем по вашим вводным.</p>
+          <p class="muted small" style="margin:0 0 6px">Гарантия: если ваш ОФД не отдаёт данные за нужный период — вернём предоплату.</p>
+          <p class="muted small" style="margin:0 0 12px">Как выглядит результат: <a href="files/example-vygruzka-chekov.csv" download>пример файла выгрузки</a> (CSV, данные тестовые).</p>
+          <div class="hero-actions" style="margin:0">
+            <a class="btn btn-primary" href="zayavka.html">Оставить заявку</a>
+            <a class="btn btn-ghost" href="uslugi.html">Цены и калькулятор</a>
+          </div>
+        </div>
+        <!-- terms:end -->
+
+        <h2>Что проверить до оплаты тарифа</h2>
+        <p>Пять пунктов, из-за которых потом «не получается выгрузить». Их лучше выяснить у оператора на этапе выбора, а не когда касса уже зарегистрирована.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Что проверить</th><th>Почему это важно</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Отдаёт ли тариф <strong>позиции чеков</strong> (товары, количество, цена)</td>
+                <td>ФНС достаточно шапки чека: дата, сумма, ФН, ФД. Поэтому часть тарифов отдаёт только шапки — товарного состава в выгрузке не будет. Для товарного отчёта и сверки с 1С нужны именно позиции.</td>
+              </tr>
+              <tr>
+                <td><strong>Глубина архива</strong> в кабинете</td>
+                <td>По закону оператор хранит документы 5 лет, но интерфейс кабинета часто показывает только последние месяцы. Если нужны данные за прошлый год, их запрашивают отдельно.</td>
+              </tr>
+              <tr>
+                <td>Выгрузка <strong>в Excel/CSV за период</strong></td>
+                <td>Где-то это одна кнопка, где-то — отчёт режется по числу строк, и месяц приходится собирать из нескольких файлов и склеивать вручную.</td>
+              </tr>
+              <tr>
+                <td><strong>API</strong> и лимиты запросов</td>
+                <td>Для автоматической выгрузки по расписанию нужен API. Условия зависят от тарифа: включён, отдельная услуга или доступ по запросу. Лимиты запросов влияют на то, сколько данных можно забрать за раз.</td>
+              </tr>
+              <tr>
+                <td>Цена <strong>за кассу</strong> и что входит</td>
+                <td>Ориентир по рынку — 250–400 ₽ в месяц за кассу, годовые и трёхлетние тарифы дешевле месячных. Смотрите не на цифру «от», а на стоимость за кассу в год и на то, входят ли отчёты и API.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Кабинеты операторов: что можно выгрузить</h2>
+        <p>Данные по кабинетам — из нашего <a href="lichnyj-kabinet-ofd.html">справочника по личным кабинетам ОФД</a>. Интерфейсы меняются, поэтому названия разделов считайте ориентиром, а не дословной инструкцией.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Оператор</th>
+                <th>Вход в кабинет</th>
+                <th>Что обычно можно выгрузить</th>
+                <th>Наш разбор</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Платформа ОФД<br><span class="muted small">она же Эвотор ОФД</span></td>
+                <td><code>lk.platformaofd.ru</code></td>
+                <td>Чеки и документы по кассам, отчёты по выручке и сменам, аналитика продаж, интеграция с 1С</td>
+                <td><a href="articles/kak-vygruzit-cheki-iz-platformy-ofd.html">Платформа ОФД</a></td>
+              </tr>
+              <tr>
+                <td>Такском</td>
+                <td><code>lk-ofd.taxcom.ru</code></td>
+                <td>Отчёт по продажам в Excel за период, документы по кассам, статистика кассиров, синхронизация с 1С, API</td>
+                <td><a href="articles/kak-vygruzit-cheki-iz-takskom-ofd.html">Такском</a></td>
+              </tr>
+              <tr>
+                <td>Первый ОФД</td>
+                <td><code>lk.1-ofd.ru</code></td>
+                <td>Документы по кассам, «Контроль выручки», «Поток чеков», синхронизация с 1С</td>
+                <td><a href="articles/kak-vygruzit-cheki-iz-1-ofd.html">Первый ОФД</a></td>
+              </tr>
+              <tr>
+                <td>Астрал ОФД</td>
+                <td><code>ofd.astralnalog.ru</code></td>
+                <td>Список переданных чеков, чек в печатном виде и в JSON, отправка копии чека, отчёты в Excel, автоотчёты на почту</td>
+                <td><span class="muted small">разбор готовим</span></td>
+              </tr>
+              <tr>
+                <td>Яндекс ОФД</td>
+                <td><code>ofd.yandex.ru</code></td>
+                <td>Папки касс и точек, «Отчёты 2.0» по продажам, аналитика в реальном времени, проверка чеков</td>
+                <td><span class="muted small">разбор готовим</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small muted">Отдельного кабинета «Эвотор ОФД» нет: это тот же оператор, что Платформа ОФД, вход — в кабинет Платформы.</p>
+
+
+        <h2>API: когда он нужен и чего от него ждать</h2>
+        <p>API — это техническая выгрузка без входа в кабинет. Логика такая: скрипт авторизуется, запрашивает документы за период небольшими порциями и складывает результат в файл или базу. Для регулярной работы это надёжнее кабинета: интерфейс меняется каждый год, а формат обмена — реже.</p>
+        <ul>
+          <li><strong>Когда нужен.</strong> Выгрузка каждый день или каждую смену, несколько касс, свод в одну таблицу, отправка данных в 1С или Google Таблицы.</li>
+          <li><strong>Чего ждать.</strong> Ответ приходит частями: один запрос — ограниченное число документов или небольшой период. Поэтому выгрузка за год — это не один запрос, а цикл с пагинацией.</li>
+          <li><strong>Что уточнять.</strong> Включён ли API в тариф, есть ли лимит запросов в сутки и отдаёт ли API позиции чеков, а не только шапки.</li>
+        </ul>
+
+        <h2>Как сменить ОФД и не потерять архив</h2>
+        <ol>
+          <li><strong>Сначала архив, потом расторжение.</strong> Выгрузите нужные периоды или запросите архив у текущего оператора до окончания договора: после расторжения доступ к кабинету обычно закрывается.</li>
+          <li><strong>Проверьте фискальный накопитель.</strong> При смене ОФД ФН чаще всего менять не нужно — касса перерегистрируется в ФНС с новым оператором.</li>
+          <li><strong>Перерегистрируйте кассу.</strong> Это делается через личный кабинет ФНС или у обслуживающего кассу подрядчика; после перерегистрации новые чеки уходят уже новому оператору.</li>
+          <li><strong>Разделите периоды в отчётах.</strong> Данные «до» и «после» смены лежат у разных операторов. При сверке выручки это первое место, где ищут расхождение.</li>
+        </ol>
+        <p class="small muted">Если данные за прошлый период уже недоступны — это разбирается отдельно: <a href="articles/ofd-ne-otdaet-cheki-za-proshlyj-period.html">почему ОФД не отдаёт чеки за прошлый период и что делать</a>.</p>
+
+        <h2>Короткий вывод</h2>
+        <ul>
+          <li><strong>Одна выгрузка в месяц, только шапки чеков</strong> — подойдёт любой из пяти операторов, выбирайте по цене за кассу в год.</li>
+          <li><strong>Нужны товары (позиции чеков)</strong> — проверяйте тариф до оплаты; если позиций нет, выгрузка их не «дорисует».</li>
+          <li><strong>Нужна регулярная автоматизация</strong> — смотрите на API и лимиты, а не на красоту кабинета.</li>
+          <li><strong>Договор оформлен на подрядчика</strong> — данных в вашем кабинете не будет, пока договор не переоформлен на вас.</li>
+        </ul>
+
+        <h2>Частые вопросы</h2>
+        <h3>Какой ОФД лучше?</h3>
+        <p>Универсального ответа нет. Смотрите на три вещи: отдаёт ли тариф позиции чеков, какой глубины архив доступен в кабинете и насколько удобно выгружать в Excel. Если нужна одна выгрузка в месяц, подойдёт любой оператор; если нужны позиции и автоматизация — проверяйте это до оплаты тарифа.</p>
+
+        <h3>Можно ли выгрузить чеки, если договор с ОФД оформлен на подрядчика?</h3>
+        <p>Нет: данные будут в кабинете подрядчика, у вас их не будет. Нужно переоформить договор с оператором на себя или запросить выгрузку у подрядчика.</p>
+
+        <h3>Как сменить ОФД и не потерять чеки?</h3>
+        <p>Сначала выгрузите нужные периоды или запросите архив у текущего оператора, только потом расторгайте договор и перерегистрируйте кассу в ФНС. Чеки за прошлые периоды остаются у прежнего ОФД, и после расторжения доступ к ним обычно закрывается.</p>
+
+        <h3>Сколько стоит выгрузка чеков под ключ?</h3>
+        <p>От 1 500 ₽ за кассу за месяц. Подписка на ежемесячную выгрузку — от 2 000 ₽ в месяц. Обслуживание самого ОФД оплачивается отдельно: ориентир 250–400 ₽ в месяц за кассу.</p>
+
+        <h3>У всех ОФД есть API?</h3>
+        <p>Техническая интеграция есть у крупных операторов, но условия зависят от тарифа: где-то API включён, где-то это отдельная услуга или доступ по запросу. Если нужна регулярная автоматическая выгрузка — уточняйте до покупки тарифа.</p>
+      </article>
+
+      <p class="small muted" style="margin-top:18px">Смотрите также: <a href="lichnyj-kabinet-ofd.html">личные кабинеты ОФД: вход у 5 операторов</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-v-excel.html">выгрузка чеков в Excel</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">чеки с позициями</a>, <a href="chto-takoe-ofd.html">что такое ОФД</a>, <a href="o-sebe.html">о проекте и гарантиях</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Не хочется выбирать наугад?</h2>
+        <p>Напишите, какой у вас оператор и что нужно выгрузить — скажем, отдаёт ли ваш тариф нужные данные, и назовём цену и срок.</p>
+        <div class="hero-actions" style="margin-bottom:0">
+          <a class="btn btn-primary btn-lg" href="zayavka.html">Оставить заявку</a>
+          <a class="btn btn-ghost btn-lg" href="uslugi.html">Услуги и цены</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="articles/index.html">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="uslugi.html">Услуги</a>
+      <a href="zayavka.html">Заявка</a>
+      <a href="o-sebe.html">О проекте</a>
+      <a href="sravnenie-ofd.html">Сравнение ОФД</a>
+      <a href="politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
+
