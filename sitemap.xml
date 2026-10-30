@@ -2,77 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://chekhub.ru/</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/uslugi.html</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/lichnyj-kabinet-ofd.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/chto-takoe-ofd.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/proverka-cheka-po-qr.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/ai-katalog.html</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/zayavka.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-v-excel.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-v-1s.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/kak-vygruzit-cheki-iz-platformy-ofd.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-s-poziciyami.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-za-mesyac.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/kak-vygruzit-cheki-iz-takskom-ofd.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://chekhub.ru/articles/kak-vygruzit-cheki-iz-1-ofd.html</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/articles/kak-svesti-vyruchku-cheki-ofd-bank.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/articles/chek-ofd-dlya-avansovogo-otcheta.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/articles/ofd-ne-otdaet-cheki-za-proshlyj-period.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/articles/vygruzka-chekov-iz-ofd-v-google-tablicy.html</loc>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

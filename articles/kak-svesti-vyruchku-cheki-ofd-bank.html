@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Как свести выручку по чекам ОФД с банковской выпиской | ЧекХаб</title>
+  <meta name="description" content="Порядок сверки: какие отчёты выгрузить из ОФД и банка, как свести их по датам, учесть эквайринг и возвраты, найти расхождение формулами Excel.">
+  <link rel="canonical" href="https://chekhub.ru/articles/kak-svesti-vyruchku-cheki-ofd-bank.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/articles/kak-svesti-vyruchku-cheki-ofd-bank.html">
+  <meta property="og:title" content="Как свести выручку по чекам ОФД с банковской выпиской">
+  <meta property="og:description" content="Порядок сверки: какие отчёты выгрузить из ОФД и банка, как свести их по датам, учесть эквайринг и возвраты, найти расхождение формулами Excel.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Как свести выручку по чекам ОФД с банковской выпиской">
+  <meta name="twitter:description" content="Порядок сверки: какие отчёты выгрузить из ОФД и банка, как свести их по датам, учесть эквайринг и возвраты, найти расхождение формулами Excel.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Как свести выручку по чекам ОФД с банковской выпиской",
+        "description": "Порядок сверки: какие отчёты выгрузить из ОФД и банка, как свести их по датам, учесть эквайринг и возвраты, найти расхождение формулами Excel.",
+        "datePublished": "2026-10-30",
+        "dateModified": "2026-10-30",
+        "inLanguage": "ru",
+        "mainEntityOfPage": "https://chekhub.ru/articles/kak-svesti-vyruchku-cheki-ofd-bank.html",
+        "author": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
+        "publisher": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/", "logo": { "@type": "ImageObject", "url": "https://chekhub.ru/icon-512.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": "Почему сумма по чекам больше, чем поступило на счёт?", "acceptedAnswer": {"@type": "Answer", "text": "Чаще всего из-за комиссии эквайринга и возвратов: банк перечисляет сумму за вычетом комиссии, а возвраты уходят списанием. Вторая причина — часть оплат прошла наличными и на счёт не попала."}}, {"@type": "Question", "name": "Нужно ли учитывать чеки коррекции при сверке?", "acceptedAnswer": {"@type": "Answer", "text": "Да, но отдельной строкой: коррекция исправляет прошлый расчёт и может относиться к другому периоду. Если смешать её с обычными чеками, расхождение по дням станет бессмысленным."}}, {"@type": "Question", "name": "Можно ли сверять по дате из выписки банка?", "acceptedAnswer": {"@type": "Answer", "text": "Так делать не стоит: банк перечисляет деньги за операционный день с задержкой. Надёжнее сверять по операционным дням эквайринга, а дату выписки использовать как справочную."}}, {"@type": "Question", "name": "Что делать, если один день вообще не сходится?", "acceptedAnswer": {"@type": "Answer", "text": "Проверьте три вещи: закрыта ли смена за этот день, не работала ли касса без связи и не попало ли поступление в следующий операционный день. В большинстве случаев причина в одном из этих трёх пунктов."}}]
+      }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="../index.html">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="../index.html">Главная</a>
+      <a href="../proverka-cheka-po-qr.html">Проверить чек</a>
+      <a href="index.html" aria-current="page">Инструкции</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="../ai-katalog.html">ИИ-каталог</a>
+      <a href="../uslugi.html">Услуги и цены</a>
+      <a href="../index.html#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="../zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="../index.html">Главная</a> / <a href="index.html">Инструкции</a> / Сверка с банком</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Как свести выручку по чекам ОФД с банковской выпиской</h1>
+        <p class="lead">Сверка нужна, когда бухгалтер просит подтвердить выручку, а суммы «по чекам» и «по банку» не совпадают. Ниже — рабочий порядок: что выгрузить из ОФД, что из банка, как сопоставить периоды и какие расхождения нормальны, а какие означают, что данные потерялись.</p>
+        <h2>Почему суммы почти никогда не совпадают «в лоб»</h2>
+        <p>Выручка по чекам и поступления на счёт — разные величины, и это нормально. Чеки фиксируют продажу в момент расчёта, банк — движение денег. Между ними всегда есть зазор:</p>
+        <ul>
+          <li><strong>Эквайринг.</strong> Покупатель заплатил картой сегодня, деньги придут завтра-послезавтра и минус комиссия.</li>
+          <li><strong>Возвраты.</strong> Возврат прихода уменьшает выручку, но по банку это списание, а не поступление.</li>
+          <li><strong>Смены на границе суток.</strong> Смена, закрытая в 00:10, относится к следующему дню.</li>
+          <li><strong>Наличные.</strong> Они вообще не проходят через расчётный счёт, если касса не подключена к банку.</li>
+          <li><strong>Чеки коррекции.</strong> Они исправляют прошлые расчёты и не всегда совпадают с датой продажи.</li>
+        </ul>
+        <blockquote>Сверяют не «выручку с выручкой», а две разные вещи: сумму расчётов по чекам за период и сумму поступлений по банку за тот же период с учётом сдвига эквайринга.</blockquote>
+
+        <h2>Шаг 1. Выгрузить из ОФД чеки за период</h2>
+        <p>В личном кабинете оператора нужны два типа документов: <strong>приход</strong> и <strong>возврат прихода</strong>. Если взять только приход, сверка не сойдётся на величину возвратов.</p>
+        <p>Минимальный набор колонок, без которых сверка превращается в угадывание:</p>
+        <ul>
+          <li>дата и время расчёта (не только дата смены);</li>
+          <li>номер кассы или её заводской номер;</li>
+          <li>тип документа: приход / возврат прихода / коррекция;</li>
+          <li>сумма расчёта и сумма по каждому виду оплаты (наличные, карта, аванс, кредит);</li>
+          <li>ФД и ФПД — по ним проверяют конкретный чек.</li>
+        </ul>
+        <p>Если кабинет не отдаёт разбивку по видам оплаты, запросите отчёт по продажам с детализацией: без него нельзя отделить эквайринг от наличных, а значит сверка с банком невозможна.</p>
+
+        <h2>Шаг 2. Выгрузить поступления из банка</h2>
+        <p>Из интернет-банка нужна выписка по расчётному счёту, а не только «торговый эквайринг»: в выписке видны и поступления по эквайрингу, и комиссии, и зачисления от платёжных агрегаторов.</p>
+        <ul>
+          <li>Экспортируйте период с запасом: за день до и после нужного интервала — из-за сдвига эквайринга.</li>
+          <li>Сохраните назначение платежа: по нему видно, это эквайринг, агрегатор или что-то ещё.</li>
+          <li>Отдельно выгрузите отчёт по комиссиям, если банк отдаёт его отдельным файлом.</li>
+        </ul>
+
+        <h2>Шаг 3. Свести по датам</h2>
+        <p>Практичнее сверять не по календарным дням, а по <em>расчётным периодам эквайринга</em>: банк перечисляет деньги за конкретный операционный день. Тогда таблица выглядит так:</p>
+        <table>
+          <thead>
+            <tr><th>Операционный день</th><th>Чеки: оплата картой</th><th>Пришло на счёт</th><th>Комиссия</th><th>Расхождение</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>12.10</td><td>184 500</td><td>181 737</td><td>2 763</td><td>0</td></tr>
+            <tr><td>13.10</td><td>96 200</td><td>94 767</td><td>1 433</td><td>0</td></tr>
+            <tr><td>14.10</td><td>151 300</td><td>151 300</td><td>0</td><td>проверить</td></tr>
+          </tbody>
+        </table>
+        <p>Суммы условные — важен принцип: «пришло на счёт» плюс «комиссия» должно давать «оплату картой». Если комиссия равна нулю, значит деньги пришли от платёжного агрегатора, а не напрямую от банка-эквайера.</p>
+
+        <h2>Формулы Excel для сверки</h2>
+        <p>Когда оба файла приведены к одной структуре, сверка считается формулами, без ручного пересчёта:</p>
+        <pre><code>=СУММЕСЛИМН(Чеки!$F:$F; Чеки!$A:$A; $A2; Чеки!$C:$C; "Карта")
+=СУММЕСЛИМН(Банк!$D:$D; Банк!$B:$B; $A2)
+=D2-E2-F2</code></pre>
+        <p>Где <code>Чеки!$F:$F</code> — сумма расчёта, <code>Чеки!$A:$A</code> — операционный день, <code>Чеки!$C:$C</code> — вид оплаты, <code>Банк!$D:$D</code> — сумма поступления, <code>F2</code> — комиссия. Если итог в последней колонке не ноль, строка уходит в разбор.</p>
+
+        <h2>Типовые расхождения и что они значат</h2>
+        <table>
+          <thead>
+            <tr><th>Что видно</th><th>Вероятная причина</th><th>Что делать</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Разница равна комиссии</td><td>Не учли эквайринг</td><td>Добавить колонку комиссии из отчёта банка</td></tr>
+            <tr><td>Сумма по банку больше</td><td>Поступление за прошлый период</td><td>Сверить по операционным дням, а не по датам выписки</td></tr>
+            <tr><td>Сумма по чекам больше</td><td>Возвраты или смена не закрыта</td><td>Проверить возвраты прихода и незакрытые смены</td></tr>
+            <tr><td>Один день выпал полностью</td><td>Касса работала офлайн</td><td>Дождаться передачи документов из ФН и повторить выгрузку</td></tr>
+            <tr><td>Расхождение «прыгает» по кассам</td><td>Разные эквайеры на точках</td><td>Сверять по каждой кассе отдельно</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Чек-лист перед сдачей сверки</h2>
+        <ul>
+          <li>Период в ОФД и в банке совпадает по границам (включая последний день).</li>
+          <li>Возвраты прихода выгружены отдельно и учтены со знаком минус.</li>
+          <li>Разбивка по видам оплаты есть, наличные не смешаны с картой.</li>
+          <li>Все смены за период закрыты — иначе часть чеков ещё не в ОФД.</li>
+          <li>Итоговое расхождение объяснено построчно, а не «округлили».</li>
+        </ul>
+        <p>Если сверка не сходится второй месяц подряд, проблема обычно не в формулах, а в границах периода и незакрытых сменах — начинать разбор стоит с них.</p>
+        <h2>Частые вопросы</h2>
+        <h3>Почему сумма по чекам больше, чем поступило на счёт?</h3>
+        <p>Чаще всего из-за комиссии эквайринга и возвратов: банк перечисляет сумму за вычетом комиссии, а возвраты уходят списанием. Вторая причина — часть оплат прошла наличными и на счёт не попала.</p>
+        <h3>Нужно ли учитывать чеки коррекции при сверке?</h3>
+        <p>Да, но отдельной строкой: коррекция исправляет прошлый расчёт и может относиться к другому периоду. Если смешать её с обычными чеками, расхождение по дням станет бессмысленным.</p>
+        <h3>Можно ли сверять по дате из выписки банка?</h3>
+        <p>Так делать не стоит: банк перечисляет деньги за операционный день с задержкой. Надёжнее сверять по операционным дням эквайринга, а дату выписки использовать как справочную.</p>
+        <h3>Что делать, если один день вообще не сходится?</h3>
+        <p>Проверьте три вещи: закрыта ли смена за этот день, не работала ли касса без связи и не попало ли поступление в следующий операционный день. В большинстве случаев причина в одном из этих трёх пунктов.</p>
+      </article>
+
+      <div class="card" style="margin-top:22px">
+        <h3>Нужна помощь с выгрузкой?</h3>
+        <p class="muted small">Соберём чеки из ОФД в Excel/CSV или загрузим данные в 1С — от 1 500 ₽. Пришлите ОФД, количество касс и период.</p>
+        <div class="hero-actions" style="margin:0">
+          <a class="btn btn-primary" href="../uslugi.html">Цены и калькулятор</a>
+          <a class="btn btn-ghost" href="../zayavka.html">Оставить заявку</a>
+          <a class="btn btn-ghost" href="#" data-email>Написать на почту</a>
+        </div>
+      </div>
+
+      <p class="small muted" style="margin-top:18px">Смотрите также: <a href="kak-vygruzit-cheki-iz-ofd-v-excel.html">выгрузка чеков из ОФД в Excel</a>, <a href="kak-vygruzit-cheki-iz-ofd-za-mesyac.html">выгрузка чеков за месяц</a>, <a href="ofd-ne-otdaet-cheki-za-proshlyj-period.html">ОФД не отдаёт чеки за прошлый период</a>. <a href="chek-ofd-dlya-avansovogo-otcheta.html">чек для авансового отчёта</a>, <a href="vygruzka-chekov-iz-ofd-v-google-tablicy.html">выгрузка в Google Таблицы</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Инструкции</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="../uslugi.html">Услуги</a>
+      <a href="../zayavka.html">Заявка</a>
+      <a href="../politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js"></script>
+</body>
+</html>
