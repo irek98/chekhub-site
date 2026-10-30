@@ -495,6 +495,14 @@ p { margin: 0 0 14px; }
 }
 .yf-prefill .btn { font-size: 13.5px; padding: 8px 12px; }
 .yf-prefill .small { flex-basis: 100%; }
+/* «Или напишите в Telegram» под формой заявки */
+.tg-alt {
+  margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center;
+}
+.tg-alt .small { flex: 1 1 320px; margin: 0; }
+/* подсказка под кнопками «Заявка + Telegram» */
+.tg-hint { margin: 0 0 2px; }
 /* hidden должен побеждать display:grid у формы */
 .lead-form[hidden], .yf-embed[hidden] { display: none !important; }
 

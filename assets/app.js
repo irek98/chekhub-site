@@ -142,6 +142,50 @@
     goal("lead_form_view");
   })();
 
+  // 2.6в Кнопка «Написать в Telegram» рядом с «Оставить заявку».
+  //     Форма — основной путь (Яндекс.Формы открываются из РФ без VPN), чат — для
+  //     коротких вопросов. Кнопку добавляем скриптом, чтобы не править разметку
+  //     в каждой странице: берём блоки кнопок (.hero-actions, .calc-actions),
+  //     где уже есть ссылка на заявку.
+  (function telegramCta() {
+    if (!cfg.telegram) return;
+
+    // Пары «блок кнопок → кнопка заявки»: Telegram ставим сразу после заявки.
+    var pairs = [];
+    $$(".hero-actions, .calc-actions").forEach(function (box) {
+      if (box.querySelector("[data-tg-cta]")) return;
+      var lead = $$('a[href*="zayavka.html"]', box).filter(function (a) {
+        return /заявк/i.test(a.textContent || "");
+      })[0];
+      // в совсем длинных блоках кнопку не добавляем — там уже тесно
+      if (lead && box.querySelectorAll("a").length < 5) pairs.push({ box: box, lead: lead });
+    });
+
+    pairs.forEach(function (pair) {
+      var link = document.createElement("a");
+      link.className = "btn btn-ghost" + (/btn-lg/.test(pair.lead.className) ? " btn-lg" : "");
+      link.href = cfg.telegram;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = "Написать в Telegram";
+      link.setAttribute("data-tg-cta", "");
+      link.addEventListener("click", function () { goal("telegram_click"); });
+      pair.box.appendChild(link);
+    });
+
+    // Подсказка: Telegram из РФ обычно открывается без VPN, но если нет — есть почта.
+    if (!pairs.length) return;
+    var host = pairs[0].box.parentNode;
+    if (host && !host.querySelector(".tg-hint")) {
+      var hint = document.createElement("p");
+      hint.className = "small muted tg-hint";
+      hint.innerHTML = "Отвечаем и в чате " + (cfg.telegramLabel || "Telegram") + "." +
+        (cfg.email ? " Если Telegram не открывается без VPN — напишите на <a href=\"mailto:" +
+          cfg.email + "\">" + cfg.email + "</a>, почта работает всегда." : "");
+      host.insertBefore(hint, pairs[0].box.nextSibling);
+    }
+  })();
+
   // 2.7 Формы заявки: отправка на сервер (если задан formEndpoint в config.js)
   //     либо резервные способы — Яндекс.Почта, Gmail, почтовая программа, «Скопировать».
   //     Раньше форма открывала только Telegram, который из РФ без VPN недоступен.
