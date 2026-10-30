@@ -660,5 +660,145 @@ html { scroll-padding-top: 84px; }
 .footer-links a { color: var(--muted); }
 .footer-links a:hover { color: var(--text); }
 
+/* ==========================================================================
+   6. Бесплатные инструменты: мини-проверка чека, квиз, превью файла,
+      генератор письма в ОФД, фильтр по ОФД, глоссарий
+   ========================================================================== */
+
+/* 6.0 Ссылка «к содержанию» — первый Tab на странице (доступность) */
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 60;
+  padding: 10px 16px; border-radius: 0 0 12px 0;
+  background: #2f7cf6; color: #fff; font-weight: 600;
+}
+.skip-link:focus { left: 0; text-decoration: none; outline: 2px solid #fff; outline-offset: 2px; }
+/* клавиатурная навигация по полям, «Содержанию» и чипам — та же рамка, что у ссылок */
+input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible,
+.to-top:focus-visible, .chip:focus-visible, .quiz-option:focus-within {
+  outline: 2px solid rgba(111, 179, 255, .7); outline-offset: 2px;
+}
+
+/* 6.1 Мини-проверка чека по QR на главной */
+.mini-check { display: grid; grid-template-columns: 1.05fr .95fr; gap: 22px; align-items: start; }
+.mini-check-form { display: grid; gap: 10px; }
+.mini-check-input {
+  width: 100%; padding: 13px 14px; font-size: 15px; color: var(--text);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .18); border-radius: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10);
+}
+.mini-check-input::placeholder { color: rgba(157, 176, 203, .7); }
+.mini-check-input:hover { background: rgba(255, 255, 255, .10); }
+.mini-check-input:focus {
+  outline: none; border-color: rgba(111, 179, 255, .60); background: rgba(255, 255, 255, .12);
+  box-shadow: 0 0 0 4px rgba(111, 179, 255, .20);
+}
+.mini-check-out {
+  background: rgba(3, 7, 14, .45); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 16px 18px; min-height: 168px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+.mini-check-out dl { display: grid; grid-template-columns: auto 1fr; gap: 7px 16px; margin: 12px 0 0; }
+.mini-check-out dt { color: var(--muted); font-size: 13.5px; }
+.mini-check-out dd {
+  margin: 0; font-size: 14px; word-break: break-all;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+.mini-check-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 14px 0 0; font-size: 14px; }
+
+/* 6.2 Превью примера выгрузки */
+.csv-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.csv-table th, .csv-table td {
+  border: 1px solid rgba(255, 255, 255, .13); padding: 8px 10px;
+  text-align: left; white-space: nowrap;
+}
+.csv-table th { background: rgba(255, 255, 255, .07); font-weight: 600; }
+.csv-table tbody tr:nth-child(even) td { background: rgba(255, 255, 255, .03); }
+.csv-table td:nth-child(7) { text-align: right; }
+.csv-table td:nth-child(n+9) {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12.5px;
+}
+.csv-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; margin: 14px 0 0; padding: 0; list-style: none; }
+.csv-legend li { font-size: 13.5px; color: var(--muted); }
+.csv-legend b { color: var(--text); font-weight: 600; }
+
+/* 6.3 Квиз «что вам нужно» */
+.quiz { display: grid; gap: 18px; max-width: 820px; }
+.quiz-bar { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, .10); overflow: hidden; }
+.quiz-bar > span {
+  display: block; height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, #2f7cf6, #16c2b0); transition: width .25s ease;
+}
+.quiz-step { display: none; }
+.quiz-step.is-active { display: block; }
+.quiz-step h2, .quiz-step h3 { margin: 0 0 4px; font-size: 21px; }
+.quiz-sub { margin: 0; font-size: 14px; color: var(--muted); }
+.quiz-options { display: grid; gap: 10px; margin: 16px 0 0; }
+.quiz-option {
+  display: flex; gap: 12px; align-items: flex-start; padding: 13px 15px;
+  border-radius: 14px; cursor: pointer;
+  background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .14);
+  transition: background .15s, border-color .15s;
+}
+.quiz-option:hover { background: rgba(255, 255, 255, .09); border-color: rgba(111, 179, 255, .40); }
+.quiz-option input { margin: 4px 0 0; flex: 0 0 auto; }
+.quiz-option b { display: block; font-size: 15.5px; color: var(--text); }
+.quiz-option span { display: block; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+.quiz-option.is-checked { background: rgba(47, 124, 246, .18); border-color: rgba(111, 179, 255, .60); }
+.quiz-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.quiz-result { display: none; }
+.quiz-result.is-active { display: block; }
+.quiz-result h2 { margin-top: 0; }
+.quiz-result .calc-price { margin: 6px 0 4px; }
+.quiz-list { margin: 10px 0 16px; padding-left: 20px; font-size: 15px; }
+.quiz-list li { margin-bottom: 6px; }
+.quiz-help { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; }
+
+/* 6.4 Генератор письма в ОФД */
+.letter-out {
+  white-space: pre-wrap; word-wrap: break-word; margin: 0;
+  max-height: 420px; overflow: auto;
+  background: rgba(3, 7, 14, .55); border: 1px solid var(--glass-border);
+  border-radius: 14px; padding: 16px 18px;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 13.5px; line-height: 1.65; color: #dbe9ff;
+}
+.letter-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+/* 6.5 Фильтр по ОФД на странице инструкций */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.chip {
+  padding: 8px 14px; border-radius: 999px; font: inherit; font-size: 14px;
+  cursor: pointer; color: var(--muted);
+  background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .14);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.chip:hover { color: var(--text); background: rgba(255, 255, 255, .10); }
+.chip[aria-pressed="true"] { color: #fff; background: rgba(47, 124, 246, .55); border-color: rgba(111, 179, 255, .70); }
+.chip-count { opacity: .65; font-size: 12.5px; margin-left: 5px; }
+/* .article-item — grid-элемент, поэтому атрибут hidden сам по себе не сработает */
+.article-list [hidden] { display: none !important; }
+.filter-note { display: none; }
+.filter-note.is-visible { display: block; }
+
+/* 6.6 Глоссарий ФФД */
+.glossary-search { max-width: 460px; margin: 0 0 22px; }
+.glossary { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 30px; margin: 0; padding: 0; }
+.glossary .term { margin: 0; }
+.glossary dt { font-size: 16.5px; font-weight: 700; margin: 0 0 4px; scroll-margin-top: 92px; }
+.glossary dt small { font-weight: 400; color: var(--muted); font-size: 13px; }
+.glossary dd { margin: 0; font-size: 15px; line-height: 1.6; color: #d7e3f4; }
+.glossary .term[hidden] { display: none !important; }
+.glossary-empty { display: none; }
+.glossary-empty.is-visible { display: block; }
+
+@media (max-width: 900px) {
+  .mini-check { grid-template-columns: 1fr; }
+  .glossary { grid-template-columns: 1fr; gap: 18px; }
+  .csv-legend { grid-template-columns: 1fr; }
+  .mini-check-out { min-height: 0; }
+}
+
 
 

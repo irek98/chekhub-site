@@ -38,6 +38,29 @@
     }
   }
 
+  // Копирование в буфер: clipboard API, а если браузер не даёт — старый execCommand.
+  // Нужно квизу, генератору письма и разбору QR (там свои копии, но новые блоки берут эту).
+  function copyToClipboard(text, btn) {
+    function done() { if (btn) btn.textContent = "Скопировано ✓"; }
+    function legacy(t) {
+      var ta = document.createElement("textarea");
+      ta.value = t;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { legacy(text); });
+    } else {
+      legacy(text);
+    }
+  }
+
   // Клик по любой кнопке «Написать в Telegram»
   $$("[data-tg]").forEach(function (el) {
     el.addEventListener("click", function () { goal("telegram_click"); });
@@ -126,19 +149,35 @@
       var months = q.get("months");
       var fmt = q.get("format");
       var sum = q.get("sum");
-      if (kass || sum) {
+      var task = (q.get("task") || "").trim().slice(0, 300);
+      if (kass || sum || task) {
         var bits = [];
         if (kass) bits.push("касс: " + kass);
         if (months) bits.push("период: " + months + " мес.");
         if (fmt) bits.push("формат: " + (fmt === "1c" ? "1С" : fmt === "csv" ? "CSV" : "Excel"));
         if (sum) bits.push("ориентир: от " + sum + " ₽");
-        var text = "Расчёт с сайта:\n" + bits.join(", ") + "\nОФД: \nЗадача: ";
+        var text = task
+          ? "Задача с сайта:\n" + task + (bits.length ? "\nУточнения: " + bits.join(", ") : "") + "\nОФД: \nКонтакт: "
+          : "Расчёт с сайта:\n" + bits.join(", ") + "\nОФД: \nЗадача: ";
 
         var note = document.createElement("div");
         note.className = "yf-prefill";
-        note.innerHTML = "<b>Ваш расчёт:</b> " + bits.join(" · ") +
-          ' <button type="button" class="btn btn-ghost btn-sm">Скопировать расчёт</button>' +
-          '<span class="small muted" style="display:block;margin-top:6px">Вставьте его в поле «Задача» — так мы сразу увидим вводные.</span>';
+        // innerHTML не используем: тексты приходят из адреса (?kass=…&task=…)
+        var noteTitle = document.createElement("b");
+        noteTitle.textContent = task ? "Ваша задача:" : "Ваш расчёт:";
+        note.appendChild(noteTitle);
+        note.appendChild(document.createTextNode(" " + (task || bits.join(" · ")) + " "));
+        var noteBtn = document.createElement("button");
+        noteBtn.type = "button";
+        noteBtn.className = "btn btn-ghost btn-sm";
+        noteBtn.textContent = "Скопировать";
+        note.appendChild(noteBtn);
+        var noteTip = document.createElement("span");
+        noteTip.className = "small muted";
+        noteTip.style.display = "block";
+        noteTip.style.marginTop = "6px";
+        noteTip.textContent = "Вставьте его в поле «Задача» — так мы сразу увидим вводные.";
+        note.appendChild(noteTip);
         box.parentNode.insertBefore(note, box);
 
         var btn = note.querySelector("button");
@@ -465,10 +504,40 @@
       return v.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    // Компактный вывод для главной: разобран один чек, без таблицы и CSV.
+    function renderCompact() {
+      var r = parsed[0];
+      var html = [];
+      if (parsed.length > 1) {
+        html.push('<p class="small muted" style="margin:0 0 8px">Разобрали строк: ' + parsed.length + ', показан первый.</p>');
+      }
+      if (r.ok) {
+        html.push('<span class="badge badge-ok">Строка разобрана</span>');
+        html.push("<dl>",
+          "<dt>Дата и время</dt><dd>" + esc(r.f.date) + "</dd>",
+          "<dt>Сумма</dt><dd>" + money(r.f.sum) + " ₽</dd>",
+          "<dt>Операция</dt><dd>" + (esc(r.f.op) || "—") + "</dd>",
+          "<dt>ФН</dt><dd>" + esc(r.f.fn) + "</dd>",
+          "<dt>ФД</dt><dd>" + esc(r.f.fd) + "</dd>",
+          "<dt>ФПД</dt><dd>" + esc(r.f.fp) + "</dd>",
+          "</dl>");
+      } else {
+        html.push('<span class="badge badge-err">Не разобрали</span>');
+        html.push('<p class="small muted" style="margin:10px 0 0">' + esc(r.errors.join("; ")) + ".</p>");
+        html.push('<p class="small muted" style="margin:8px 0 0">В QR-коде чека только параметры вида <code>t=…&amp;s=…&amp;fn=…</code>. Ссылку на проверку ФНС тоже можно вставить — параметры из неё возьмём.</p>');
+      }
+      out.innerHTML = html.join("");
+    }
+
     function render() {
       if (!out) return;
       if (!parsed.length) {
         out.innerHTML = '<p class="small muted" style="margin:0">Результат появится здесь: дата, сумма, ФН, ФД и ФПД.</p>';
+        if (csvBtn) csvBtn.disabled = true;
+        return;
+      }
+      if (out.getAttribute("data-compact") === "1") {
+        renderCompact();
         if (csvBtn) csvBtn.disabled = true;
         return;
       }
@@ -506,6 +575,11 @@
       parsed = lines.map(parseLine);
       render();
       if (lines.length) goal("qr_parse");
+      // переход на полную проверку сохраняет вставленную строку
+      var more = $("#qr-more");
+      if (more) {
+        more.setAttribute("href", "proverka-cheka-po-qr.html" + (lines.length ? "?q=" + encodeURIComponent(lines[0]) : ""));
+      }
       if (hint) {
         hint.textContent = lines.length
           ? "Разобрали строк: " + lines.length + ". Всё считается в браузере — данные чека мы не сохраняем."
@@ -539,6 +613,11 @@
       goal("qr_csv");
     }
 
+    // Строка из адреса (?q=…) — так на полную проверку переходят с главной.
+    var preset = "";
+    try { preset = new URLSearchParams(window.location.search).get("q") || ""; } catch (e) {}
+    if (preset && !input.value) { input.value = preset; run(); }
+
     var btnParse = $("#qr-parse");
     if (btnParse) btnParse.addEventListener("click", run);
 
@@ -562,29 +641,34 @@
     if (csvBtn) csvBtn.addEventListener("click", downloadCsv);
 
     input.addEventListener("keydown", function (e) {
-      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { e.preventDefault(); run(); }
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { e.preventDefault(); run(); return; }
+      // на главной поле однострочное — обычный Enter тоже разбирает
+      if (e.key === "Enter" && !e.shiftKey && input.tagName === "INPUT") { e.preventDefault(); run(); }
     });
   })();
 
   // 2.75 Заявка из калькулятора: /zayavka.html?kass=3&months=2&format=1c&urgent=1&sum=6000
   // Человек не вводит второй раз то, что уже выбрал в расчёте.
   (function leadPrefill() {
+    // форму ищем по-разному: на заявке это <form name="zayavka" id="lead-form">
     var form = $$("form.lead-form").filter(function (f) {
       var name = f.querySelector('input[name="form-name"]');
-      return name && name.value === "zayavka";
+      return (name && name.value === "zayavka") ||
+        f.getAttribute("name") === "zayavka" ||
+        f.id === "lead-form";
     })[0];
     if (!form) return;
 
     var params;
     try { params = new URLSearchParams(window.location.search); } catch (e) { return; }
-    var keys = ["kass", "months", "format", "sum", "urgent"];
+    var keys = ["kass", "months", "format", "sum", "urgent", "task"];
     if (!keys.some(function (k) { return params.get(k); })) return;
 
     var cashboxes = parseInt(params.get("kass") || "", 10);
     var months = parseInt(params.get("months") || "", 10);
     var sum = parseInt(params.get("sum") || "", 10);
     var urgent = params.get("urgent") === "1";
-    var formatMap = { excel: "Excel", csv: "CSV", "1c": "Загрузка в 1С" };
+    var formatMap = { excel: "Excel", csv: "CSV", "1c": "Загрузка в 1С", sheets: "Google Таблицы" };
     var format = formatMap[params.get("format") || ""] || "";
 
     var elCash = $("#f-cashboxes");
@@ -593,15 +677,22 @@
     var elFormat = $("#f-format");
     if (elFormat && format) elFormat.value = format;
 
+    var fromQuiz = params.get("from") === "kviz" || !!(params.get("task") || "").trim();
+
     var elTask = $("#f-task");
-    if (elTask && !elTask.value) {
-      var parts = [];
-      if (cashboxes) parts.push("касс: " + cashboxes);
-      if (months) parts.push("период: " + months + " мес.");
-      if (format) parts.push("формат: " + format);
-      if (urgent) parts.push("срочно, нужно за сутки");
-      if (sum) parts.push("ориентир по цене: от " + sum + " ₽");
-      elTask.value = "Расчёт с калькулятора сайта — " + parts.join(", ") + ". Нужны чеки за: ";
+    if (elTask) {
+      // текст задачи приходит из квиза (?task=…) — он важнее пересчёта
+      var taskText = (params.get("task") || "").trim().slice(0, 300);
+      if (taskText) elTask.value = taskText;
+      else if (!elTask.value) {
+        var parts = [];
+        if (cashboxes) parts.push("касс: " + cashboxes);
+        if (months) parts.push("период: " + months + " мес.");
+        if (format) parts.push("формат: " + format);
+        if (urgent) parts.push("срочно, нужно за сутки");
+        if (sum) parts.push("ориентир по цене: от " + sum + " ₽");
+        elTask.value = "Расчёт с калькулятора сайта — " + parts.join(", ") + ". Нужны чеки за: ";
+      }
     }
 
     var elPlan = $('input[name="plan"]');
@@ -614,8 +705,8 @@
       if (months) bits.push(months + " мес.");
       if (format) bits.push(format);
       if (urgent) bits.push("срочно");
-      note.textContent = "Подставил данные из калькулятора: " + bits.join(" · ") +
-        (sum ? " — ориентир от " + sum + " ₽" : "") + ". Проверьте и дополните поля.";
+      note.textContent = (fromQuiz ? "Подставил ответы из квиза: " : "Подставил данные из калькулятора: ") +
+        bits.join(" · ") + (sum ? " — ориентир от " + sum + " ₽" : "") + ". Проверьте и дополните поля.";
       note.hidden = false;
     }
     goal("lead_prefill");
@@ -623,6 +714,352 @@
 
   // 2.9 «Содержание», полоса прогресса чтения, кнопка «наверх»
   readingTools();
+
+  // 2.91 Квиз «что вам нужно» (/kviz.html): 4 вопроса → рекомендация + заявка.
+  // Модуль включается только там, где есть #quiz, — на остальных страницах выходит сразу.
+  (function quizTool() {
+    var root = $("#quiz");
+    if (!root) return;
+
+    var form = $("#quiz-form");
+    var steps = $$(".quiz-step", root);
+    var bar = $("#quiz-bar");
+    var result = $("#quiz-result");
+    var prices = cfg.price || {};
+    var current = 0;
+
+    function esc(s) {
+      return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+      });
+    }
+    function checked(name) { return form.querySelector('input[name="' + name + '"]:checked'); }
+    function label(el) { return el ? (el.getAttribute("data-label") || el.value) : ""; }
+    function money(n) { return n.toLocaleString("ru-RU"); }
+
+    function show(i) {
+      current = Math.max(0, Math.min(steps.length - 1, i));
+      steps.forEach(function (s, idx) { s.classList.toggle("is-active", idx === current); });
+      if (bar) bar.style.width = Math.round(((current + 1) / steps.length) * 100) + "%";
+    }
+
+    // выбранная карточка подсвечивается, чтобы выбор было видно без наведения
+    $$("input[type=radio]", form).forEach(function (el) {
+      el.addEventListener("change", function () {
+        $$('input[name="' + el.name + '"]', form).forEach(function (other) {
+          var card = other.closest(".quiz-option");
+          if (card) card.classList.toggle("is-checked", other.checked);
+        });
+      });
+    });
+
+    root.addEventListener("click", function (e) {
+      var node = e.target;
+      if (!node || !node.closest) return;
+      var back = node.closest("[data-back]");
+      var next = node.closest("[data-next]");
+      var restart = node.closest("#quiz-restart");
+      var copyBtn = node.closest("#quiz-copy");
+
+      if (back) { e.preventDefault(); show(current - 1); return; }
+      if (restart) {
+        e.preventDefault();
+        result.classList.remove("is-active");
+        result.innerHTML = "";
+        show(0);
+        return;
+      }
+      if (next) {
+        e.preventDefault();
+        var name = steps[current].getAttribute("data-name");
+        var hint = $(".quiz-help", steps[current]);
+        if (name && !checked(name)) {
+          if (hint) hint.textContent = "Выберите один вариант — без этого не посчитать.";
+          return;
+        }
+        if (current === steps.length - 1) finish();
+        else show(current + 1);
+        return;
+      }
+      if (copyBtn) {
+        copyToClipboard(copyBtn.dataset.text || "", copyBtn);
+        goal("quiz_copy");
+      }
+    });
+
+    function finish() {
+      var goalEl = checked("goal");
+      var ofdEl = checked("ofd");
+      var kassEl = checked("kass");
+      var outEl = checked("out");
+      var kind = goalEl ? goalEl.value : "period";
+      var ofd = label(ofdEl);
+      var kass = label(kassEl);
+      var out = label(outEl);
+      var cashboxes = kassEl ? (kassEl.value === "6+" ? 6 : kassEl.value === "2-5" ? 3 : 1) : 1;
+
+      var sum = (prices.base || 1500) + (cashboxes - 1) * (prices.perCashbox || 500);
+      if (outEl && outEl.value === "1c") sum += prices.format1c || 1500;
+
+      var fmtParam = outEl && outEl.value === "1c" ? "1c" : outEl && outEl.value === "csv" ? "csv" :
+        outEl && outEl.value === "sheets" ? "sheets" : "excel";
+      var taskLine = [
+        "Выгрузка чеков" + (kind === "regular" ? " по расписанию" : " за период"),
+        ofd ? "ОФД: " + ofd : "",
+        kass ? "касс: " + kass : "",
+        out ? "формат: " + out : ""
+      ].filter(Boolean).join(", ");
+
+      var q = new URLSearchParams();
+      q.set("kass", String(cashboxes));
+      q.set("format", fmtParam);
+      q.set("sum", String(sum));
+      q.set("task", taskLine.slice(0, 300));
+      q.set("from", "kviz");
+      var leadHref = "zayavka.html?" + q.toString();
+
+      var title, intro, priceText = "", items = [], links = [], extra = "";
+
+      if (kind === "check") {
+        title = "Вам хватит бесплатной проверки по QR";
+        intro = "Разберите QR-код чека: увидите дату, сумму, ФН, ФД и ФПД и проверку формата каждого номера. Данные не уходят на сервер.";
+        items = [
+          "Дата, время и сумма чека",
+          "ФН, ФД и ФПД — что вводить в ФНС и кабинет ОФД",
+          "Скачивание разбора в CSV, если чеков несколько"
+        ];
+        links.push('<a class="btn btn-primary btn-lg" href="proverka-cheka-po-qr.html">Проверить чек по QR</a>');
+        links.push('<a class="btn btn-ghost btn-lg" href="glossarij-ffd.html">Что такое ФН, ФД, ФПД</a>');
+      } else if (kind === "self") {
+        title = "Похоже, справитесь сами";
+        intro = "Начните с инструкции под ваш ОФД и нужный формат: там шаги, лимиты выгрузки и типичные ошибки.";
+        items = [
+          "Инструкции по выгрузке в Excel, CSV и 1С",
+          "Глоссарий: ФН, ФД, ФПД, ФФД, смена, коррекция",
+          "Готовое письмо в поддержку ОФД, если данные не отдаются"
+        ];
+        links.push('<a class="btn btn-primary btn-lg" href="articles/index.html">Открыть инструкции</a>');
+        links.push('<a class="btn btn-ghost btn-lg" href="' + leadHref + '">Нужна помощь — заявка</a>');
+        extra = "Если разбираться некогда — выгрузка от 1 500 ₽ за кассу, срок 1–3 рабочих дня.";
+      } else {
+        var regular = kind === "regular";
+        title = regular ? "Нужна регулярная выгрузка" : "Нужна разовая выгрузка за период";
+        intro = regular
+          ? "Настроим выгрузку по расписанию: файл сам появляется в папке или таблице, либо приходит на почту."
+          : "Соберём чеки за период в один файл: дата, время, сумма, ФН, ФД, ФПД, при наличии — позиции.";
+        priceText = "от " + money(sum) + " ₽" + (regular ? " в месяц" : "");
+        var details = [];
+        if (ofd) details.push("ОФД: " + ofd);
+        if (kass) details.push("касс: " + kass);
+        if (out) details.push("формат: " + out);
+        items = [
+          details.join(", ") || "Забираем данные из кабинета ОФД или по API",
+          regular ? "Расписание: раз в день, неделю или месяц — как удобно" : "Срок 1–3 рабочих дня, срочно — за сутки",
+          "Пример файла до оплаты и предоплата 50%",
+          "Правки в течение 3 дней после сдачи"
+        ];
+        links.push('<a class="btn btn-primary btn-lg" href="' + leadHref + '">Оставить заявку</a>');
+        links.push('<button class="btn btn-ghost btn-lg" id="quiz-copy" type="button">Скопировать заявку</button>');
+      }
+
+      var requestText = [
+        "Заявка с сайта ЧекХаб",
+        "Задача: " + (kind === "regular" ? "регулярная выгрузка чеков" : "выгрузка чеков за период"),
+        ofd ? "ОФД: " + ofd : "ОФД: уточню",
+        kass ? "Касс: " + kass : "",
+        out ? "Формат: " + out : "",
+        priceText ? "Ориентир: " + priceText : "",
+        "Контакт: "
+      ].filter(Boolean).join("\n");
+
+      var html = ["<h2>" + esc(title) + "</h2>", '<p class="muted">' + esc(intro) + "</p>"];
+      if (priceText) html.push('<div class="calc-price">' + esc(priceText) + "</div>");
+      if (items.length) {
+        html.push('<ul class="quiz-list">');
+        items.forEach(function (t) { html.push("<li>" + esc(t) + "</li>"); });
+        html.push("</ul>");
+      }
+      html.push('<div class="hero-actions" style="margin-bottom:0">' + links.join("") + "</div>");
+      html.push('<p class="quiz-help">' + esc(extra || "Цена ориентировочная: итог зависит от ОФД, доступа к API и набора полей.") + "</p>");
+      html.push('<p class="quiz-help"><button class="btn btn-ghost" id="quiz-restart" type="button">Пройти заново</button></p>');
+
+      steps.forEach(function (s) { s.classList.remove("is-active"); });
+      if (bar) bar.style.width = "100%";
+      result.innerHTML = html.join("");
+      result.classList.add("is-active");
+      var cp = $("#quiz-copy", result);
+      if (cp) cp.dataset.text = requestText;
+      goal("quiz_finish");
+      try { result.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e) {}
+    }
+  })();
+
+  // 2.92 Фильтр инструкций по оператору ОФД (/articles/): чипы скрывают
+  // карточки без нужного data-ofd. Выбор сохраняется в адресе (?ofd=taxcom),
+  // чтобы ссылкой можно было поделиться.
+  (function ofdFilter() {
+    var box = $("#ofd-filter");
+    var list = $("#ofd-list");
+    if (!box || !list) return;
+
+    var items = $$("[data-ofd]", list);
+    var note = $("#ofd-note");
+    var chips = $$(".chip", box);
+
+    function apply(value, silent) {
+      var shown = 0;
+      items.forEach(function (item) {
+        var tags = (item.getAttribute("data-ofd") || "").split(/\s+/);
+        var hit = value === "all" || tags.indexOf(value) !== -1;
+        item.hidden = !hit;
+        if (hit) shown++;
+      });
+      chips.forEach(function (c) {
+        c.setAttribute("aria-pressed", c.getAttribute("data-ofd") === value ? "true" : "false");
+      });
+      if (note) note.classList.toggle("is-visible", shown === 0);
+      try {
+        var u = new URL(window.location.href);
+        if (value === "all") u.searchParams.delete("ofd");
+        else u.searchParams.set("ofd", value);
+        window.history.replaceState(null, "", u.toString());
+      } catch (e) {}
+      if (!silent) goal("ofd_filter");
+    }
+
+    box.addEventListener("click", function (e) {
+      var chip = e.target && e.target.closest ? e.target.closest(".chip") : null;
+      if (!chip) return;
+      apply(chip.getAttribute("data-ofd") || "all");
+    });
+
+    var preset = "";
+    try { preset = new URLSearchParams(window.location.search).get("ofd") || ""; } catch (e) {}
+    var has = chips.some(function (c) { return c.getAttribute("data-ofd") === preset; });
+    apply(has ? preset : "all", true);
+  })();
+
+  // 2.93 Генератор письма в ОФД (/pismo-v-ofd.html): собирает готовый запрос
+  // на выгрузку чеков, чтобы не писать в поддержку с нуля.
+  (function letterGen() {
+    var form = $("#letter-form");
+    if (!form) return;
+
+    var out = $("#letter-out");
+    var copyBtn = $("#letter-copy");
+    var txtBtn = $("#letter-txt");
+    var hint = $("#letter-hint");
+
+    function val(sel) { var el = $(sel); return el ? String(el.value || "").trim() : ""; }
+    function fmtDate(v) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || "");
+      return m ? m[3] + "." + m[2] + "." + m[1] : "";
+    }
+
+    function build() {
+      var ofd = val("#lf-ofd");
+      var org = val("#lf-org");
+      var inn = val("#lf-inn").replace(/\s+/g, "");
+      var kkt = val("#lf-kkt").replace(/\s+/g, "");
+      var fn = val("#lf-fn").replace(/\s+/g, "");
+      var from = fmtDate(val("#lf-from"));
+      var to = fmtDate(val("#lf-to"));
+      var what = val("#lf-what");
+      var format = val("#lf-format");
+      var contact = val("#lf-contact");
+
+      var period = from && to ? "с " + from + " по " + to : from ? "с " + from : to ? "по " + to : "";
+      var subject = "Запрос выгрузки фискальных документов" + (period ? " " + period : "") + (kkt ? " (ККТ " + kkt + ")" : "");
+
+      var lines = [];
+      lines.push("Тема: " + subject);
+      lines.push("");
+      lines.push("Здравствуйте!");
+      lines.push("");
+      if (ofd) lines.push("Оператор ОФД: " + ofd + ".");
+      lines.push("Прошу предоставить выгрузку фискальных документов" + (period ? " " + period : "") + "." + (org ? " Организация: " + org + "." : ""));
+      if (inn) lines.push("ИНН: " + inn + ".");
+      if (kkt) lines.push("Регистрационный номер ККТ: " + kkt + ".");
+      if (fn) lines.push("Заводской номер фискального накопителя: " + fn + ".");
+      lines.push("");
+      lines.push("Что нужно: " + (what || "чеки за период — шапка чека и позиции") + ".");
+      lines.push("Формат файла: " + (format || "Excel (xlsx)") + ".");
+      lines.push("");
+      lines.push("Если данных за период нет в личном кабинете, прошу указать причину и период, за который выгрузка возможна.");
+      lines.push("Если выгрузка платная или ограничена тарифом — сообщите стоимость и порядок оплаты.");
+      lines.push("");
+      lines.push("Ответ прошу прислать на " + (contact || "этот адрес") + ".");
+      lines.push("");
+      lines.push("С уважением,");
+      lines.push(org || "владелец кассы");
+      if (contact) lines.push(contact);
+
+      if (out) out.textContent = lines.join("\n");
+
+      if (hint) {
+        var notes = [];
+        if (!kkt) notes.push("Без номера ККТ поддержка не найдёт кассу — добавьте его.");
+        if (!period) notes.push("Не указан период: без него ответ будет «уточните даты».");
+        if (inn && !/^(\d{10}|\d{12})$/.test(inn)) notes.push("ИНН обычно 10 или 12 цифр — проверьте номер.");
+        if (fn && !/^\d{16}$/.test(fn)) notes.push("Заводской номер ФН — ровно 16 цифр.");
+        hint.className = notes.length ? "small" : "small muted";
+        hint.textContent = notes.length
+          ? notes.join(" ")
+          : "Письмо готово. Скопируйте текст и отправьте в чат поддержки или на почту вашего ОФД.";
+      }
+    }
+
+    form.addEventListener("input", build);
+    form.addEventListener("change", build);
+    build();
+
+    if (copyBtn) {
+      copyBtn.addEventListener("click", function () {
+        if (out) copyToClipboard(out.textContent || "", copyBtn);
+        goal("letter_copy");
+      });
+    }
+
+    if (txtBtn) {
+      txtBtn.addEventListener("click", function () {
+        var text = out ? out.textContent || "" : "";
+        var blob = new Blob(["\uFEFF" + text], { type: "text/plain;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "pismo-v-ofd.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+        goal("letter_download");
+      });
+    }
+  })();
+
+  // 2.94 Поиск по глоссарию ФФД (/glossarij-ffd.html): фильтр терминов по тексту.
+  (function glossarySearch() {
+    var input = $("#gloss-search");
+    if (!input) return;
+    var terms = $$(".glossary .term");
+    var empty = $("#gloss-empty");
+
+    function norm(s) { return String(s || "").toLowerCase().replace(/ё/g, "е"); }
+
+    function apply() {
+      var q = norm(input.value).trim();
+      var shown = 0;
+      terms.forEach(function (t) {
+        var hit = !q || norm(t.textContent).indexOf(q) !== -1;
+        t.hidden = !hit;
+        if (hit) shown++;
+      });
+      if (empty) empty.classList.toggle("is-visible", shown === 0);
+    }
+
+    input.addEventListener("input", apply);
+    apply();
+  })();
 
   // 3. Калькулятор стоимости
   var form = $("#calc-form");

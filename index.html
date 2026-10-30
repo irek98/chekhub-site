@@ -31,7 +31,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="assets/style.css?v=20261031">
+  <link rel="stylesheet" href="assets/style.css?v=20261101">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -105,6 +105,32 @@
         <p class="small muted" style="margin:0 0 6px">Гарантия: если ваш ОФД не отдаёт данные за нужный период — вернём предоплату.</p>
         <p class="small muted" style="margin:0">Как выглядит результат: <a href="files/example-vygruzka-chekov.csv" download>пример файла выгрузки</a> (CSV, данные тестовые)</p>
       </aside>
+    </div>
+  </section>
+
+  <section id="mini-check" style="padding-top:0">
+    <div class="wrap">
+      <div class="mini-check">
+        <div>
+          <h2>Проверить чек по QR — прямо здесь</h2>
+          <p class="muted" style="margin:0 0 14px">Вставьте строку из QR-кода чека: разберём её на дату, сумму, ФН, ФД и ФПД и проверим формат каждого номера. Без регистрации, данные чека не уходят на сервер.</p>
+          <div class="mini-check-form">
+            <label class="tool-label" for="qr-input">Строка QR-кода чека</label>
+            <input id="qr-input" class="mini-check-input" type="text" autocomplete="off" spellcheck="false"
+                   placeholder="t=20261024T1830&amp;s=1999.00&amp;fn=7380440700123456&amp;i=12345&amp;fp=1234567890&amp;n=1">
+            <div class="tool-actions">
+              <button class="btn btn-primary" id="qr-parse" type="button">Разобрать</button>
+              <button class="btn btn-ghost" id="qr-example" type="button">Пример</button>
+              <a class="btn btn-ghost" id="qr-more" href="proverka-cheka-po-qr.html">Полная проверка</a>
+            </div>
+            <p class="small muted" id="qr-hint" style="margin:0" role="status" aria-live="polite">Строка QR есть на самом чеке. Скопировать её можно любым приложением-сканером.</p>
+          </div>
+        </div>
+        <div class="mini-check-out" id="qr-result" data-compact="1" aria-live="polite">
+          <p class="small muted" style="margin:0">Результат появится здесь: дата, сумма, ФН, ФД и ФПД.</p>
+        </div>
+      </div>
+      <p class="small muted" style="margin:14px 0 0">Проверить не формат, а сам чек в ФНС — <a href="proverka-cheka-po-qr.html">инструкция и полный разбор</a> · расшифровка реквизитов — <a href="glossarij-ffd.html">глоссарий ФН, ФД и ФПД</a></p>
     </div>
   </section>
 
@@ -242,6 +268,45 @@
     </div>
   </section>
 
+  <section id="primer">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Как выглядит готовый файл</h2>
+        <p class="muted">Одна строка — один фискальный документ: дата, время, касса, тип расчёта, сумма, реквизиты. Данные в примере тестовые.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="csv-table">
+          <caption class="small muted" style="text-align:left;padding:0 0 10px">Фрагмент выгрузки: example-vygruzka-chekov.csv</caption>
+          <thead>
+            <tr>
+              <th>Дата</th><th>Время</th><th>Касса</th><th>Точка</th><th>Смена</th><th>Тип документа</th>
+              <th>Сумма, ₽</th><th>НДС</th><th>ФН</th><th>ФД</th><th>ФПД</th><th>Позиций</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>01.09.2026</td><td>09:14:02</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>412</td><td>Приход</td><td>1 250,00</td><td>НДС 20%</td><td>9960440301234567</td><td>84512</td><td>3274185632</td><td>3</td></tr>
+            <tr><td>01.09.2026</td><td>09:31:47</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>412</td><td>Приход</td><td>540,00</td><td>НДС 20%</td><td>9960440301234567</td><td>84513</td><td>1120457893</td><td>2</td></tr>
+            <tr><td>01.09.2026</td><td>10:02:11</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>412</td><td>Возврат прихода</td><td>300,00</td><td>НДС 20%</td><td>9960440301234567</td><td>84514</td><td>4091837265</td><td>1</td></tr>
+            <tr><td>01.09.2026</td><td>18:44:35</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>413</td><td>Приход</td><td>2 870,50</td><td>НДС 20%</td><td>9960440301234567</td><td>84515</td><td>2211904567</td><td>6</td></tr>
+            <tr><td>01.09.2026</td><td>19:03:09</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>413</td><td>Приход</td><td>199,90</td><td>НДС 20%</td><td>9960440301234567</td><td>84516</td><td>7734012958</td><td>1</td></tr>
+            <tr><td>01.09.2026</td><td>19:57:22</td><td>ККТ-02</td><td>Точка на Мира</td><td>208</td><td>Приход</td><td>4 120,00</td><td>НДС 20%</td><td>9960440307654321</td><td>31207</td><td>1183902745</td><td>8</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="csv-legend">
+        <li><b>Смена</b> — номер смены, чтобы сверить сумму с Z-отчётом</li>
+        <li><b>Тип документа</b> — приход, возврат прихода, расход, возврат расхода</li>
+        <li><b>ФН / ФД / ФПД</b> — реквизиты для проверки в ФНС и поиска чека в кабинете ОФД</li>
+        <li><b>Позиций</b> — сколько товарных строк в чеке (если тариф ОФД отдаёт позиции)</li>
+      </ul>
+      <div class="hero-actions" style="margin-bottom:0">
+        <a class="btn btn-primary" href="zayavka.html">Заказать выгрузку</a>
+        <a class="btn btn-ghost" href="files/example-vygruzka-chekov.csv" download>Скачать пример CSV</a>
+        <a class="btn btn-ghost" href="uslugi.html">Услуги и цены</a>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="cards cards-2">
@@ -276,6 +341,18 @@
         <a class="article-item" href="o-sebe.html">
           <h3>О проекте и гарантиях: кто делает выгрузки</h3>
           <p class="muted small" style="margin:0">Пример файла до оплаты, предоплата 50%, правки 3 дня, возврат предоплаты, если ОФД не отдаёт данные. И контакты без посредников.</p>
+        </a>
+        <a class="article-item" href="glossarij-ffd.html">
+          <h3>Глоссарий ФФД: ФН, ФД, ФПД, смена, коррекция</h3>
+          <p class="muted small" style="margin:0">Что означает каждый реквизит чека и что из них нужно вводить в ФНС, кабинет ОФД и 1С — без формулировок из закона.</p>
+        </a>
+        <a class="article-item" href="kviz.html">
+          <h3>Квиз: что нужно сделать с чеками</h3>
+          <p class="muted small" style="margin:0">Четыре вопроса — и видно, хватит ли бесплатной инструкции, нужна ли разовая выгрузка и сколько это ориентировочно стоит.</p>
+        </a>
+        <a class="article-item" href="pismo-v-ofd.html">
+          <h3>Письмо в ОФД: готовый текст запроса выгрузки</h3>
+          <p class="muted small" style="margin:0">Генератор письма в поддержку: подставьте кассу и период — получите запрос, на который отвечают по делу, а не «уточните данные».</p>
         </a>
       </div>
     </div>
@@ -317,6 +394,6 @@
 </footer>
 
 <script src="assets/config.js"></script>
-<script src="assets/app.js?v=20261031"></script>
+<script src="assets/app.js?v=20261101"></script>
 </body>
 </html>

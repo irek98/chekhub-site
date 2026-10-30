@@ -31,7 +31,7 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="../assets/style.css?v=20261031">
+  <link rel="stylesheet" href="../assets/style.css?v=20261101">
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -76,52 +76,67 @@
   <section>
     <div class="wrap">
       <div class="card" style="margin-bottom:22px">
-        <h3>Инструмент: проверка чека по QR</h3>
-        <p class="muted small" style="margin:0 0 12px">Бесплатно расшифровывает QR-код чека — дата, сумма, ФН, ФД, ФПД — с проверкой формата и выгрузкой разбора в CSV. Данные не уходят на сервер.</p>
-        <a class="btn btn-ghost" href="../proverka-cheka-po-qr.html">Открыть инструмент</a>
+        <h3>Бесплатные инструменты</h3>
+        <p class="muted small" style="margin:0 0 12px">Всё считается в браузере: данные чеков и реквизиты не уходят на сервер.</p>
+        <div class="hero-actions" style="margin-bottom:0">
+          <a class="btn btn-primary" href="../proverka-cheka-po-qr.html">Проверить чек по QR</a>
+          <a class="btn btn-ghost" href="../kviz.html">Квиз: что мне нужно</a>
+          <a class="btn btn-ghost" href="../pismo-v-ofd.html">Письмо в ОФД</a>
+          <a class="btn btn-ghost" href="../glossarij-ffd.html">Глоссарий ФФД</a>
+        </div>
       </div>
-      <div class="article-list">
-        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-v-excel.html">
+
+      <div class="chips" id="ofd-filter" role="group" aria-label="Фильтр инструкций по оператору ОФД">
+        <button class="chip" type="button" data-ofd="all" aria-pressed="true">Все <span class="chip-count">11</span></button>
+        <button class="chip" type="button" data-ofd="universal" aria-pressed="false">Общие <span class="chip-count">8</span></button>
+        <button class="chip" type="button" data-ofd="platform" aria-pressed="false">Платформа ОФД <span class="chip-count">1</span></button>
+        <button class="chip" type="button" data-ofd="taxcom" aria-pressed="false">Такском <span class="chip-count">1</span></button>
+        <button class="chip" type="button" data-ofd="1ofd" aria-pressed="false">Первый ОФД <span class="chip-count">1</span></button>
+      </div>
+      <p class="filter-note small muted" id="ofd-note">По этому фильтру инструкций пока нет. Выберите «Общие» — там разборы по форматам и проблемам, которые не зависят от оператора, — или <a href="../zayavka.html">оставьте заявку</a>: сделаем выгрузку за вас.</p>
+
+      <div class="article-list" id="ofd-list">
+        <a class="article-item" data-ofd="universal" href="kak-vygruzit-cheki-iz-ofd-v-excel.html">
           <h3>Как выгрузить чеки из ОФД в Excel: 4 способа и пошаговая инструкция</h3>
           <p class="muted small" style="margin:0">Личный кабинет ОФД, API, сервисы-конвертеры и выгрузка под ключ. Что делать, если Excel «съедает» колонки и суммы.</p>
         </a>
-        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-v-1s.html">
+        <a class="article-item" data-ofd="universal" href="kak-vygruzit-cheki-iz-ofd-v-1s.html">
           <h3>Как выгрузить чеки из ОФД в 1С: файл, обработка или обмен</h3>
           <p class="muted small" style="margin:0">От чего зависит способ загрузки, какие конфигурации поддерживают обмен и где обычно возникают ошибки.</p>
         </a>
-        <a class="article-item" href="kak-vygruzit-cheki-iz-platformy-ofd.html">
+        <a class="article-item" data-ofd="platform" href="kak-vygruzit-cheki-iz-platformy-ofd.html">
           <h3>Как выгрузить чеки из Платформы ОФД: личный кабинет и Excel</h3>
           <p class="muted small" style="margin:0">Какие отчёты есть в кабинете, как выбрать кассу и период, чем ограничена выгрузка и что делать, если нужны позиции чеков.</p>
         </a>
-        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">
+        <a class="article-item" data-ofd="universal" href="kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">
           <h3>Как выгрузить чеки из ОФД с позициями (наименованиями товаров)</h3>
           <p class="muted small" style="margin:0">Чем отличаются шапка чека и позиции, какими способами забирают состав чека и как проверить, что приехали все наименования.</p>
         </a>
-        <a class="article-item" href="kak-vygruzit-cheki-iz-ofd-za-mesyac.html">
+        <a class="article-item" data-ofd="universal" href="kak-vygruzit-cheki-iz-ofd-za-mesyac.html">
           <h3>Как выгрузить чеки из ОФД за месяц: разбивка периода и свод в Excel</h3>
           <p class="muted small" style="margin:0">Что делать, если кабинет режет период и число строк: интервалы, склейка файлов без дублей, свод по дням и кассам.</p>
         </a>
-        <a class="article-item" href="kak-vygruzit-cheki-iz-takskom-ofd.html">
+        <a class="article-item" data-ofd="taxcom" href="kak-vygruzit-cheki-iz-takskom-ofd.html">
           <h3>Как выгрузить чеки из Такском ОФД: кабинет, Excel и API</h3>
           <p class="muted small" style="margin:0">Что есть в кабинете lk-ofd.taxcom.ru, как выгрузить отчёт по продажам, забрать позиции чеков и не задвоить строки.</p>
         </a>
-        <a class="article-item" href="kak-vygruzit-cheki-iz-1-ofd.html">
+        <a class="article-item" data-ofd="1ofd" href="kak-vygruzit-cheki-iz-1-ofd.html">
           <h3>Как выгрузить чеки из Первого ОФД (1-ОФД) в Excel</h3>
           <p class="muted small" style="margin:0">Кабинет lk.1-ofd.ru, сервис «Контроль выручки», синхронизация с 1С и что делать, если нужны позиции чеков.</p>
         </a>
-        <a class="article-item" href="kak-svesti-vyruchku-cheki-ofd-bank.html">
+        <a class="article-item" data-ofd="universal" href="kak-svesti-vyruchku-cheki-ofd-bank.html">
           <h3>Как свести выручку по чекам ОФД с банковской выпиской</h3>
           <p class="muted small" style="margin:0">Какие отчёты взять, как свести по датам, учесть эквайринг и возвраты и найти расхождение формулами Excel.</p>
         </a>
-        <a class="article-item" href="chek-ofd-dlya-avansovogo-otcheta.html">
+        <a class="article-item" data-ofd="universal" href="chek-ofd-dlya-avansovogo-otcheta.html">
           <h3>Чек ОФД для авансового отчёта: где взять и что приложить</h3>
           <p class="muted small" style="margin:0">Как найти электронный чек по ФД, ФПД или QR, что распечатать и приложить и что делать, если чек потерян.</p>
         </a>
-        <a class="article-item" href="ofd-ne-otdaet-cheki-za-proshlyj-period.html">
+        <a class="article-item" data-ofd="universal" href="ofd-ne-otdaet-cheki-za-proshlyj-period.html">
           <h3>ОФД не отдаёт чеки за прошлый период: причины и что делать</h3>
           <p class="muted small" style="margin:0">Шесть причин, почему кабинет не показывает старые чеки, и пошаговый порядок: договор, поддержка, разбивка периода, архив прежнего ОФД.</p>
         </a>
-        <a class="article-item" href="vygruzka-chekov-iz-ofd-v-google-tablicy.html">
+        <a class="article-item" data-ofd="universal" href="vygruzka-chekov-iz-ofd-v-google-tablicy.html">
           <h3>Как выгрузить чеки из ОФД в Google Таблицы</h3>
           <p class="muted small" style="margin:0">Импорт CSV, папка Drive, Apps Script с API и выгрузка под ключ — пошагово, с кодом и разбором частых ошибок.</p>
         </a>
@@ -133,6 +148,8 @@
         <ul class="muted small" style="padding-left:18px;margin:0">
           <li><a href="../lichnyj-kabinet-ofd.html">Личный кабинет ОФД</a> — адреса кабинетов пяти операторов и что в них можно выгрузить</li>
           <li><a href="../chto-takoe-ofd.html">Что такое ОФД простыми словами</a> — зачем нужен, как работает, сколько стоит</li>
+          <li><a href="../glossarij-ffd.html">Глоссарий ФФД</a> — ФН, ФД, ФПД, смена, коррекция: что означают реквизиты чека</li>
+          <li><a href="../pismo-v-ofd.html">Письмо в ОФД</a> — готовый текст запроса на выгрузку, если поддержка просит «уточнить данные»</li>
         </ul>
       </div>
 
@@ -184,6 +201,6 @@
 </footer>
 
 <script src="../assets/config.js"></script>
-<script src="../assets/app.js?v=20261031"></script>
+<script src="../assets/app.js?v=20261101"></script>
 </body>
 </html>
