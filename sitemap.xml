@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://chekhub.ru/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -118,6 +118,91 @@
   <url>
     <loc>https://chekhub.ru/glossarij-ffd.html</loc>
     <lastmod>2026-11-02</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/kalkulyatory/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/kalkulyatory/nds.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/kalkulyatory/ndfl.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/kalkulyatory/vychet.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/vajldberriz.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/rvb.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/ozon.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/yandex-market.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/pyaterochka.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/magnit.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/lenta.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/perekrestok.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/samokat.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/vkusvill.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/dns.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/gde-chek/mvideo.html</loc>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Калькулятор НДС 2026: начислить и выделить из суммы | ЧекХаб</title>
+  <meta name="description" content="Калькулятор НДС: начислить налог сверху или выделить из суммы по ставкам 20 %, 10 %, 7 % и 5 %. Формулы, примеры расчёта и таблица ставок.">
+  <link rel="canonical" href="https://chekhub.ru/kalkulyatory/nds.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/kalkulyatory/nds.html">
+  <meta property="og:title" content="Калькулятор НДС">
+  <meta property="og:description" content="Калькулятор НДС: начислить налог сверху или выделить из суммы по ставкам 20 %, 10 %, 7 % и 5 %. Формулы, примеры расчёта и таблица ставок.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — Калькулятор НДС">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Калькулятор НДС">
+  <meta name="twitter:description" content="Калькулятор НДС: начислить налог сверху или выделить из суммы по ставкам 20 %, 10 %, 7 % и 5 %. Формулы, примеры расчёта и таблица ставок.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="../assets/style.css?v=20261103">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Главная",
+      "item": "https://chekhub.ru/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Калькуляторы",
+      "item": "https://chekhub.ru/kalkulyatory/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Калькулятор НДС",
+      "item": "https://chekhub.ru/kalkulyatory/nds.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Чем отличается «начислить» от «выделить» НДС?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Начислить — добавить налог сверху к сумме без НДС. Выделить — найти налог внутри суммы, где он уже учтён. Результаты отличаются: 100 000 ₽ + 20 % = 120 000 ₽, а НДС внутри 120 000 ₽ = 20 000 ₽, а не 24 000 ₽."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какая ставка НДС в 2026 году?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Основная ставка — 20 %, льготная — 10 %. Организации и ИП на УСН с доходом выше установленного порога применяют 5 % или 7 % (по выбору). Для экспорта и отдельных операций действует ставка 0 %."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Нужен ли НДС в чеке?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, если продавец плательщик НДС: в кассовом чеке указывается ставка и сумма налога по каждой позиции. В электронном чеке эти данные доступны в том же виде, что и в бумажном."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Калькулятор учитывает НДС по УСН?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, в списке ставок есть 5 % и 7 %. Это ставки для упрощёнцев, которые стали плательщиками НДС при превышении порога дохода."
+      }
+    }
+  ]
+}
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="/">Главная</a>
+      <a href="../proverka-cheka-po-qr.html" data-goal="qr_open">Проверить чек</a>
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/" aria-current="page">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="../uslugi.html">Услуги и цены</a>
+      <a href="/#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="../zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Главная</a> / <a href="/kalkulyatory/">Калькуляторы</a> / Калькулятор НДС</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Калькулятор НДС: начислить или выделить из суммы</h1>
+        <p class="lead">Два режима — начислить налог сверху и выделить его из суммы, в которой он уже учтён. Результат считается в браузере: сумма без НДС, сумма с НДС и сам налог.</p>
+
+        <div class="card" style="margin:0 0 22px">
+          <h2 style="margin-top:0;font-size:20px">Калькулятор НДС</h2>
+          <form id="nds-form" class="mini-check-form" style="max-width:520px">
+            <label class="tool-label" for="nds-sum">Сумма, ₽</label>
+            <input id="nds-sum" class="mini-check-input" type="number" inputmode="decimal" min="0" step="0.01" value="100000">
+
+            <label class="tool-label" for="nds-rate">Ставка НДС</label>
+            <select id="nds-rate" class="mini-check-input">
+              <option value="20" selected>20 % — основная</option>
+              <option value="10">10 % — льготная (товары из перечня)</option>
+              <option value="7">7 % — УСН, доход свыше порога</option>
+              <option value="5">5 % — УСН, доход свыше порога</option>
+              <option value="0">0 % — экспорт и отдельные операции</option>
+            </select>
+
+            <label class="tool-label" for="nds-mode">Что нужно сделать</label>
+            <select id="nds-mode" class="mini-check-input">
+              <option value="add" selected>Начислить НДС сверху</option>
+              <option value="extract">Выделить НДС из суммы</option>
+            </select>
+          </form>
+
+          <div class="calc-result" style="margin-top:16px">
+            <div class="muted small">НДС</div>
+            <div class="calc-price" id="nds-vat">—</div>
+            <div class="muted small" style="margin-top:10px">Сумма без НДС</div>
+            <div id="nds-net" style="font-size:20px;font-weight:600">—</div>
+            <div class="muted small" style="margin-top:10px">Сумма с НДС</div>
+            <div id="nds-gross" style="font-size:20px;font-weight:600">—</div>
+          </div>
+          <p class="muted small" style="margin:14px 0 0">Калькулятор работает без отправки данных: расчёт идёт в браузере.</p>
+        </div>
+
+        <h2>Как считается</h2>
+        <p><strong>Начислить сверху:</strong> НДС = сумма × ставка / 100, итог = сумма + НДС.
+          Пример: 100 000 ₽ × 20 % = 20 000 ₽ НДС, к оплате 120 000 ₽.</p>
+        <p><strong>Выделить из суммы:</strong> НДС = сумма × ставка / (100 + ставка), сумма без НДС = сумма − НДС.
+          Пример: в 120 000 ₽ «сидит» 20 000 ₽ НДС при ставке 20 %.</p>
+
+        <h2>Какие ставки применяются</h2>
+        <div class="table-wrap">
+<table>
+          <thead><tr><th>Ставка</th><th>Когда применяется</th></tr></thead>
+          <tbody>
+            <tr><td>20 %</td><td>Основная ставка для большинства товаров, работ и услуг</td></tr>
+            <tr><td>10 %</td><td>Льготный перечень: продукты, детские товары, лекарства, книги, периодика</td></tr>
+            <tr><td>7 % и 5 %</td><td>УСН с доходом выше порога: ставку выбирает налогоплательщик</td></tr>
+            <tr><td>0 %</td><td>Экспорт, международные перевозки и отдельные операции</td></tr>
+          </tbody>
+        </table>
+</div>
+        <p class="muted small">Расчётная ставка (20/120, 10/110) применяется, когда НДС нужно выделить из суммы,
+          в которой он уже включён, — именно этот режим и реализован в кнопке «Выделить НДС».</p>
+
+        <div class="note">
+          Если чеки нужны для сверки НДС — из электронного чека видно ставку и сумму налога по каждой позиции.
+          Собрать такие данные из ОФД в таблицу можно с нашей <a href="../uslugi.html">выгрузкой чеков</a>.
+        </div>
+
+        <h2>Частая ошибка</h2>
+        <p>НДС нельзя считать «просто 20 % от суммы с НДС». Если вы выделяете налог из 120 000 ₽, правильный
+          результат — 20 000 ₽, а не 24 000 ₽: ставка применяется к сумме без налога. В калькуляторе это режим
+          «Выделить НДС из суммы».</p>
+
+
+        <h2>Вопросы и ответы</h2>
+        <h3>Чем отличается «начислить» от «выделить» НДС?</h3>
+        <p>Начислить — добавить налог сверху к сумме без НДС. Выделить — найти налог внутри суммы, где он уже учтён. Результаты отличаются: 100 000 ₽ + 20 % = 120 000 ₽, а НДС внутри 120 000 ₽ = 20 000 ₽, а не 24 000 ₽.</p>
+        <h3>Какая ставка НДС в 2026 году?</h3>
+        <p>Основная ставка — 20 %, льготная — 10 %. Организации и ИП на УСН с доходом выше установленного порога применяют 5 % или 7 % (по выбору). Для экспорта и отдельных операций действует ставка 0 %.</p>
+        <h3>Нужен ли НДС в чеке?</h3>
+        <p>Да, если продавец плательщик НДС: в кассовом чеке указывается ставка и сумма налога по каждой позиции. В электронном чеке эти данные доступны в том же виде, что и в бумажном.</p>
+        <h3>Калькулятор учитывает НДС по УСН?</h3>
+        <p>Да, в списке ставок есть 5 % и 7 %. Это ставки для упрощёнцев, которые стали плательщиками НДС при превышении порога дохода.</p>
+
+        <div class="card" style="margin-top:22px">
+          <h3>Другие калькуляторы</h3>
+          <ul class="muted small" style="padding-left:18px;margin:0">
+          <li><a href="ndfl.html">Калькулятор НДФЛ</a> — сколько налога с зарплаты и сколько останется на руки</li>
+          <li><a href="vychet.html">Калькулятор вычета</a> — возврат НДФЛ за лечение, обучение, квартиру и ипотеку</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Нужны чеки для вычета или отчётности?</h2>
+        <p>Соберём чеки из личного кабинета ОФД в Excel: даты, суммы, позиции, НДС по каждому чеку.</p>
+        <div class="hero-actions" style="margin-bottom:0">
+          <a class="btn btn-primary btn-lg" href="../uslugi.html">Услуги и цены</a>
+          <a class="btn btn-ghost btn-lg" href="../zayavka.html">Оставить заявку</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="../uslugi.html">Услуги</a>
+      <a href="../zayavka.html">Заявка</a>
+      <a href="../o-sebe.html">О проекте</a>
+      <a href="../politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js?v=20261103"></script>
+<script src="../assets/kalkulyatory.js?v=20261103" defer></script>
+</body>
+</html>
