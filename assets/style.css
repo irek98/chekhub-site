@@ -268,7 +268,23 @@ p { margin: 0 0 14px; }
   outline: none; border-color: rgba(111, 179, 255, .60); background: rgba(255, 255, 255, .12);
   box-shadow: 0 0 0 4px rgba(111, 179, 255, .20);
 }
+/* Раскрытый список <select> браузер рисует на системном БЕЛОМ фоне, а цвет текста
+   берёт из нашего CSS (светлый) — получались белые надписи на белом. Поэтому
+   option/optgroup красим явно. Правило общее: в калькуляторах селекты с классом
+   .mini-check-input стоят вне .field, и прежнее «.field select option» их не покрывало. */
+select option,
+select optgroup {
+  background-color: #0f1626;
+  color: #e9f1fc;
+}
+select option:checked,
+select option:hover {
+  background-color: #1b355c;
+  color: #ffffff;
+}
 .field select option { background: #0f1626; color: var(--text); }
+/* селекты-«стекляшки» в калькуляторах: моноширинный шрифт тут не нужен, курсор — рука */
+select.mini-check-input { font-family: inherit; cursor: pointer; }
 .calc-result {
   background: linear-gradient(160deg, rgba(47, 124, 246, .26), rgba(255, 255, 255, .06));
   border: 1px solid rgba(255, 255, 255, .18); border-radius: 16px; padding: 20px;
