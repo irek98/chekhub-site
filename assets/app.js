@@ -838,7 +838,7 @@
           "Глоссарий: ФН, ФД, ФПД, ФФД, смена, коррекция",
           "Готовое письмо в поддержку ОФД, если данные не отдаются"
         ];
-        links.push('<a class="btn btn-primary btn-lg" href="articles/index.html">Открыть инструкции</a>');
+        links.push('<a class="btn btn-primary btn-lg" href="/articles/">Открыть инструкции</a>');
         links.push('<a class="btn btn-ghost btn-lg" href="' + leadHref + '">Нужна помощь — заявка</a>');
         extra = "Если разбираться некогда — выгрузка от 1 500 ₽ за кассу, срок 1–3 рабочих дня.";
       } else {
