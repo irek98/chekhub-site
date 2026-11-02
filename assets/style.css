@@ -82,8 +82,10 @@ a:focus-visible, .btn:focus-visible, .burger:focus-visible {
   display: grid; place-items: center; color: #fff; font-size: 15px; font-weight: 700;
   box-shadow: 0 8px 22px rgba(47, 124, 246, .45), inset 0 1px 0 rgba(255, 255, 255, .45);
 }
-/* меню и кнопка шапки: текст никогда не переносится, отступы сжимаются на узких экранах */
-.nav { display: flex; flex-wrap: nowrap; gap: clamp(10px, 1.35vw, 20px); margin-left: auto; font-size: clamp(14px, 1.05vw, 15px); }
+/* меню и кнопка шапки: текст никогда не переносится, отступы сжимаются на узких экранах.
+   8 пунктов: при font 15px/gap 20px шапка требовала 1260px и кнопка «Оставить заявку»
+   вылезала за поля. Поджали до 14.5px/18px — запас ~60px на 1440, ещё пара пунктов влезет. */
+.nav { display: flex; flex-wrap: nowrap; gap: clamp(10px, 1.1vw, 18px); margin-left: auto; font-size: clamp(13.5px, 0.95vw, 14.5px); }
 .nav a { color: var(--muted); white-space: nowrap; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--text); text-decoration: none; }
 .header-row > .btn { flex: 0 0 auto; white-space: nowrap; padding-inline: 16px; }
@@ -360,10 +362,12 @@ select.mini-check-input { font-family: inherit; cursor: pointer; }
 
 /* адаптив */
 /* В шапке кнопка всегда короткая (@CheckHab): с полным «Написать в …» она не помещается рядом
-   с семью пунктами меню даже на 1440 px — шапка рвалась на две строки. Полный текст — в title. */
+   с восемью пунктами меню даже на 1440 px — шапка рвалась на две строки. Полный текст — в title. */
 .header-row .cta-lead { display: none; }
-/* ещё уже: кнопку из шапки убираем — CTA есть в контенте, а на телефоне в липкой панели */
-@media (max-width: 980px) {
+/* ещё уже: кнопку из шапки убираем — CTA есть в контенте, а на телефоне в липкой панели.
+   1040px (а не 980): при 8 пунктах меню + логотип + кнопка перестают помещаться уже ~1010px,
+   на 980–1040 кнопка наезжала на меню. */
+@media (max-width: 1040px) {
   .header-row > .btn-primary { display: none; }
 }
 @media (max-width: 900px) {
@@ -373,9 +377,9 @@ select.mini-check-input { font-family: inherit; cursor: pointer; }
   .nav {
     display: none; position: absolute; top: 64px; left: -20px; right: -20px;
     flex-direction: column; gap: 0;
-    background: rgba(9, 14, 25, .96);
-    -webkit-backdrop-filter: blur(18px) saturate(160%);
-    backdrop-filter: blur(18px) saturate(160%);
+    /* фон непрозрачный: при 8 пунктах панель высокая, и 4% прозрачности хватало,
+       чтобы крупные заголовки страницы читались сквозь меню */
+    background: #0b1119;
     border-bottom: 1px solid rgba(255, 255, 255, .12);
     box-shadow: 0 18px 40px rgba(0, 0, 0, .55);
     padding: 8px 20px 16px;
