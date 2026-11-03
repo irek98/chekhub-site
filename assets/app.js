@@ -38,6 +38,53 @@
     }
   }
 
+  // 2.55 Возврат с Яндекс.Формы: заявку принимает встроенная форма
+  // (forms.yandex.ru), она на другом домене — свою заявку в Метрику она не отдаст.
+  // Поэтому в настройках Яндекс.Формы на странице «спасибо» ставим редирект на
+  // https://chekhub.ru/zayavka.html?sent=1, а здесь ловим параметр: шлём цель
+  // lead_form_sent, показываем «Заявка отправлена» и убираем параметр из адреса,
+  // чтобы обновление страницы не засчитало заявку второй раз.
+  (function catchFormReturn() {
+    var query = String(location.search || "").replace(/^\?/, "");
+    if (!query) return;
+    var marks = { sent: "lead_form_sent", sended: "lead_form_sent", thanks: "lead_form_sent" };
+    var hit = "";
+    query.split("&").forEach(function (pair) {
+      var i = pair.indexOf("=");
+      var key = (i < 0 ? pair : pair.slice(0, i)).toLowerCase();
+      var val = i < 0 ? "" : decodeURIComponent(pair.slice(i + 1).replace(/\+/g, " "));
+      if (!marks[key]) return;
+      if (val === "0" || val === "no" || val === "false") return;
+      hit = key;
+    });
+    if (!hit) return;
+
+    var tries = 0;
+    (function fire() {
+      if (typeof window.ym === "function" && cfg.metrikaId) {
+        window.ym(cfg.metrikaId, "reachGoal", marks[hit]);
+        // Успех показываем сразу под заголовком формы, чтобы человек видел,
+        // что заявка дошла (он вернулся с чужой страницы без контекста).
+        var status = document.querySelector(".form-status");
+        if (status) {
+          status.className = "form-status ok";
+          status.textContent = "Заявка отправлена. Ответим в течение рабочего дня.";
+        }
+        var form = document.querySelector(".lead-form");
+        if (form && form.scrollIntoView) {
+          try { form.scrollIntoView({ block: "center" }); } catch (e) { form.scrollIntoView(); }
+        }
+        try {
+          var url = new URL(location.href);
+          url.searchParams.delete(hit);
+          history.replaceState(null, "", url.pathname + url.search + url.hash);
+        } catch (e) {}
+        return;
+      }
+      if (tries++ < 80) setTimeout(fire, 250);   // ждём загрузки счётчика (до 20 с)
+    })();
+  })();
+
   // Копирование в буфер: clipboard API, а если браузер не даёт — старый execCommand.
   // Нужно квизу, генератору письма и разбору QR (там свои копии, но новые блоки берут эту).
   function copyToClipboard(text, btn) {
