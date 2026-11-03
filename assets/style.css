@@ -844,3 +844,15 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus
 
 
 
+/* 6.7 «Читайте также» в статьях: три карточки + чипы на разделы
+   (перелинковка статья → статья, статья → «Где найти чек», статья → калькуляторы) */
+.related { margin-top: 26px; }
+.related h2 { margin: 0 0 14px; font-size: 22px; }
+.related .cards { gap: 14px; }
+.related .article-item { padding: 16px 18px; }
+.related .article-item h3 { font-size: 16.5px; line-height: 1.35; }
+.related .article-item p { margin: 0; }
+.related-links { margin: 16px 0 0; }
+.related-links .chip { text-decoration: none; }
+.related-links .chip:hover { color: var(--text); border-color: rgba(111, 179, 255, .40); }
+
