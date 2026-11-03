@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заявка отправлена — ЧекХаб</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Заявка отправлена: вернуться на страницу заявки ЧекХаб.">
+  <link rel="canonical" href="https://chekhub.ru/zayavka.html">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <!--
+    Технический адрес возврата с Яндекс.Формы (forms.yandex.ru → «Событие после отправки»
+    → «Перенаправлять на сайт»: https://chekhub.ru/sent.html?sent=1).
+    Форма встроена в iframe на /zayavka.html, поэтому просто перезагружаем ВСЁ окно
+    на страницу заявки с меткой sent=1 — там app.js отправит цель lead_form_sent
+    в Метрику и покажет «Заявка отправлена». Счётчика на этой странице нет намеренно:
+    визит должен засчитаться один раз, уже на /zayavka.html?sent=1.
+  -->
+  <script>
+    (function () {
+      var target = "/zayavka.html?sent=1";
+      try {
+        if (window.top && window.top !== window.self) {
+          window.top.location.replace(target);
+        } else {
+          window.location.replace(target);
+        }
+      } catch (e) {
+        window.location.replace(target);
+      }
+    })();
+  </script>
+</head>
+<body style="font:16px/1.5 system-ui,sans-serif;padding:32px;background:#070b14;color:#e8eefc">
+  <h1 style="font-size:20px;margin:0 0 8px">Заявка отправлена</h1>
+  <p>Спасибо! Ответим в течение рабочего дня. Если переход не случился сам —
+     <a href="/zayavka.html?sent=1" style="color:#7cc4ff">вернитесь на страницу заявки</a>.</p>
+</body>
+</html>
