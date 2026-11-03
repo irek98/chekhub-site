@@ -18,7 +18,9 @@
   -->
   <script>
     (function () {
-      var target = "/zayavka.html?sent=1";
+      var q = window.location.search || "";
+      if (q.indexOf("sent=") < 0) { q = (q ? q + "&" : "?") + "sent=1"; }
+      var target = "/zayavka.html" + q;
       try {
         if (window.top && window.top !== window.self) {
           window.top.location.replace(target);
