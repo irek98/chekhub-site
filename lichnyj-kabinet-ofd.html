@@ -48,7 +48,9 @@
           { "@type": "WebPage", "name": "Выгрузка из Платформы ОФД", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-platformy-ofd.html" },
           { "@type": "WebPage", "name": "Выгрузка из Такском ОФД", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-takskom-ofd.html" },
           { "@type": "WebPage", "name": "Выгрузка из Первого ОФД", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-1-ofd.html" },
-          { "@type": "WebPage", "name": "Выгрузка чеков из ОФД в Excel", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-v-excel.html" }
+          { "@type": "WebPage", "name": "Выгрузка чеков из ОФД в Excel", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-v-excel.html" },
+          { "@type": "WebPage", "name": "Как выгрузить чеки из СБИС ОФД", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-sbis-ofd.html" },
+          { "@type": "WebPage", "name": "Как выгрузить чеки с Эвотора", "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-evotor.html" }
         ]
       },
       {
@@ -229,10 +231,17 @@
                 <td>Папки касс и точек, «Отчёты 2.0» по продажам, аналитика в реальном времени, проверка чеков</td>
                 <td><span class="muted small">готовится</span></td>
               </tr>
+              <tr>
+                <td>Saby ОФД<br><span class="muted small">бывший СБИС</span></td>
+                <td><code>ofd.sbis.ru</code><br><span class="muted small">вход — аккаунт Saby</span></td>
+                <td>Реестр чеков, сменные отчёты, свод по продажам; позиции — через API</td>
+                <td><a href="articles/kak-vygruzit-cheki-iz-sbis-ofd.html">Saby (СБИС) ОФД</a></td>
+              </tr>
             </tbody>
           </table>
         </div>
         <p class="small muted">Отдельного кабинета «Эвотор ОФД» нет: это тот же оператор, что Платформа ОФД, вход — в кабинет Платформы.</p>
+        <p class="small muted">Касса Эвотор — это терминал, а не оператор: фискальные чеки лежат у ОФД, к которому подключён аппарат, а продажи и товары — в «Эвотор.Облаке». Разбор: <a href="articles/kak-vygruzit-cheki-iz-evotor.html">выгрузка чеков с Эвотора</a>.</p>
 
         <h2>Как войти, если логина нет</h2>
         <p>Типовая последовательность одинаковая у всех операторов:</p>
@@ -317,7 +326,7 @@
         <p>Позиции хранятся внутри чека, но в стандартный отчёт попадают не всегда: часть операторов отдаёт их только через API, только за определённый период или на отдельных тарифах. Состав чеков забирают через API или сервисом выгрузки — подробнее в статье <a href="articles/kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">о выгрузке с позициями</a>.</p>
       </article>
 
-      <p class="small muted" style="margin-top:18px">Смотрите также: <a href="articles/kak-vygruzit-cheki-iz-ofd-v-excel.html">выгрузка чеков из ОФД в Excel</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-v-1s.html">выгрузка в 1С</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-za-mesyac.html">выгрузка за месяц</a>, <a href="articles/kak-vygruzit-cheki-iz-platformy-ofd.html">Платформа ОФД</a>, <a href="articles/kak-vygruzit-cheki-iz-takskom-ofd.html">Такском</a>, <a href="articles/kak-vygruzit-cheki-iz-1-ofd.html">Первый ОФД</a>, <a href="chto-takoe-ofd.html">что такое ОФД</a>.</p>
+      <p class="small muted" style="margin-top:18px">Смотрите также: <a href="articles/kak-vygruzit-cheki-iz-ofd-v-excel.html">выгрузка чеков из ОФД в Excel</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-v-1s.html">выгрузка в 1С</a>, <a href="articles/kak-vygruzit-cheki-iz-ofd-za-mesyac.html">выгрузка за месяц</a>, <a href="articles/kak-vygruzit-cheki-iz-platformy-ofd.html">Платформа ОФД</a>, <a href="articles/kak-vygruzit-cheki-iz-takskom-ofd.html">Такском</a>, <a href="articles/kak-vygruzit-cheki-iz-1-ofd.html">Первый ОФД</a>, <a href="chto-takoe-ofd.html">что такое ОФД</a>, <a href="articles/kak-vygruzit-cheki-iz-sbis-ofd.html">выгрузка из Saby (СБИС) ОФД</a>, <a href="articles/kak-vygruzit-cheki-iz-evotor.html">чеки с Эвотора</a>.</p>
     </div>
   </section>
 

@@ -55,7 +55,9 @@
         { "@type": "ListItem", "position": 9, "url": "https://chekhub.ru/articles/kak-svesti-vyruchku-cheki-ofd-bank.html", "name": "Как свести выручку по чекам ОФД с банковской выпиской" },
         { "@type": "ListItem", "position": 10, "url": "https://chekhub.ru/articles/chek-ofd-dlya-avansovogo-otcheta.html", "name": "Чек ОФД для авансового отчёта" },
         { "@type": "ListItem", "position": 11, "url": "https://chekhub.ru/articles/ofd-ne-otdaet-cheki-za-proshlyj-period.html", "name": "ОФД не отдаёт чеки за прошлый период" },
-        { "@type": "ListItem", "position": 12, "url": "https://chekhub.ru/articles/vygruzka-chekov-iz-ofd-v-google-tablicy.html", "name": "Как выгрузить чеки из ОФД в Google Таблицы" }
+        { "@type": "ListItem", "position": 12, "url": "https://chekhub.ru/articles/vygruzka-chekov-iz-ofd-v-google-tablicy.html", "name": "Как выгрузить чеки из ОФД в Google Таблицы" },
+        { "@type": "ListItem", "position": 13, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-sbis-ofd.html", "name": "Как выгрузить чеки из СБИС ОФД: кабинет, Excel и 1С" },
+        { "@type": "ListItem", "position": 14, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-evotor.html", "name": "Как выгрузить чеки с Эвотора: облако и ОФД" }
       ]
     }
   }
@@ -116,11 +118,13 @@
       </div>
 
       <div class="chips" id="ofd-filter" role="group" aria-label="Фильтр инструкций по оператору ОФД">
-        <button class="chip" type="button" data-ofd="all" aria-pressed="true">Все <span class="chip-count">11</span></button>
-        <button class="chip" type="button" data-ofd="universal" aria-pressed="false">Общие <span class="chip-count">8</span></button>
+        <button class="chip" type="button" data-ofd="all" aria-pressed="true">Все <span class="chip-count">14</span></button>
+        <button class="chip" type="button" data-ofd="universal" aria-pressed="false">Общие <span class="chip-count">9</span></button>
         <button class="chip" type="button" data-ofd="platform" aria-pressed="false">Платформа ОФД <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="taxcom" aria-pressed="false">Такском <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="1ofd" aria-pressed="false">Первый ОФД <span class="chip-count">1</span></button>
+        <button class="chip" type="button" data-ofd="sbis" aria-pressed="false">СБИС <span class="chip-count">1</span></button>
+        <button class="chip" type="button" data-ofd="evotor" aria-pressed="false">Эвотор <span class="chip-count">1</span></button>
       </div>
       <p class="filter-note small muted" id="ofd-note">По этому фильтру инструкций пока нет. Выберите «Общие» — там разборы по форматам и проблемам, которые не зависят от оператора, — или <a href="../zayavka.html">оставьте заявку</a>: сделаем выгрузку за вас.</p>
 
@@ -173,6 +177,14 @@
           <h3>Как выгрузить чеки из ОФД в Google Таблицы</h3>
           <p class="muted small" style="margin:0">Импорт CSV, папка Drive, Apps Script с API и выгрузка под ключ — пошагово, с кодом и разбором частых ошибок.</p>
         </a>
+        <a class="article-item" data-ofd="sbis" href="kak-vygruzit-cheki-iz-sbis-ofd.html">
+          <h3>Как выгрузить чеки из СБИС ОФД: кабинет, Excel и 1С</h3>
+          <p class="muted small" style="margin:0">Где реестр чеков и сменные отчёты, чем ограничен период, как забрать позиции через API и не задвоить строки при склейке.</p>
+        </a>
+        <a class="article-item" data-ofd="evotor" href="kak-vygruzit-cheki-iz-evotor.html">
+          <h3>Как выгрузить чеки с Эвотора: облако и ОФД</h3>
+          <p class="muted small" style="margin:0">Почему Эвотор — не ОФД, где продажи в «Эвотор.Облаке», чем они отличаются от фискальных документов и как перенести данные в 1С.</p>
+        </a>
       </div>
 
       <div class="card" style="margin-top:22px">
@@ -191,7 +203,7 @@
         <h3>В работе</h3>
         <p class="muted small" style="margin:0 0 8px">Готовим материалы по запросам из спроса:</p>
         <ul class="muted small" style="padding-left:18px;margin:0">
-          <li>Выгрузка из Яндекс ОФД, Астрал, Эвотор</li>
+          <li>Выгрузка из Яндекс ОФД и Астрал</li>
           <li>Возвраты и коррекции: как свести с выручкой</li>
           <li>Свод по выручке и сменам в одну таблицу</li>
         </ul>

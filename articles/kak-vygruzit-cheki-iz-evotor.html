@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Как выгрузить чеки с Эвотора в Excel и 1С | ЧекХаб</title>
+  <meta name="description" content="Эвотор — это касса, а не ОФД: где чеки в «Эвотор.Облаке», чем данные облака отличаются от фискальных, как выгрузить продажи и перенести их в 1С.">
+  <link rel="canonical" href="https://chekhub.ru/articles/kak-vygruzit-cheki-iz-evotor.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/articles/kak-vygruzit-cheki-iz-evotor.html">
+  <meta property="og:title" content="Как выгрузить чеки с Эвотора в Excel и 1С: облако, ОФД, обмен">
+  <meta property="og:description" content="Эвотор — это касса, а не ОФД: где чеки в «Эвотор.Облаке», чем данные облака отличаются от фискальных, как выгрузить продажи и перенести их в 1С.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Как выгрузить чеки с Эвотора в Excel и 1С: облако, ОФД, обмен">
+  <meta name="twitter:description" content="Эвотор — это касса, а не ОФД: где чеки в «Эвотор.Облаке», чем данные облака отличаются от фискальных, как выгрузить продажи и перенести их в 1С.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="../assets/style.css?v=20261108">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Как выгрузить чеки с Эвотора в Excel и 1С: облако, ОФД, обмен",
+        "description": "Эвотор — это касса, а не ОФД: где чеки в «Эвотор.Облаке», чем данные облака отличаются от фискальных, как выгрузить продажи и перенести их в 1С.",
+        "datePublished": "2026-11-03",
+        "dateModified": "2026-11-03",
+        "inLanguage": "ru",
+        "mainEntityOfPage": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-evotor.html",
+        "author": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
+        "publisher": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/", "logo": { "@type": "ImageObject", "url": "https://chekhub.ru/icon-512.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Эвотор — это ОФД?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Эвотор производит кассы, а фискальные документы хранит оператор: чаще Платформа ОФД (её же называли «Эвотор ОФД»), реже — Такском, Первый ОФД или Saby ОФД."}},
+          {"@type": "Question", "name": "Где в приложении Эвотор найти чек?", "acceptedAnswer": {"@type": "Answer", "text": "В «Эвотор.Облаке» и приложении «Эвотор.Кабинет» — раздел продаж и документов с фильтром по точке и периоду. Фискальный чек с QR покупатель получает на почту или в приложении магазина."}},
+          {"@type": "Question", "name": "Почему в облаке чеков больше, чем в ОФД?", "acceptedAnswer": {"@type": "Answer", "text": "Из-за отложенной передачи: касса без интернета копит документы в фискальном накопителе и отправляет их позже. Сверяйте по количеству чеков и дате последнего документа."}},
+          {"@type": "Question", "name": "Можно ли выгрузить чеки с Эвотора за год?", "acceptedAnswer": {"@type": "Answer", "text": "Обычно нет: и облако, и кабинет ОФД ограничивают период. Год собирают по месяцам и склеивают по ключу ФН + ФД + ФПД."}},
+          {"@type": "Question", "name": "Подходит ли выгрузка из облака для бухгалтерии?", "acceptedAnswer": {"@type": "Answer", "text": "Для управленческого учёта — да. Для подтверждения расходов и сверки с налоговой нужны фискальные документы с ФН, ФД и ФПД — их берут у оператора ОФД."}}
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://chekhub.ru/" },
+      { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://chekhub.ru/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Выгрузка чеков с Эвотора", "item": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-evotor.html" }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="/">Главная</a>
+      <a href="/proverka-cheka-po-qr.html" data-goal="qr_open">Проверить чек</a>
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/" aria-current="page">Инструкции</a>
+      <a href="/lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/uslugi.html">Услуги и цены</a>
+      <a href="/#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="/zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Главная</a> / <a href="/articles/">Инструкции</a> / Выгрузка с Эвотора</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Как выгрузить чеки с Эвотора в Excel и 1С: облако, ОФД, обмен</h1>
+        <p class="lead">Эвотор — смарт-терминал, а не оператор фискальных данных. Поэтому «чеки с Эвотора» — это два разных набора данных: управленческие продажи в облаке кассы и фискальные документы у ОФД. Если их перепутать, отчёт не сойдётся с налоговой, а бухгалтерия попросит сверку.</p>
+
+        <blockquote>
+          Правило простое: для сверки выручки и налоговой нужны данные ОФД, для товарной аналитики — данные облака. Сходятся они по ключу ФН + ФД + ФПД, и то не всегда: у продаж в облаке этого ключа может не быть вовсе.
+        </blockquote>
+
+        <div class="card" style="margin:0 0 22px">
+          <h3>Если разбираться некогда</h3>
+          <p class="muted small" style="margin:0 0 6px"><b>от 1 500 ₽</b> за кассу за месяц; год и сеть считаем по количеству касс и месяцев. Срок <b>1–3 рабочих дня</b> на небольшую сеть.</p>
+          <p class="muted small" style="margin:0 0 6px">Гарантия: если ваш ОФД не отдаёт данные за нужный период — вернём предоплату.</p>
+          <p class="muted small" style="margin:0 0 12px">Как выглядит результат: <a href="../files/example-vygruzka-chekov.csv" download>пример файла выгрузки</a> (CSV, данные тестовые).</p>
+          <div class="hero-actions" style="margin:0">
+            <a class="btn btn-primary" href="../zayavka.html">Оставить заявку</a>
+            <a class="btn btn-ghost" href="../uslugi.html">Цены и калькулятор</a>
+          </div>
+        </div>
+
+        <h2>Эвотор — касса, а не оператор данных</h2>
+        <p>Это первое, из-за чего путаются отчёты. Сам терминал фискальных документов не хранит «навсегда»: каждый чек он передаёт оператору фискальных данных — чаще всего это Платформа ОФД (бренд «Эвотор ОФД» относится к ней же), но бывает и сторонний: Такском, Первый ОФД, <a href="kak-vygruzit-cheki-iz-sbis-ofd.html">Saby ОФД (бывший СБИС)</a>. Именно у оператора лежат ФН, ФД, ФПД и QR-код, по которому покупатель проверяет чек.</p>
+        <p>Параллельно касса складывает свои данные в «Эвотор.Облако» — личный кабинет lk.evotor.ru и мобильное приложение: продажи, товары, смены, склад, сотрудники. Для управления точкой это удобнее, но фискальными документами эти записи не являются.</p>
+
+        <h2>Что есть в «Эвотор.Облаке»</h2>
+        <ul>
+          <li><b>Продажи и документы.</b> Список чеков по точкам и кассам, с составом: товары, количество, цена.</li>
+          <li><b>Смены.</b> Открытие и закрытие, выручка за смену, количество чеков.</li>
+          <li><b>Товары и остатки.</b> Номенклатура, которой торгует точка.</li>
+          <li><b>Отчёты и экспорт.</b> Выгрузка в Excel или CSV за выбранный период; период и число строк ограничены.</li>
+          <li><b>Точки и сотрудники.</b> Если касс несколько, без фильтра по точке строки смешаются.</li>
+        </ul>
+
+        <h2>Чем данные облака отличаются от данных ОФД</h2>
+        <ul>
+          <li><b>Отложенная передача.</b> Касса умеет работать без интернета: чек пробит и лежит в фискальном накопителе, а оператору уйдёт позже — иногда через несколько дней. В облаке продажа уже есть, в ОФД её ещё нет.</li>
+          <li><b>Возвраты и коррекции.</b> В облаке возврат может выглядеть как операция, в ОФД это отдельный документ с другим признаком расчёта.</li>
+          <li><b>Нефискальные операции.</b> Часть действий в облаке не даёт фискального чека — например, технологические операции или работа в тестовом режиме.</li>
+          <li><b>Смена оператора.</b> При переходе на другого оператора история разрывается: часть чеков в одном кабинете, часть в другом, а связывает их номер ФН.</li>
+          <li><b>Часовой пояс.</b> Время в облаке и в ОФД может отличаться, если точка в другом регионе.</li>
+        </ul>
+
+        <h2>Выгрузка из облака пошагово</h2>
+        <ol>
+          <li>Войдите в «Эвотор.Облако» или приложение «Эвотор.Кабинет».</li>
+          <li>Выберите точку и кассу. Несколько точек — несколько файлов.</li>
+          <li>Откройте раздел с продажами или документами и выставьте период. Начните с одного месяца.</li>
+          <li>Нажмите экспорт (Excel или CSV) и дождитесь формирования файла.</li>
+          <li>Проверьте файл: кодировку, разделитель, даты, суммы и колонку с номером чека.</li>
+          <li>Подпишите файл «точка_ГГГГ-ММ» и сохраните в папку выгрузок — при сверке это первое, что спросят.</li>
+        </ol>
+
+        <h2>Как получить данные с позициями</h2>
+        <p>Плюс облака в том, что состав чека там есть: видно, что именно продано. Минус — привязка к фискальному документу может отсутствовать: в отчёте будут товары и суммы, но не ФД и ФПД. Для товарной аналитики этого достаточно; для подтверждения расходов и сверки с налоговой — нет.</p>
+        <p>Если нужны и позиции, и реквизиты, данные берут у ОФД через API и склеивают с товарным отчётом по времени и сумме чека, а при сомнениях — по номеру смены и номеру чека. Как это устроено: <a href="kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">чеки с позициями</a>.</p>
+
+        <h2>Эвотор и 1С: что выбрать</h2>
+        <ol>
+          <li><b>Связка «касса + 1С».</b> Если терминал работает с конфигурацией 1С напрямую, продажи попадают в учёт без выгрузки, а файлы нужны только для архива.</li>
+          <li><b>Обмен через облако.</b> Товары и продажи синхронизируются с учётной системой. Настраивается один раз, но требует сопоставления номенклатуры и складов.</li>
+          <li><b>Файл и обработка.</b> Экспорт CSV или Excel и загрузка обработкой — универсальный вариант, зато ручной: каждый месяц заново.</li>
+          <li><b>Выгрузка ОФД.</b> Когда нужны именно фискальные документы — сверка с налоговой, подтверждение расходов, авансовые отчёты, — берут данные оператора, а не облака.</li>
+        </ol>
+        <p>Типичные ошибки при загрузке: не сопоставлена номенклатура (товары приходят «без имени»), расходятся ставки НДС, дубли при повторной загрузке, даты съезжают на день. Общий разбор: <a href="kak-vygruzit-cheki-iz-ofd-v-1s.html">выгрузка чеков из ОФД в 1С</a>.</p>
+
+        <h2>Если касса уже снята с учёта</h2>
+        <p>Фискальные документы остаются у оператора: они привязаны к номеру ФН, а не к коробке на точке. Поэтому чеки закрытой кассы обычно можно получить в кабинете ОФД или запросом в поддержку — но не в облаке кассы. В «Эвотор.Облаке» история доступна, пока жив аккаунт и оплачена подписка, поэтому файлы лучше сохранять сразу, а не «потом достанем».</p>
+
+        <h2>Сверка перед отчётом</h2>
+        <ul>
+          <li>Количество чеков за период: облако против ОФД.</li>
+          <li>Сумма приходов и сумма возвратов — раздельно, а не сальдо.</li>
+          <li>Дата последнего документа в каждом файле.</li>
+          <li>Отложенные передачи: если точка работала без связи, в ОФД документы придут позже.</li>
+          <li>Часовой пояс точки — он объясняет почти все «пропавшие» вечерние чеки.</li>
+        </ul>
+
+
+        <h2>Частые вопросы</h2>
+        <h3>Эвотор — это ОФД?</h3>
+        <p>Нет. Эвотор производит кассы, а фискальные документы хранит оператор: чаще Платформа ОФД (её же называли «Эвотор ОФД»), реже — Такском, Первый ОФД или Saby ОФД.</p>
+        <h3>Где в приложении Эвотор найти чек?</h3>
+        <p>В «Эвотор.Облаке» и приложении «Эвотор.Кабинет» — раздел продаж и документов с фильтром по точке и периоду. Фискальный чек с QR покупатель получает на почту или в приложении магазина.</p>
+        <h3>Почему в облаке чеков больше, чем в ОФД?</h3>
+        <p>Из-за отложенной передачи: касса без интернета копит документы в фискальном накопителе и отправляет их позже. Сверяйте по количеству чеков и дате последнего документа.</p>
+        <h3>Можно ли выгрузить чеки с Эвотора за год?</h3>
+        <p>Обычно нет: и облако, и кабинет ОФД ограничивают период. Год собирают по месяцам и склеивают по ключу ФН + ФД + ФПД.</p>
+        <h3>Подходит ли выгрузка из облака для бухгалтерии?</h3>
+        <p>Для управленческого учёта — да. Для подтверждения расходов и сверки с налоговой нужны фискальные документы с ФН, ФД и ФПД — их берут у оператора ОФД.</p>
+      </article>
+
+      <div class="card" style="margin-top:22px">
+        <h3>Нужна выгрузка чеков?</h3>
+        <p class="muted small">Соберём чеки из ОФД в Excel: по кассам, точкам, сменам и товарам — с проверкой дублей и сверкой сумм. Можно с позициями. От 1 500 ₽.</p>
+        <div class="hero-actions" style="margin:0">
+          <a class="btn btn-primary" href="../uslugi.html">Услуги и цены</a>
+          <a class="btn btn-ghost" href="../zayavka.html">Оставить заявку</a>
+          <a class="btn btn-ghost" href="#" data-email>Написать на почту</a>
+        </div>
+      </div>
+
+        <div class="related" id="related">
+          <h2>Читайте также</h2>
+          <div class="cards cards-3">
+            <a class="card article-item" href="kak-vygruzit-cheki-iz-ofd-v-excel.html">
+              <h3>Выгрузка чеков в Excel</h3>
+              <p class="small muted">Общая инструкция по кабинетам пяти операторов.</p>
+            </a>
+            <a class="card article-item" href="kak-vygruzit-cheki-iz-ofd-v-1s.html">
+              <h3>Выгрузка чеков в 1С</h3>
+              <p class="small muted">Файл, обработка или обмен — что выбрать.</p>
+            </a>
+            <a class="card article-item" href="kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">
+              <h3>Чеки с позициями</h3>
+              <p class="small muted">Когда из кабинета доступны только суммы.</p>
+            </a>
+          </div>
+          <div class="chips related-links">
+            <a class="chip" href="/gde-chek/">Где найти свой чек</a>
+            <a class="chip" href="/kalkulyatory/vychet.html">Калькулятор вычета</a>
+            <a class="chip" href="/gde-chek/pyaterochka.html">Пятёрочка</a>
+            <a class="chip" href="/gde-chek/samokat.html">Самокат</a>
+          </div>
+        </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/ai-katalog.html">ИИ-каталог</a>
+      <a href="../uslugi.html">Услуги</a>
+      <a href="../zayavka.html">Заявка</a>
+      <a href="../o-sebe.html">О проекте</a>
+      <a href="../sravnenie-ofd.html">Сравнение ОФД</a>
+      <a href="../politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js?v=20261108"></script>
+</body>
+</html>
