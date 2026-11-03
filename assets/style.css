@@ -182,6 +182,15 @@ p { margin: 0 0 14px; }
 }
 .article-item h3 { margin-bottom: 4px; }
 
+/* обложка в начале статьи (та же картинка, что в og:image) */
+.article-cover { margin: 4px 0 26px; }
+.article-cover img {
+  display: block; width: 100%; height: auto;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .38);
+}
+
 /* текст статьи — плотнее стекла, чтобы длинный текст легко читался */
 .prose {
   background: var(--glass-panel);
