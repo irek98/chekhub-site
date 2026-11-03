@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Выгрузка чеков из ОФД за год: собрать период в один файл | ЧекХаб</title>
+  <meta name="description" content="Как выгрузить чеки из ОФД за год, если кабинет режет период: 12 месяцев по кассам, склейка без дублей, лимит строк Excel и свод по месяцам.">
+  <link rel="canonical" href="https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-za-god.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-za-god.html">
+  <meta property="og:title" content="Выгрузка чеков из ОФД за год: собрать период в один файл">
+  <meta property="og:description" content="Как выгрузить чеки из ОФД за год, если кабинет режет период: 12 месяцев по кассам, склейка без дублей, лимит строк Excel и свод по месяцам.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Выгрузка чеков из ОФД за год: собрать период в один файл">
+  <meta name="twitter:description" content="Как выгрузить чеки из ОФД за год, если кабинет режет период: 12 месяцев по кассам, склейка без дублей, лимит строк Excel и свод по месяцам.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="../assets/style.css?v=20261108">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Выгрузка чеков из ОФД за год: как собрать период в один файл",
+        "description": "Как выгрузить чеки из ОФД за год, если кабинет режет период: 12 месяцев по кассам, склейка без дублей, лимит строк Excel и свод по месяцам.",
+        "datePublished": "2026-11-03",
+        "dateModified": "2026-11-03",
+        "inLanguage": "ru",
+        "mainEntityOfPage": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-za-god.html",
+        "author": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
+        "publisher": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/", "logo": { "@type": "ImageObject", "url": "https://chekhub.ru/icon-512.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Можно ли выгрузить чеки из ОФД сразу за год?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Одним отчётом — почти никогда: кабинет ограничивает период (чаще 30 дней) и число строк. Год собирают из 12 месячных файлов на каждую кассу и склеивают их в одну таблицу."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "За сколько лет ОФД хранит чеки?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Фискальные документы хранятся у оператора не менее пяти лет. Глубина выгрузки из личного кабинета зависит от тарифа, а за старые периоды данные забирают через API частями."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Сколько строк получится за год и не упрётся ли Excel?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Считайте по фактическим чекам: одна касса на 100 чеков в день даёт около 36 тысяч строк за год, пять касс — около 180 тысяч. Предел листа Excel — 1 048 576 строк, поэтому год обычно проходит, но лучше хранить данные по месяцам и собирать своды."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Что делать с кассами, которые уже сняты с учёта?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Закрытая ККТ обычно есть в кабинете отдельным разделом или доступна только по запросу в поддержку ОФД. Выгружать её нужно отдельным набором файлов и подписывать период: иначе годовые итоги по точкам не сойдутся."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Как проверить, что годовая выгрузка полная?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Сверяйте каждый месяц по трём цифрам — количество чеков, сумма приходов, сумма возвратов — и складывайте их в итог за год. Отдельно проверяйте дату последнего документа в каждом файле: обрезка почти всегда видна именно там."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+</head>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://chekhub.ru/" },
+      { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://chekhub.ru/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Выгрузка чеков из ОФД за год", "item": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-za-god.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="/">Главная</a>
+      <a href="/proverka-cheka-po-qr.html" data-goal="qr_open">Проверить чек</a>
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/" aria-current="page">Инструкции</a>
+      <a href="/lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/uslugi.html">Услуги и цены</a>
+      <a href="/#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="/zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Главная</a> / <a href="/articles/">Инструкции</a> / Выгрузка за год</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Выгрузка чеков из ОФД за год: как собрать период в один файл</h1>
+        <p class="lead">Год по чекам почти никогда не выгружается одним нажатием: кабинет режет период и число строк, касс несколько, а часть точек закрыта ещё в прошлом году. Ниже — рабочий порядок: какие границы зафиксировать, как разбить год на месяцы, чем склеить файлы без дублей и как проверить, что год сошёлся.</p>
+
+        <blockquote>
+          Годовая выгрузка отличается от месячной не объёмом, а порядком. Сначала фиксируете период и список касс — включая закрытые, — потом выгружаете по месяцам, и только потом считаете. Если начать «с выгрузки всего подряд», итог за год придётся собирать заново.
+        </blockquote>
+
+        <!-- terms:start -->
+        <div class="card" style="margin:0 0 22px">
+          <h3>Если разбираться некогда</h3>
+          <p class="muted small" style="margin:0 0 6px"><b>от 1 500 ₽</b> за кассу за месяц, год считаем от количества касс и месяцев. Срок <b>1–3 рабочих дня</b> на небольшую сеть.</p>
+          <p class="muted small" style="margin:0 0 6px">Гарантия: если ваш ОФД не отдаёт данные за нужный период — вернём предоплату.</p>
+          <p class="muted small" style="margin:0 0 12px">Как выглядит результат: <a href="../files/example-vygruzka-chekov.csv" download>пример файла выгрузки</a> (CSV, данные тестовые).</p>
+          <div class="hero-actions" style="margin:0">
+            <a class="btn btn-primary" href="../zayavka.html">Оставить заявку</a>
+            <a class="btn btn-ghost" href="../uslugi.html">Цены и калькулятор</a>
+          </div>
+        </div>
+        <!-- terms:end -->
+
+        <h2>Почему год не выгружается одним отчётом</h2>
+        <p>Ограничения у всех операторов разные, но набор проблем одинаковый: длинный период не формируется, строки обрезаются, а часть касс к моменту выгрузки уже закрыта.</p>
+        <div class="table-wrap">
+<table>
+          <thead><tr><th>Что мешает</th><th>Как проявляется</th><th>Что делать</th></tr></thead>
+          <tbody>
+            <tr><td>Лимит периода</td><td>Кабинет формирует отчёт максимум за 30 дней</td><td>Год делить на 12 месяцев, месяц — на интервалы, если нужно</td></tr>
+            <tr><td>Лимит строк</td><td>Файл заканчивается серединой месяца</td><td>Выгружать остаток по дате последнего чека</td></tr>
+            <tr><td>Несколько касс</td><td>Приходит набор файлов без указания ККТ</td><td>Одна касса — отдельная папка и отдельное имя файла</td></tr>
+            <tr><td>Закрытые кассы</td><td>ККТ снята с учёта, в общем списке её нет</td><td>Искать в разделе архивных ККТ или запрашивать через поддержку и API</td></tr>
+            <tr><td>Смена тарифа</td><td>За прошлые месяцы доступно меньше данных, чем за свежие</td><td>Уточнять глубину выгрузки до начала работы</td></tr>
+            <tr><td>Часовые пояса</td><td>Чеки за 1-е и последнее число «съезжают» на день</td><td>Приводить время к одному поясу и считать по дате чека</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h2>Шаг 1. Зафиксируйте границы года и список касс</h2>
+        <p>До выгрузки договоритесь о трёх вещах — иначе год будет считаться дважды.</p>
+        <ul>
+          <li><strong>Период</strong> — календарный год (1 января — 31 декабря) или налоговый/финансовый, если он у вас сдвинут. Запишите границы в явном виде: «01.01.2026 00:00 — 31.12.2026 23:59:59».</li>
+          <li><strong>Состав касс</strong> — все ККТ, работавшие в этом году, включая снятые с учёта. Заводской номер или РН ККТ — единственный надёжный идентификатор: названия точек за год меняются.</li>
+          <li><strong>Что считаем</strong> — только приходы, приходы минус возвраты, включать ли коррекции и внесения. По умолчанию считается «по дате чека», а не по дате смены.</li>
+        </ul>
+        <p>Отдельный случай — кассы, закрытые в середине года. Их чеки всё равно нужны: без них выручка за год окажется меньше, чем было на самом деле. Если в общем списке ККТ их нет, ищите раздел архивных касс в кабинете: у части операторов он отдельный и выгрузка оттуда идёт по тем же правилам.</p>
+
+        <h2>Шаг 2. Разбейте год на месяцы по каждой кассе</h2>
+        <p>Рабочая схема — 12 файлов на кассу. Месяц удобнее квартала: лимит строк срабатывает реже, а при сбое перезагружается один файл, а не весь квартал.</p>
+        <ul>
+          <li><strong>Границы месяца не пересекаются:</strong> 1-е 00:00 — последнее число 23:59:59. День на стыке не должен попасть в два файла.</li>
+          <li><strong>Имя файла — период и касса:</strong> <code>2026-09_kkt-0001234567.xlsx</code>. Через год без такого имени разбираться придётся заново.</li>
+          <li><strong>Одна касса — одна папка.</strong> Смешивать ККТ в одном наборе файлов нельзя: потом не отделить точки друг от друга.</li>
+          <li><strong>Ведите журнал выгрузки:</strong> строка на файл — период, касса, число чеков, сумма. Он экономит часы при сверке.</li>
+        </ul>
+
+        <h2>Шаг 3. Склейте файлы и уберите дубли</h2>
+        <ol>
+          <li>Проверьте каждый месяц на обрезку: дата последнего чека должна быть последним числом месяца.</li>
+          <li>Склейте файлы <strong>объединением строк</strong>: заголовок один, строки добавляются.</li>
+          <li>Добавьте колонку с кассой и точкой, если её нет в самих файлах.</li>
+          <li>Удалите дубли по связке <strong>ФН + ФД + ФПД</strong> — при повторной выгрузке одного месяца строки задваиваются.</li>
+          <li>Оставьте в одном файле «сырые» данные, а своды собирайте отдельными листами.</li>
+        </ol>
+        <div class="note">
+          В Excel склейка делается через «Данные → Получить данные → Из папки» (Power Query): он объединяет все файлы папки с одинаковыми заголовками и обновляется одной кнопкой. Помните про предел листа — 1 048 576 строк. За год одна касса на 100 чеков в день даёт около 36 тысяч строк, а вот позиции чеков умножают объём в 3–5 раз: именно там Excel заканчивается первым.
+        </div>
+
+        <h2>Шаг 4. Сведите год в понятные срезы</h2>
+        <p>Заказчику годовой выгрузки обычно нужен не файл на 200 тысяч строк, а несколько сводов. Минимальный набор:</p>
+        <div class="table-wrap">
+<table>
+          <thead><tr><th>Срез</th><th>Что показывает</th><th>Кому нужен</th></tr></thead>
+          <tbody>
+            <tr><td>По месяцам</td><td>Выручка, число чеков, средний чек за каждый месяц</td><td>Владелец, сравнение год к году</td></tr>
+            <tr><td>По кассам и точкам</td><td>Выручка точки за год, доля в общем итоге</td><td>Управление сетью, план-факт</td></tr>
+            <tr><td>Приходы, возвраты, коррекции</td><td>Раздельные суммы по типам операций</td><td>Бухгалтерия, налоговая</td></tr>
+            <tr><td>По товарам</td><td>Количество и сумма по наименованиям за год</td><td>Товарный отчёт (нужны позиции чеков)</td></tr>
+            <tr><td>Сверка с банком и 1С</td><td>Расхождения по дням и месяцам</td><td>Финансовый контроль, аудит</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>Порядок расчёта один и тот же: приходы отдельно, возвраты отдельно, разница — выручка. Если сложить всё в одну сумму, итог за год будет завышен, и искать причину придётся по каждому месяцу.</p>
+
+        <h2>Если период старше глубины кабинета</h2>
+        <p>Фискальные документы оператор хранит не менее пяти лет, но личный кабинет отдаёт их по правилам тарифа: у части ОФД длинная история доступна только за доплату или через API. Практический порядок такой:</p>
+        <ul>
+          <li><strong>Сначала проверьте глубину:</strong> сформируйте пробный отчёт за самый старый месяц года — если он пустой или обрезан, дальше кабинетом не пройти.</li>
+          <li><strong>Затем API:</strong> документы забираются порциями по датам, ограничение обычно на число запросов и размер ответа, а не на глубину.</li>
+          <li><strong>Если нет доступа к API</strong> — запрос в поддержку ОФД с перечнем касс и периодов: выгрузку делают вручную.</li>
+        </ul>
+
+        <h2>Типичные ошибки годовой выгрузки</h2>
+        <ul>
+          <li><strong>Забыты закрытые кассы.</strong> Итог за год меньше реального, расхождение ищут в чеках, которых нет.</li>
+          <li><strong>Двойной день на стыке месяцев.</strong> Один и тот же день попал в два файла — выручка выросла.</li>
+          <li><strong>Не учтены возвраты.</strong> В файле только приходы: годовая выручка завышена, отчёт не принимают.</li>
+          <li><strong>Обрезка по лимиту строк.</strong> Последний месяц года выгружен наполовину — это видно только по дате последнего чека.</li>
+          <li><strong>Копейки в Excel.</strong> Колонка сумм отформатирована как число с двумя знаками — итог за год не сходится на десятки рублей.</li>
+          <li><strong>Позиции вместо шапок.</strong> В файле только итоги чеков, а просили товары: из кабинета позиции часто не выгружаются вообще.</li>
+        </ul>
+        <div class="note">
+          Проверять год нужно по трём цифрам за каждый месяц: количество чеков, сумма приходов, сумма возвратов. Сложите их — получите контрольные значения за год. Если месяцы сходятся, а год нет, ошибка в стыке периодов или в пропущенной кассе.
+        </div>
+
+        <h2>Частые вопросы</h2>
+        <h3>Можно ли выгрузить чеки из ОФД сразу за год?</h3>
+        <p>Одним отчётом — почти никогда: кабинет ограничивает период (чаще 30 дней) и число строк. Год собирают из 12 месячных файлов на каждую кассу и склеивают их в одну таблицу.</p>
+
+        <h3>За сколько лет ОФД хранит чеки?</h3>
+        <p>Фискальные документы хранятся у оператора не менее пяти лет. Глубина выгрузки из личного кабинета зависит от тарифа, а за старые периоды данные забирают через API частями.</p>
+
+        <h3>Сколько строк получится за год и не упрётся ли Excel?</h3>
+        <p>Считайте по фактическим чекам: одна касса на 100 чеков в день даёт около 36 тысяч строк за год, пять касс — около 180 тысяч. Предел листа Excel — 1 048 576 строк, поэтому год обычно проходит, но лучше хранить данные по месяцам и собирать своды.</p>
+
+        <h3>Что делать с кассами, которые уже сняты с учёта?</h3>
+        <p>Закрытая ККТ обычно есть в кабинете отдельным разделом или доступна только по запросу в поддержку ОФД. Выгружать её нужно отдельным набором файлов и подписывать период: иначе годовые итоги по точкам не сойдутся.</p>
+
+        <h3>Как проверить, что годовая выгрузка полная?</h3>
+        <p>Сверяйте каждый месяц по трём цифрам — количество чеков, сумма приходов, сумма возвратов — и складывайте их в итог за год. Отдельно проверяйте дату последнего документа в каждом файле: обрезка почти всегда видна именно там.</p>
+      </article>
+
+
+      <div class="card" style="margin-top:22px">
+        <h3>Нужна выгрузка чеков за год?</h3>
+        <p class="muted small">Соберём год по всем кассам: разобьём на месяцы, склеим без дублей, проверим обрезку и сведём по месяцам, точкам и товарам. Цену считаем по числу касс и периоду.</p>
+        <div class="hero-actions" style="margin:0">
+          <a class="btn btn-primary" href="../uslugi.html">Услуги и цены</a>
+          <a class="btn btn-ghost" href="../zayavka.html">Оставить заявку</a>
+          <a class="btn btn-ghost" href="#" data-email>Написать на почту</a>
+        </div>
+      </div>
+
+        <div class="related" id="related">
+          <h2>Читайте также</h2>
+          <div class="cards cards-3">
+            <a class="card article-item" href="kak-vygruzit-cheki-iz-ofd-za-mesyac.html">
+              <h3>Выгрузка за месяц</h3>
+              <p class="small muted">Основа годовой сборки: границы, интервалы, склейка.</p>
+            </a>
+            <a class="card article-item" href="ofd-ne-otdaet-cheki-za-proshlyj-period.html">
+              <h3>Нет чеков за прошлый период</h3>
+              <p class="small muted">Что делать, если глубина кабинета меньше года.</p>
+            </a>
+            <a class="card article-item" href="kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">
+              <h3>Чеки с позициями</h3>
+              <p class="small muted">Товарный отчёт за год: почему из кабинета его не взять.</p>
+            </a>
+          </div>
+          <div class="chips related-links">
+            <a class="chip" href="/gde-chek/">Где найти свой чек</a>
+            <a class="chip" href="/gde-chek/ozon.html">Ozon</a>
+            <a class="chip" href="/gde-chek/yandex-market.html">Яндекс Маркет</a>
+            <a class="chip" href="/kalkulyatory/nds.html">Калькулятор НДС</a>
+          </div>
+        </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/ai-katalog.html">ИИ-каталог</a>
+      <a href="../uslugi.html">Услуги</a>
+      <a href="../zayavka.html">Заявка</a>
+      <a href="../o-sebe.html">О проекте</a>
+      <a href="../sravnenie-ofd.html">Сравнение ОФД</a>
+      <a href="../politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js?v=20261108"></script>
+</body>
+</html>
+
