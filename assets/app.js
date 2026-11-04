@@ -1361,6 +1361,9 @@
     var ua = navigator.userAgent || "";
     var isIOS = /iPad|iPhone|iPod/.test(ua) ||
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    // браузеры, которые умеют ставить сайт как приложение: показываем кнопку сразу,
+    // иначе ждём beforeinstallprompt (он же даст нативный диалог по клику)
+    var canInstall = isIOS || /Chrome|Chromium|Edg\/|OPR\/|YaBrowser|SamsungBrowser/i.test(ua);
 
     var box = document.createElement("div");
     box.className = "pwa-box";
@@ -1420,8 +1423,9 @@
       hint.hidden = !hint.hidden; // браузер не даёт промпт — показываем инструкцию
     });
 
-    // в Safari на iPhone события beforeinstallprompt нет — показываем кнопку-инструкцию
-    if (isIOS) btn.hidden = false;
+    // Chrome/Edge/Яндекс и Safari на iPhone: кнопка видна сразу. Если браузер не умеет
+    // ставить приложение, кнопка появится только по beforeinstallprompt.
+    if (canInstall) btn.hidden = false;
   })();
 })();
 
