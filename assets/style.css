@@ -189,6 +189,8 @@ p { margin: 0 0 14px; }
   object-fit: cover; aspect-ratio: 1200 / 630;
 }
 .article-item::after { content: ""; display: block; clear: both; }
+/* компактный вариант превью для блока «Инструкции» на главной */
+.article-item > .article-thumb.thumb-sm { width: 176px; margin: 2px 16px 4px 0; }
 
 /* обложка в начале статьи (та же картинка, что в og:image) */
 .article-cover { margin: 4px 0 26px; }
@@ -448,8 +450,9 @@ select.mini-check-input { font-family: inherit; cursor: pointer; }
   .table-wrap > table { min-width: 430px; }
   .prose pre, pre.code { padding: 12px 14px; }
   .prose pre code, pre.code code { font-size: 12.5px; line-height: 1.62; }
-  /* превью в карточках каталога: на телефоне картинка встаёт над текстом */
-  .article-item > .article-thumb { float: none; width: 100%; margin: 0 0 12px; }
+  /* превью в карточках: на телефоне картинка встаёт над текстом */
+  .article-item > .article-thumb,
+  .article-item > .article-thumb.thumb-sm { float: none; width: 100%; margin: 0 0 12px; }
 }
 
 /* Если браузер не умеет размытие (старые Safari/Firefox) — плотный фон без стекла */
