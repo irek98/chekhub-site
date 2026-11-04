@@ -58,7 +58,8 @@
         { "@type": "ListItem", "position": 12, "url": "https://chekhub.ru/articles/vygruzka-chekov-iz-ofd-v-google-tablicy.html", "name": "Как выгрузить чеки из ОФД в Google Таблицы" },
         { "@type": "ListItem", "position": 13, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-sbis-ofd.html", "name": "Как выгрузить чеки из СБИС ОФД: кабинет, Excel и 1С" },
         { "@type": "ListItem", "position": 14, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-evotor.html", "name": "Как выгрузить чеки с Эвотора: облако и ОФД" },
-        { "@type": "ListItem", "position": 15, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-yandex-ofd.html", "name": "Как выгрузить чеки из Яндекс ОФД" }
+        { "@type": "ListItem", "position": 15, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-yandex-ofd.html", "name": "Как выгрузить чеки из Яндекс ОФД" },
+        { "@type": "ListItem", "position": 16, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-astral-ofd.html", "name": "Как выгрузить чеки из Астрал ОФД" }
       ]
     }
   }
@@ -119,7 +120,7 @@
       </div>
 
       <div class="chips" id="ofd-filter" role="group" aria-label="Фильтр инструкций по оператору ОФД">
-        <button class="chip" type="button" data-ofd="all" aria-pressed="true">Все <span class="chip-count">15</span></button>
+        <button class="chip" type="button" data-ofd="all" aria-pressed="true">Все <span class="chip-count">16</span></button>
         <button class="chip" type="button" data-ofd="universal" aria-pressed="false">Общие <span class="chip-count">9</span></button>
         <button class="chip" type="button" data-ofd="platform" aria-pressed="false">Платформа ОФД <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="taxcom" aria-pressed="false">Такском <span class="chip-count">1</span></button>
@@ -127,6 +128,7 @@
         <button class="chip" type="button" data-ofd="sbis" aria-pressed="false">СБИС <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="evotor" aria-pressed="false">Эвотор <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="yandex" aria-pressed="false">Яндекс <span class="chip-count">1</span></button>
+        <button class="chip" type="button" data-ofd="astral" aria-pressed="false">Астрал <span class="chip-count">1</span></button>
       </div>
       <p class="filter-note small muted" id="ofd-note">По этому фильтру инструкций пока нет. Выберите «Общие» — там разборы по форматам и проблемам, которые не зависят от оператора, — или <a href="../zayavka.html">оставьте заявку</a>: сделаем выгрузку за вас.</p>
 
@@ -206,6 +208,10 @@
           <h3>Как выгрузить чеки из Яндекс ОФД</h3>
           <p class="muted small" style="margin:0">Отчёты вместо «Документов», CSV и XLSX, позиции товаров в отчёте, JSON чека и доступ для бухгалтера.</p>
         </a>
+        <a class="article-item" data-ofd="astral" href="kak-vygruzit-cheki-iz-astral-ofd.html">
+          <h3>Как выгрузить чеки из Астрал ОФД</h3>
+          <p class="muted small" style="margin:0">Вход в единый ЛК, роли и права, «Все чеки», отчёты в XLS, лимит 10 касс и 62 дня, автоотчёты, 1С:Чеки ОФД.</p>
+        </a>
       </div>
 
       <div class="card" style="margin-top:22px">
@@ -224,7 +230,6 @@
         <h3>В работе</h3>
         <p class="muted small" style="margin:0 0 8px">Готовим материалы по запросам из спроса:</p>
         <ul class="muted small" style="padding-left:18px;margin:0">
-          <li>Выгрузка из Астрал ОФД</li>
           <li>Возвраты и коррекции: как свести с выручкой</li>
           <li>Свод по выручке и сменам в одну таблицу</li>
         </ul>
