@@ -13,14 +13,14 @@
   <meta property="og:url" content="https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">
   <meta property="og:title" content="Выгрузка чеков из ОФД с позициями: товары в Excel">
   <meta property="og:description" content="Почему в выгрузке из ОФД нет позиций, какие отчёты и методы API отдают состав чека, как собрать наименования, количество и суммы в Excel без дублей.">
-  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image" content="https://chekhub.ru/assets/covers/kak-vygruzit-cheki-iz-ofd-s-poziciyami.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta property="og:image:alt" content="Обложка: выгрузка чеков из ОФД с позициями товаров">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Выгрузка чеков из ОФД с позициями: товары в Excel">
   <meta name="twitter:description" content="Почему в выгрузке из ОФД нет позиций, какие отчёты и методы API отдают состав чека, как собрать наименования, количество и суммы в Excel без дублей.">
-  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/covers/kak-vygruzit-cheki-iz-ofd-s-poziciyami.png">
   <link rel="icon" href="/favicon.ico">
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -45,6 +45,7 @@
         "dateModified": "2026-10-24",
         "inLanguage": "ru",
         "mainEntityOfPage": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-ofd-s-poziciyami.html",
+        "image": { "@type": "ImageObject", "url": "https://chekhub.ru/assets/covers/kak-vygruzit-cheki-iz-ofd-s-poziciyami.png", "width": 1200, "height": 630 },
         "author": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
         "publisher": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/", "logo": { "@type": "ImageObject", "url": "https://chekhub.ru/icon-512.png" } }
       },
@@ -152,6 +153,10 @@
       <article class="prose">
         <h1 style="font-size:32px">Как выгрузить чеки из ОФД с позициями (наименованиями товаров)</h1>
         <p class="lead">Позиции чеков — это строки «что именно продано»: наименование, количество, цена, сумма и НДС. В личных кабинетах ОФД по умолчанию чаще выгружаются только шапки документов, поэтому в файле есть суммы, но нет товаров. Ниже — почему так происходит, какими способами позиции забирают на самом деле и как проверить, что из ОФД приехали все строки.</p>
+
+        <figure class="article-cover">
+          <img src="../assets/covers/kak-vygruzit-cheki-iz-ofd-s-poziciyami.png" alt="Обложка: выгрузка чеков из ОФД с позициями товаров" width="1200" height="630" decoding="async">
+        </figure>
 
         <blockquote>
           Позиции — это отдельный уровень данных. Шапка чека отвечает на вопрос «на сколько», позиция — «за что именно». Если в выгрузке нет наименований, дело обычно не в ошибке, а в выбранном отчёте или ограничении тарифа.
