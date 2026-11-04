@@ -887,3 +887,9 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus
 .related-links .chip { text-decoration: none; }
 .related-links .chip:hover { color: var(--text); border-color: rgba(111, 179, 255, .40); }
 
+/* Кнопка «Установить приложение» в подвале не должна прятаться под липкой
+   панелью «Заявка + Telegram» (она 65 px + 12 px отступа снизу). */
+@media (max-width: 900px) {
+  .site-footer { padding-bottom: 96px; }
+}
+
