@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <meta name="robots" content="noindex, follow">
+  <title>Нет соединения — ЧекХаб</title>
+  <meta name="description" content="Страница без интернета: сеть пропала или работает очень медленно. Уже открытые разделы ЧекХаба доступны из кэша.">
+  <link rel="canonical" href="https://chekhub.ru/offline.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/offline.html">
+  <meta property="og:title" content="Нет соединения — ЧекХаб">
+  <meta property="og:description" content="Сеть пропала. Уже открытые разделы работают из кэша — вернитесь на главную, когда появится интернет.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Нет соединения — ЧекХаб">
+  <meta name="twitter:description" content="Сеть пропала. Уже открытые разделы работают из кэша.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <span class="logo-mark" aria-hidden="true">Ч</span>
+      <span>ЧекХаб</span>
+    </a>
+    <a class="btn btn-primary" href="/zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Нет соединения</h1>
+      <p class="lead">Интернет пропал или сеть работает очень медленно — страница не загрузилась.
+        Уже открытые разделы ЧекХаба доступны из кэша, поэтому инструкции и калькуляторы можно читать дальше.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="/">Открыть главную</a>
+        <button class="btn btn-ghost btn-lg" type="button" onclick="location.reload()">Повторить загрузку</button>
+      </div>
+      <p class="muted small" style="margin-top:18px">
+        Нужен готовый файл с чеками? Откройте <a href="/zayavka.html">страницу заявки</a> — она отправится,
+        как только появится сеть. Или напишите в <a href="https://t.me/CheckHab">Telegram</a>.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px">ЧекХаб</div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span id="year">2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="/">Главная</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/zayavka.html">Заявка</a>
+      <a href="/politika.html">Политика</a>
+    </div>
+  </div>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

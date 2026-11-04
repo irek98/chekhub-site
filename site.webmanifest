@@ -1,4 +1,5 @@
 {
+  "id": "/",
   "name": "ЧекХаб — выгрузка чеков из ОФД",
   "short_name": "ЧекХаб",
   "description": "Выгрузка чеков из личного кабинета ОФД в Excel, CSV и 1С.",
@@ -12,5 +13,14 @@
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
     { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "/assets/pwa/screen-narrow.jpg", "sizes": "1080x1920", "type": "image/jpeg", "form_factor": "narrow", "label": "Главная ЧекХаба на телефоне: стоимость выгрузки и проверка чека по QR" },
+    { "src": "/assets/pwa/screen-wide.jpg", "sizes": "1920x1080", "type": "image/jpeg", "form_factor": "wide", "label": "Главная на компьютере: услуги, цены и пример выгрузки" }
+  ],
+  "shortcuts": [
+    { "name": "Инструкции по ОФД", "short_name": "Инструкции", "url": "/articles/", "description": "Как выгрузить чеки из личного кабинета ОФД" },
+    { "name": "Калькуляторы", "short_name": "Калькуляторы", "url": "/kalkulyatory/", "description": "Стоимость выгрузки, НДС, лимиты кассы" },
+    { "name": "Оставить заявку", "short_name": "Заявка", "url": "/zayavka.html", "description": "Заявка на выгрузку чеков из ОФД" }
   ]
 }

@@ -375,6 +375,15 @@ select.mini-check-input { font-family: inherit; cursor: pointer; }
 .footer-row { display: flex; flex-wrap: wrap; gap: 14px 26px; justify-content: space-between; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
 
+/* установка приложения: кнопка в подвале (на странице заявки — своё место) */
+.pwa-box { flex: 1 1 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.pwa-install { font-size: 14px; padding: 9px 16px; }
+.pwa-install[hidden] { display: none; }
+.pwa-hint { flex: 1 1 320px; margin: 0; font-size: 13.5px; color: var(--muted); }
+.pwa-hint[hidden] { display: none; }
+.pwa-slot { margin: 18px 0 0; }
+.pwa-slot[hidden] { display: none; }
+
 /* липкая кнопка на мобильных: CTA под рукой после первого экрана */
 .mobile-cta {
   display: none;
