@@ -768,6 +768,113 @@
   // 2.9 «Содержание», полоса прогресса чтения, кнопка «наверх»
   readingTools();
 
+  // 12. PWA: установка «приложения», офлайн-оболочка и отметка «открыто как приложение».
+  // Установка = тот же сайт с иконкой на домашнем экране (site.webmanifest),
+  // офлайн работает через sw.js. Цели: pwa_install_click / accept / dismiss / installed,
+  // pwa_open — открыли уже установленное приложение.
+  (function pwa() {
+    var standalone = false;
+    try {
+      standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
+        window.navigator.standalone === true;
+    } catch (e) { standalone = false; }
+
+    // параметр визита: в Метрике можно строить сегмент «приложение / браузер»
+    if (typeof window.ym === "function" && cfg.metrikaId) {
+      try {
+        window.ym(cfg.metrikaId, "params", { display_mode: standalone ? "app" : "browser" });
+      } catch (e) {}
+      if (standalone) {
+        var sent = false;
+        try { sent = sessionStorage.getItem("pwa_open_sent") === "1"; } catch (e) {}
+        if (!sent) {
+          try { sessionStorage.setItem("pwa_open_sent", "1"); } catch (e) {}
+          goal("pwa_open");
+        }
+      }
+    }
+
+    // офлайн-оболочка: регистрируем service worker (только если браузер умеет)
+    if ("serviceWorker" in navigator) {
+      var reg = function () {
+        navigator.serviceWorker.register("/sw.js").catch(function () {});
+      };
+      if (document.readyState === "complete") reg();
+      else window.addEventListener("load", reg);
+    }
+
+    if (standalone) return; // уже установлено — кнопку не показываем
+
+    var ua = navigator.userAgent || "";
+    var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    // браузеры, которые умеют ставить сайт как приложение: показываем кнопку сразу,
+    // иначе ждём beforeinstallprompt (он же даст нативный диалог по клику)
+    var canInstall = isIOS || /Chrome|Chromium|Edg\/|OPR\/|YaBrowser|SamsungBrowser/i.test(ua);
+
+    var box = document.createElement("div");
+    box.className = "pwa-box";
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn btn-ghost pwa-install";
+    btn.textContent = "Установить приложение";
+    btn.hidden = true;
+
+    var hint = document.createElement("p");
+    hint.className = "pwa-hint";
+    hint.hidden = true;
+    hint.textContent = "iPhone: кнопка «Поделиться» → «На экран Домой». " +
+      "Android/Chrome: меню ⋮ → «Установить приложение». Windows/Edge: иконка установки в адресной строке.";
+
+    box.appendChild(btn);
+    box.appendChild(hint);
+
+    // на странице заявки есть своё место под кнопку, иначе ставим в подвал
+    var slot = $("[data-pwa-slot]");
+    var host = slot || $(".site-footer .footer-row");
+    if (!host) return;
+    if (slot) slot.hidden = false;
+    host.appendChild(box);
+
+    var deferred = null;
+
+    window.addEventListener("beforeinstallprompt", function (e) {
+      if (e && e.preventDefault) e.preventDefault();
+      deferred = e;
+      btn.hidden = false;
+    });
+
+    window.addEventListener("appinstalled", function () {
+      deferred = null;
+      btn.hidden = true;
+      hint.hidden = true;
+      goal("pwa_installed");
+    });
+
+    btn.addEventListener("click", function () {
+      goal("pwa_install_click");
+      if (deferred && deferred.prompt) {
+        var prompt = deferred;
+        deferred = null;
+        prompt.prompt();
+        var choice = prompt.userChoice;
+        if (choice && choice.then) {
+          choice.then(function (res) {
+            goal(res && res.outcome === "accepted" ? "pwa_install_accept" : "pwa_install_dismiss");
+          });
+        }
+        btn.hidden = true;
+        return;
+      }
+      hint.hidden = !hint.hidden; // браузер не даёт промпт — показываем инструкцию
+    });
+
+    // Chrome/Edge/Яндекс и Safari на iPhone: кнопка видна сразу. Если браузер не умеет
+    // ставить приложение, кнопка появится только по beforeinstallprompt.
+    if (canInstall) btn.hidden = false;
+  })();
+
   // 2.91 Квиз «что вам нужно» (/kviz.html): 4 вопроса → рекомендация + заявка.
   // Модуль включается только там, где есть #quiz, — на остальных страницах выходит сразу.
   (function quizTool() {
@@ -1320,112 +1427,5 @@
   }
 
   recalc();
-
-  // 12. PWA: установка «приложения», офлайн-оболочка и отметка «открыто как приложение».
-  // Установка = тот же сайт с иконкой на домашнем экране (site.webmanifest),
-  // офлайн работает через sw.js. Цели: pwa_install_click / accept / dismiss / installed,
-  // pwa_open — открыли уже установленное приложение.
-  (function pwa() {
-    var standalone = false;
-    try {
-      standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
-        window.navigator.standalone === true;
-    } catch (e) { standalone = false; }
-
-    // параметр визита: в Метрике можно строить сегмент «приложение / браузер»
-    if (typeof window.ym === "function" && cfg.metrikaId) {
-      try {
-        window.ym(cfg.metrikaId, "params", { display_mode: standalone ? "app" : "browser" });
-      } catch (e) {}
-      if (standalone) {
-        var sent = false;
-        try { sent = sessionStorage.getItem("pwa_open_sent") === "1"; } catch (e) {}
-        if (!sent) {
-          try { sessionStorage.setItem("pwa_open_sent", "1"); } catch (e) {}
-          goal("pwa_open");
-        }
-      }
-    }
-
-    // офлайн-оболочка: регистрируем service worker (только если браузер умеет)
-    if ("serviceWorker" in navigator) {
-      var reg = function () {
-        navigator.serviceWorker.register("/sw.js").catch(function () {});
-      };
-      if (document.readyState === "complete") reg();
-      else window.addEventListener("load", reg);
-    }
-
-    if (standalone) return; // уже установлено — кнопку не показываем
-
-    var ua = navigator.userAgent || "";
-    var isIOS = /iPad|iPhone|iPod/.test(ua) ||
-      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    // браузеры, которые умеют ставить сайт как приложение: показываем кнопку сразу,
-    // иначе ждём beforeinstallprompt (он же даст нативный диалог по клику)
-    var canInstall = isIOS || /Chrome|Chromium|Edg\/|OPR\/|YaBrowser|SamsungBrowser/i.test(ua);
-
-    var box = document.createElement("div");
-    box.className = "pwa-box";
-
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "btn btn-ghost pwa-install";
-    btn.textContent = "Установить приложение";
-    btn.hidden = true;
-
-    var hint = document.createElement("p");
-    hint.className = "pwa-hint";
-    hint.hidden = true;
-    hint.textContent = "iPhone: кнопка «Поделиться» → «На экран Домой». " +
-      "Android/Chrome: меню ⋮ → «Установить приложение». Windows/Edge: иконка установки в адресной строке.";
-
-    box.appendChild(btn);
-    box.appendChild(hint);
-
-    // на странице заявки есть своё место под кнопку, иначе ставим в подвал
-    var slot = $("[data-pwa-slot]");
-    var host = slot || $(".site-footer .footer-row");
-    if (!host) return;
-    if (slot) slot.hidden = false;
-    host.appendChild(box);
-
-    var deferred = null;
-
-    window.addEventListener("beforeinstallprompt", function (e) {
-      if (e && e.preventDefault) e.preventDefault();
-      deferred = e;
-      btn.hidden = false;
-    });
-
-    window.addEventListener("appinstalled", function () {
-      deferred = null;
-      btn.hidden = true;
-      hint.hidden = true;
-      goal("pwa_installed");
-    });
-
-    btn.addEventListener("click", function () {
-      goal("pwa_install_click");
-      if (deferred && deferred.prompt) {
-        var prompt = deferred;
-        deferred = null;
-        prompt.prompt();
-        var choice = prompt.userChoice;
-        if (choice && choice.then) {
-          choice.then(function (res) {
-            goal(res && res.outcome === "accepted" ? "pwa_install_accept" : "pwa_install_dismiss");
-          });
-        }
-        btn.hidden = true;
-        return;
-      }
-      hint.hidden = !hint.hidden; // браузер не даёт промпт — показываем инструкцию
-    });
-
-    // Chrome/Edge/Яндекс и Safari на iPhone: кнопка видна сразу. Если браузер не умеет
-    // ставить приложение, кнопка появится только по beforeinstallprompt.
-    if (canInstall) btn.hidden = false;
-  })();
 })();
 
