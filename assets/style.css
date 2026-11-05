@@ -76,11 +76,10 @@ a:focus-visible, .btn:focus-visible, .burger:focus-visible {
 .header-row { display: flex; align-items: center; gap: clamp(12px, 1.4vw, 18px); min-height: 64px; position: relative; }
 .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); }
 .logo:hover { text-decoration: none; }
+/* знак ЧекХаба — inline SVG (вариант «контур + галочка»), фон не нужен */
 .logo-mark {
-  width: 32px; height: 32px; border-radius: 10px; flex: 0 0 auto;
-  background: linear-gradient(135deg, #2f7cf6, #16c2b0);
-  display: grid; place-items: center; color: #fff; font-size: 15px; font-weight: 700;
-  box-shadow: 0 8px 22px rgba(47, 124, 246, .45), inset 0 1px 0 rgba(255, 255, 255, .45);
+  width: 32px; height: 32px; flex: 0 0 auto; display: block;
+  filter: drop-shadow(0 6px 18px rgba(47, 124, 246, .38));
 }
 /* меню и кнопка шапки: текст никогда не переносится, отступы сжимаются на узких экранах.
    8 пунктов: при font 15px/gap 20px шапка требовала 1260px и кнопка «Оставить заявку»
