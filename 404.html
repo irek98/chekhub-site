@@ -73,6 +73,20 @@
     <div class="wrap">
       <h1>Страница не найдена</h1>
       <p class="lead">Адрес изменился или в ссылке опечатка. Ниже — то, что чаще всего ищут: инструкции по выгрузке чеков из ОФД, бесплатная проверка чека по QR и форма заявки.</p>
+      <form class="field search-form" role="search" action="/search.html" method="get">
+        <label for="notfound-search">Найти на сайте</label>
+        <div class="search-row">
+          <input id="notfound-search" name="q" type="search" placeholder="Например: выгрузка чеков в Excel" autocomplete="off" enterkeyhint="search">
+          <button class="btn btn-primary" type="submit">Найти</button>
+        </div>
+        <p class="small muted search-hint">Часто ищут:
+          <a href="/search.html?q=выгрузка+в+excel">выгрузка в Excel</a> ·
+          <a href="/search.html?q=1С">1С</a> ·
+          <a href="/search.html?q=за+месяц">за месяц</a> ·
+          <a href="/search.html?q=Астрал">Астрал</a> ·
+          <a href="/search.html?q=ОФД+не+отдаёт">ОФД не отдаёт чеки</a>
+        </p>
+      </form>
       <div class="tool-actions" style="margin-top:18px">
         <a class="btn btn-primary" href="/proverka-cheka-po-qr.html">Проверить чек по QR</a>
         <a class="btn btn-ghost" href="/articles/">Инструкции по ОФД</a>

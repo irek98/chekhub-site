@@ -109,23 +109,51 @@
     return "";
   }
 
+  /* раздел статьи, который ближе всего к запросу: ссылка ведёт сразу к нему,
+     а не к началу страницы (id разделов ставит `_st_search.py --anchors`) */
+  function anchorOf(doc, qWords) {
+    var secs = doc.s || [];
+    var best = "", bestScore = 0;
+    for (var i = 0; i < secs.length; i++) {
+      var words = tokens(secs[i][1]);
+      var sc = 0;
+      for (var q = 0; q < qWords.length; q++) {
+        for (var w = 0; w < words.length; w++) {
+          var h = hit(words[w], qWords[q]);
+          if (h === 2) { sc += 2; break; }
+          if (h === 1) sc += 1;
+        }
+      }
+      if (sc > bestScore) { bestScore = sc; best = secs[i][0]; }
+    }
+    return best ? "#" + best : "";
+  }
+
   function item(doc, qWords) {
-    return '<a class="article-item search-hit" href="' + esc(doc.u) + '">' +
+    return '<a class="article-item search-hit" href="' + esc(doc.u + anchorOf(doc, qWords)) + '">' +
       '<span class="search-kind">' + esc(doc.k || "Страница") + '</span>' +
       '<h3>' + mark(doc.t, qWords) + '</h3>' +
       '<p>' + mark(snippet(doc, qWords), qWords) + '</p>' +
       '</a>';
   }
 
+  /* частые запросы: показываем, когда пользователь ещё ничего не ввёл
+     или когда по запросу ничего не нашлось — чтобы не оставлять пустой экран */
+  var POPULAR = ["выгрузка в excel", "1С", "за месяц", "Астрал", "возврат", "с позициями", "ОФД не отдаёт"];
+
+  function popular() {
+    return '<p class="search-empty">' + POPULAR.map(function (p) {
+      return '<a class="btn btn-ghost" href="/search.html?q=' + encodeURIComponent(p) + '">' + esc(p) + '</a>';
+    }).join(" ") + '</p>';
+  }
+
   function render(list, total, qWords, q, partial) {
     if (!list.length) {
-      status.textContent = "По запросу «" + q + "» ничего не нашлось. Попробуйте другое слово — или посмотрите все страницы ниже.";
-      results.innerHTML =
-        '<p class="search-empty">' +
-        '<a class="btn btn-ghost" href="/articles/">Все инструкции</a> ' +
-        '<a class="btn btn-ghost" href="/kalkulyatory/">Калькуляторы</a> ' +
-        '<a class="btn btn-ghost" href="/zayavka.html">Оставить заявку</a>' +
-        '</p>';
+      status.textContent = "По запросу «" + q + "» ничего не нашлось. Попробуйте другое слово — например одно из частых:";
+      results.innerHTML = popular() +
+        '<p class="small muted" style="margin:14px 0 0">' +
+        '<a href="/articles/">Все инструкции</a> · <a href="/kalkulyatory/">Калькуляторы</a> · ' +
+        '<a href="/zayavka.html">Оставить заявку</a></p>';
       return;
     }
     var head = "Найдено: " + total + " по запросу «" + q + "»";
@@ -142,8 +170,8 @@
       return;
     }
     if (!qWords.length) {
-      results.innerHTML = "";
-      status.textContent = "Введите слово — например «Астрал», «1С» или «возврат».";
+      results.innerHTML = popular();
+      status.textContent = "Введите слово — например «Астрал», «1С» или «возврат». Или начните с частого запроса:";
       return;
     }
     var scored = docs.map(function (d) {
@@ -166,11 +194,16 @@
     } catch (e) { /* старый браузер — не страшно */ }
   }
 
-  /* в Метрику пишем сам запрос: по нему видно, чего на сайте не хватает */
+  /* в Метрику пишем сам запрос: по нему видно, чего на сайте не хватает.
+     Заодно один раз за визит шлём цель search_submit — это «человек
+     воспользовался поиском», по ней видно, растёт ли спрос на поиск. */
+  var goalSent = false;
   function track(q) {
-    if (typeof window.ym === "function" && q) {
-      try { window.ym(113762680, "params", { search_query: q }); } catch (e) { /* мимо */ }
-    }
+    if (!q || typeof window.ym !== "function") return;
+    try { window.ym(113762680, "params", { search_query: q }); } catch (e) { /* мимо */ }
+    if (goalSent) return;
+    goalSent = true;
+    try { window.ym(113762680, "reachGoal", "search_submit", { search_query: q }); } catch (e) { /* мимо */ }
   }
 
   var timer = null;
@@ -199,6 +232,13 @@
       track(input.value.trim());
     });
   }
+  /* клик по результату — тоже «воспользовался поиском»:
+     без Enter человек не попадёт в цель, а переход к статье и есть польза */
+  results.addEventListener("click", function (e) {
+    var t = e.target;
+    while (t && t !== results && !(t.className && String(t.className).indexOf("search-hit") >= 0)) t = t.parentNode;
+    if (t && t !== results) track(input.value.trim());
+  });
   document.addEventListener("keydown", function (e) {
     if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
     var tag = (e.target && e.target.tagName) || "";
