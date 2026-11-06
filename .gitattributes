@@ -4,3 +4,6 @@
 *.png binary
 *.webp binary
 *.jpg binary
+# CSV и Excel — отдаём байт-в-байт: в CSV нужен CRLF для Excel и 1С, eol=lf его съест
+*.csv -text -eol
+*.xlsx binary

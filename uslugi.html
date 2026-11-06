@@ -277,7 +277,16 @@
         </ul>
       </div>
 
-      <p class="small muted" style="margin-top:16px">Как выглядит результат: <a href="files/example-vygruzka-chekov.csv" download>пример файла выгрузки</a> (CSV, 12 строк, данные тестовые). Колонки — дата, время, касса, точка, смена, тип документа, сумма, НДС, ФН, ФД, ФПД, число позиций; открывается в Excel и Google Таблицах.</p>
+      <div class="card" style="margin-top:18px;border-color:#c9d8ea">
+        <h3 style="margin:0 0 6px">Посмотреть пример результата до оплаты</h3>
+        <p class="small muted" style="margin:0 0 12px">Два файла с тестовыми данными: 2 кассы, 10 дней, 300 чеков. Структура та же, что в заказе. Макросов нет — Excel не спросит про безопасность, формулы видны и считаются.</p>
+        <p style="margin:0 0 10px">
+          <a class="btn btn-primary" href="files/demo-vygruzka-chekov.xlsx" download>Пример Excel с формулами (.xlsx, 28 КБ)</a>
+          <a class="btn btn-ghost" href="files/demo-cheki-1s.csv" download>Пример CSV для 1С (.csv, 39 КБ)</a>
+        </p>
+        <p class="small muted" style="margin:0 0 6px"><b>В Excel</b> три листа: «Чеки» (дата, время, касса, точка, смена, тип документа, сумма, НДС, ФН, ФД, ФПД, число позиций), «Свод по дням» и «Свод по кассам» — выручка и возвраты считаются формулами СУММЕСЛИМН, поменяете данные — своды пересчитаются.</p>
+        <p class="small muted" style="margin:0"><b>В CSV</b> те же строки без формул — открывается в Excel и Google Таблицах, подходит для загрузки в 1С. При заказе с позициями добавляем лист «Позиции»: наименование, количество, цена, сумма, НДС. Ещё есть короткий <a href="files/example-vygruzka-chekov.csv" download>пример на 12 строк</a> — если хочется посмотреть формат без скачивания таблицы.</p>
+      </div>
 
       <p class="small muted">Нужно проверить реквизиты одного чека? Разберите его QR-код бесплатно: <a href="proverka-cheka-po-qr.html">проверка чека по QR</a> — дата, сумма, ФН, ФД и ФПД с проверкой формата.</p>
 
