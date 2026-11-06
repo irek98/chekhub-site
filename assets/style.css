@@ -892,3 +892,46 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus
   .site-footer { padding-bottom: 96px; }
 }
 
+/* ===== 7. Поиск по сайту (/search.html) =====
+   Кнопку-лупу в шапку и список всех страниц вставляет _st_search.py,
+   индекс лежит в assets/search-index.json, сам поиск — в assets/search.js.
+   Карточки результата — те же .article-item, что в каталоге инструкций:
+   меньше стилей, одинаковый вид. */
+.search-btn { color: var(--muted); line-height: 0; }
+.header-row > .search-btn { padding-inline: 11px; }
+.search-btn:hover, .search-btn[aria-current="page"] { color: var(--text); }
+.search-btn svg { display: block; }
+.search-hero { padding-bottom: 18px; }
+.search-form { max-width: 720px; margin-bottom: 4px; }
+.search-row { display: flex; gap: 10px; align-items: stretch; }
+.search-row input { min-width: 0; }
+.search-row .btn { flex: 0 0 auto; }
+.search-hint { margin: 8px 0 0; }
+.search-status { margin: 14px 0 12px; }
+.search-results { display: grid; gap: 12px; }
+.search-hit { text-decoration: none; }
+.search-hit h3 { font-size: 17px; }
+.search-hit p { margin: 0; font-size: 14.5px; color: #cfdcf0; }
+.search-kind {
+  display: inline-block; font-size: 11.5px; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.search-hit mark { background: rgba(111, 179, 255, .30); color: #fff; border-radius: 4px; padding: 0 2px; }
+.search-empty { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+.search-all {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px 26px;
+  margin: 16px 0 0; padding: 0; list-style: none; font-size: 15px;
+}
+.search-all li { padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, .07); }
+.search-all a { color: var(--text); }
+.search-all .muted { display: block; font-size: 13.5px; line-height: 1.5; }
+.search-all .search-group {
+  grid-column: 1 / -1; margin: 18px 0 2px; border: 0; padding-bottom: 0;
+  font-size: 16.5px; font-weight: 700; color: var(--accent);
+}
+@media (max-width: 900px) {
+  .search-all { grid-template-columns: 1fr; }
+  .search-row { flex-direction: column; }
+  .search-row .btn { width: 100%; }
+}
+
