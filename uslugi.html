@@ -284,8 +284,33 @@
           <a class="btn btn-primary" href="files/demo-vygruzka-chekov.xlsx" download>Пример Excel с формулами (.xlsx, 28 КБ)</a>
           <a class="btn btn-ghost" href="files/demo-cheki-1s.csv" download>Пример CSV для 1С (.csv, 39 КБ)</a>
         </p>
-        <p class="small muted" style="margin:0 0 6px"><b>В Excel</b> три листа: «Чеки» (дата, время, касса, точка, смена, тип документа, сумма, НДС, ФН, ФД, ФПД, число позиций), «Свод по дням» и «Свод по кассам» — выручка и возвраты считаются формулами СУММЕСЛИМН, поменяете данные — своды пересчитаются.</p>
-        <p class="small muted" style="margin:0"><b>В CSV</b> те же строки без формул — открывается в Excel и Google Таблицах, подходит для загрузки в 1С. При заказе с позициями добавляем лист «Позиции»: наименование, количество, цена, сумма, НДС. Ещё есть короткий <a href="files/example-vygruzka-chekov.csv" download>пример на 12 строк</a> — если хочется посмотреть формат без скачивания таблицы.</p>
+        <p class="small muted" style="margin:0 0 6px"><b>В Excel</b> лист «Чеки» (дата, время, касса, точка, смена, тип документа, сумма, НДС, ФН, ФД, ФПД, число позиций), «Свод по дням», «Свод по кассам» и памятка «Как пользоваться» — выручка и возвраты считаются формулами СУММЕСЛИМН, поменяете данные — своды пересчитаются.</p>
+        <p class="small muted" style="margin:0 0 6px"><b>В CSV</b> те же строки без формул — открывается в Excel и Google Таблицах, подходит для загрузки в 1С. При заказе с позициями добавляем лист «Позиции»: наименование, количество, цена, сумма, НДС. Ещё есть короткий <a href="files/example-vygruzka-chekov.csv" download>пример на 12 строк</a> — если хочется посмотреть формат без скачивания таблицы.</p>
+        <p class="small muted" style="margin:0">Не хочется ничего скачивать? Те же строки открыты в браузере: <a href="primer-vygruzki-chekov.html">разбор примера выгрузки</a> — что за колонки, как считаются своды и чем CSV отличается от файла для 1С.</p>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h3 style="margin:0 0 6px">Посчитаем вашу выгрузку: два поля</h3>
+        <p class="small muted" style="margin:0 0 12px">Не хотите анкету на восемь пунктов — оставьте контакт и пару слов о задаче. Дальше один клик: заявка откроется в вашей почте уже заполненной (Яндекс, Gmail или почтовая программа). Цену и срок назовём в ответе, доступ к кабинету на этом шаге не нужен.</p>
+        <form class="lead-form" id="quick-lead" name="quick-zayavka">
+          <input type="hidden" name="source" value="quick">
+          <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="ql-contact">Куда ответить *</label>
+              <input id="ql-contact" name="contact" type="text" required maxlength="120" placeholder="+7… / @nickname / mail@…">
+            </div>
+            <div class="field">
+              <label for="ql-task">Что нужно</label>
+              <input id="ql-task" name="task" type="text" maxlength="200" placeholder="ОФД, кассы, период — в двух словах">
+            </div>
+          </div>
+          <label class="form-consent"><input type="checkbox" name="consent" value="да" required> Согласен на обработку контактных данных для ответа на заявку. <a href="politika.html">Политика обработки данных</a></label>
+          <div class="tool-actions">
+            <button class="btn btn-primary" type="submit">Отправить в 2 поля</button>
+          </div>
+          <p class="form-status" role="status"></p>
+        </form>
       </div>
 
       <p class="small muted">Нужно проверить реквизиты одного чека? Разберите его QR-код бесплатно: <a href="proverka-cheka-po-qr.html">проверка чека по QR</a> — дата, сумма, ФН, ФД и ФПД с проверкой формата.</p>

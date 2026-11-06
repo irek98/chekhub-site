@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Пример выгрузки чеков из ОФД в Excel: что внутри файла</title>
+  <meta name="description" content="Показываем пример выгрузки чеков из ОФД: лист «Чеки», своды по дням и кассам с формулами СУММЕСЛИМН. Строки ниже прочитаны из настоящего файла — данные тестовые.">
+  <link rel="canonical" href="https://chekhub.ru/primer-vygruzki-chekov.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/primer-vygruzki-chekov.html">
+  <meta property="og:title" content="Пример выгрузки чеков из ОФД в Excel: что внутри файла">
+  <meta property="og:description" content="Лист «Чеки», своды по дням и кассам с формулами, CSV для 1С. Превью строк, описание листов и три типовые задачи — до заявки и оплаты.">
+  <meta property="og:image" content="https://chekhub.ru/assets/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ЧекХаб — выгрузка чеков из ОФД в Excel, CSV и 1С">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Пример выгрузки чеков из ОФД в Excel: что внутри файла">
+  <meta name="twitter:description" content="Лист «Чеки», своды по дням и кассам с формулами, CSV для 1С. Превью строк, описание листов и три типовые задачи — до заявки и оплаты.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/og-cover.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="assets/style.css?v=20261116">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Пример выгрузки чеков из ОФД в Excel",
+        "url": "https://chekhub.ru/primer-vygruzki-chekov.html",
+        "inLanguage": "ru",
+        "description": "Что внутри файла выгрузки чеков из ОФД: лист «Чеки», своды по дням и кассам с формулами, CSV для 1С.",
+        "about": {
+          "@type": "Service",
+          "name": "Выгрузка чеков из ОФД в Excel, CSV и 1С",
+          "provider": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" }
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://chekhub.ru/" },
+          { "@type": "ListItem", "position": 2, "name": "Пример выгрузки", "item": "https://chekhub.ru/primer-vygruzki-chekov.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <svg class="logo-mark" viewBox="0 0 64 64" width="32" height="32" aria-hidden="true" focusable="false"><defs><linearGradient id="ch-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6fb3ff"/><stop offset="1" stop-color="#2f7cf6"/></linearGradient></defs><rect x="12.5" y="12.5" width="39" height="39" rx="13" fill="none" stroke="url(#ch-mark)" stroke-width="5"/><path d="M23 32.5 29.5 39 41.5 26" fill="none" stroke="url(#ch-mark)" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="/">Главная</a>
+      <a href="/proverka-cheka-po-qr.html" data-goal="qr_open">Проверить чек</a>
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="/lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/uslugi.html">Услуги и цены</a>
+      <a href="/#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-ghost search-btn" href="/search.html" title="Поиск по сайту" aria-label="Поиск по сайту"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16.4 16.4 21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a>
+    <a class="btn btn-primary" href="/zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a> / Пример выгрузки</nav>
+  </div>
+
+  <section class="hero" style="padding-top:16px;padding-bottom:20px">
+    <div class="wrap">
+      <h1>Пример выгрузки чеков из ОФД: что внутри файла</h1>
+      <p class="lead">Ниже — не картинка и не обещание, а строки, прочитанные из демо-файла, который скачивается кнопкой: что за колонки, как считаются своды, чем Excel отличается от CSV для 1С. Посмотрите до заявки и до оплаты — если формат не ваш, вы это увидите за минуту.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="files/demo-vygruzka-chekov.xlsx" download>Скачать пример Excel (28 КБ)</a>
+        <a class="btn btn-ghost btn-lg" href="zayavka.html">Оставить заявку</a>
+      </div>
+      <ul class="hero-facts">
+        <li>300 документов за 01–10.10.2026, две кассы — данные тестовые</li>
+        <li>Формат отдаём тот же: ваш ОФД, ваш период, ваши кассы</li>
+        <li>Ориентир по цене: от 1 500 ₽ за кассу за месяц, срок 1–3 рабочих дня</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="preview" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Первые строки файла</h2>
+        <p class="muted">Одна строка — один фискальный документ. Колонки те же, что вы получите: дата, время, касса, точка, смена, тип документа, сумма, НДС, ФН, ФД, ФПД, число позиций.</p>
+      </div>
+<!-- DEMO-PREVIEW:START -->
+<figure class="demo-preview">
+  <div class="table-wrap">
+    <table class="csv-table">
+      <caption class="small muted" style="text-align:left;padding:0 0 10px">Лист «Чеки» из demo-vygruzka-chekov.xlsx: первые 10 из 300 строк, данные тестовые</caption>
+      <thead>
+        <tr><th>Дата</th><th>Время</th><th>Касса</th><th>Точка</th><th>Смена</th><th>Тип документа</th><th>Сумма</th><th>НДС</th><th>ФН</th><th>ФД</th><th>ФПД</th><th>Позиций</th></tr>
+      </thead>
+      <tbody>
+            <tr><td>01.10.2026</td><td>09:05:08</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>412</td><td>Приход</td><td>2 836,27</td><td>НДС 20%</td><td>9960440301234567</td><td>84512</td><td>2743082206</td><td>3</td></tr>
+            <tr><td>01.10.2026</td><td>09:08:57</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>412</td><td>Приход</td><td>1 335,97</td><td>НДС 20%</td><td>9960440301234567</td><td>84513</td><td>1735621821</td><td>3</td></tr>
+            <tr><td>01.10.2026</td><td>09:21:56</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>412</td><td>Приход</td><td>1 203,51</td><td>Без НДС</td><td>9960440301234567</td><td>84514</td><td>1023071538</td><td>1</td></tr>
+            <tr><td>01.10.2026</td><td>09:40:14</td><td>ККТ-02</td><td>Точка на рынке</td><td>412</td><td>Приход</td><td>4 252,26</td><td>НДС 20%</td><td>9960440307654321</td><td>84512</td><td>4082272262</td><td>4</td></tr>
+            <tr><td>01.10.2026</td><td>09:45:10</td><td>ККТ-02</td><td>Точка на рынке</td><td>412</td><td>Приход</td><td>1 951,57</td><td>Без НДС</td><td>9960440307654321</td><td>84513</td><td>2210022522</td><td>2</td></tr>
+            <tr><td>01.10.2026</td><td>10:01:13</td><td>ККТ-02</td><td>Точка на рынке</td><td>412</td><td>Приход</td><td>1 528,88</td><td>НДС 20%</td><td>9960440307654321</td><td>84514</td><td>1909022205</td><td>1</td></tr>
+            <tr><td>01.10.2026</td><td>10:21:39</td><td>ККТ-02</td><td>Точка на рынке</td><td>412</td><td>Возврат прихода</td><td>759,84</td><td>НДС 20%</td><td>9960440307654321</td><td>84515</td><td>3695661018</td><td>4</td></tr>
+            <tr><td>01.10.2026</td><td>10:39:18</td><td>ККТ-01</td><td>Магазин на Ленина</td><td>412</td><td>Приход</td><td>237,80</td><td>НДС 20%</td><td>9960440301234567</td><td>84515</td><td>1354836279</td><td>3</td></tr>
+            <tr><td>01.10.2026</td><td>11:01:01</td><td>ККТ-02</td><td>Точка на рынке</td><td>412</td><td>Приход</td><td>2 757,45</td><td>НДС 20%</td><td>9960440307654321</td><td>84516</td><td>2335657677</td><td>1</td></tr>
+            <tr><td>01.10.2026</td><td>11:20:52</td><td>ККТ-02</td><td>Точка на рынке</td><td>412</td><td>Приход</td><td>3 336,89</td><td>Без НДС</td><td>9960440307654321</td><td>84517</td><td>2536313547</td><td>3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figcaption class="small muted">Это не картинка: строки выше прочитаны из того самого файла, который скачивается кнопкой ниже. В полном файле 300 документов за 01–10.10.2026 по двум кассам и ещё два листа со сводами.</figcaption>
+</figure>
+<!-- DEMO-PREVIEW:END -->
+      <ul class="csv-legend">
+        <li><b>Смена</b> — номер смены, чтобы сверить сумму с Z-отчётом</li>
+        <li><b>Тип документа</b> — приход, возврат прихода, расход, возврат расхода</li>
+        <li><b>ФН / ФД / ФПД</b> — реквизиты, по которым чек ищется в кабинете ОФД и проверяется в ФНС</li>
+        <li><b>Позиций</b> — сколько товарных строк в чеке (если тариф ОФД отдаёт позиции)</li>
+      </ul>
+      <div class="hero-actions" style="margin-top:18px">
+        <a class="btn btn-primary" href="files/demo-vygruzka-chekov.xlsx" download>Скачать пример Excel</a>
+        <a class="btn btn-ghost" href="files/demo-cheki-1s.csv" download>Пример CSV для 1С (39 КБ)</a>
+        <a class="btn btn-ghost" href="files/example-vygruzka-chekov.csv" download>Короткий CSV (12 строк)</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Что лежит на листах</h2>
+        <p class="muted">Excel-пример — не только список чеков: в нём сразу есть своды, чтобы бухгалтерии не собирать их руками.</p>
+      </div>
+      <div class="cards cards-2">
+        <article class="card">
+          <h3>«Чеки» — 12 колонок, 300 строк</h3>
+          <p class="muted small" style="margin:0">Дата, время, касса, точка, смена, тип документа, сумма, ставка НДС, ФН, ФД, ФПД, число позиций. Сортировка по дате и времени: сверять с Z-отчётами и с банком можно построчно. Подробнее — в статье <a href="articles/kak-vygruzit-cheki-iz-ofd-v-excel.html">как выгрузить чеки в Excel</a>.</p>
+        </article>
+        <article class="card">
+          <h3>«Свод по дням» — на формулах</h3>
+          <p class="muted small" style="margin:0">Дата, число чеков, приход, возврат, итог. Считается формулами СЧЁТЕСЛИМН и СУММЕСЛИМН по листу «Чеки»: замените строки — своды пересчитаются сами. Это тот же свод, что нужен для <a href="articles/kak-svesti-vyruchku-cheki-ofd-bank.html">сверки выручки с банком</a>.</p>
+        </article>
+        <article class="card">
+          <h3>«Свод по кассам»</h3>
+          <p class="muted small" style="margin:0">То же в разрезе касс и точек: сколько чеков, приход, возврат, итог по каждой кассе. Удобно, когда касс несколько и надо понять, откуда расхождение.</p>
+        </article>
+        <article class="card">
+          <h3>CSV — те же строки без формул</h3>
+          <p class="muted small" style="margin:0">Разделитель «;», кодировка UTF-8, суммы с запятой — открывается в Excel и Google Таблицах без танцев. Для <a href="articles/kak-vygruzit-cheki-iz-ofd-v-1s.html">загрузки в 1С</a> отдаём файл под вашу конфигурацию, при заказе с позициями добавляем лист «Позиции» (<a href="articles/kak-vygruzit-cheki-iz-ofd-s-poziciyami.html">что это даёт</a>).</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Три задачи, под которые делается такая выгрузка</h2>
+        <p class="muted">Не «отзывы клиентов», а типовые запросы: с чем приходят чаще всего и что получается на выходе.</p>
+      </div>
+      <div class="cards cards-3">
+        <article class="card">
+          <h3>Выручка по дням за квартал</h3>
+          <p class="muted small" style="margin:0 0 8px">Бухгалтерии нужен свод: сколько чеков и какая выручка в каждый день, отдельно возвраты.</p>
+          <p class="muted small" style="margin:0"><b>На выходе:</b> лист «Чеки» + «Свод по дням» на формулах за нужный период. Срок 1–3 рабочих дня, от 1 500 ₽ за кассу за месяц.</p>
+        </article>
+        <article class="card">
+          <h3>Сверка с банком</h3>
+          <p class="muted small" style="margin:0 0 8px">Эквайринг и касса должны сходиться по датам, суммам и возвратам — руками это сверять больно.</p>
+          <p class="muted small" style="margin:0"><b>На выходе:</b> построчный список с датой, временем и суммой + свод по дням и кассам. Подробнее — <a href="articles/kak-svesti-vyruchku-cheki-ofd-bank.html">как сверить выручку с банком</a>.</p>
+        </article>
+        <article class="card">
+          <h3>Чеки в 1С</h3>
+          <p class="muted small" style="margin:0 0 8px">Нужно не «посмотреть», а загрузить документы в учёт — под конкретную конфигурацию.</p>
+          <p class="muted small" style="margin:0"><b>На выходе:</b> CSV или файл под вашу конфигурацию (Розница, УТ, Бухгалтерия), проверка загрузки на тестовой базе. От 3 000 ₽, 3–5 рабочих дней.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Что проверяем перед сдачей файла</h2>
+        <p class="muted">Эти проверки — часть работы, а не «дополнительная услуга». Именно из-за них файл из кабинета ОФД и файл от нас отличаются.</p>
+      </div>
+      <div class="cards cards-2">
+        <article class="card">
+          <h3>Суммы сходятся</h3>
+          <p class="muted small" style="margin:0">Итог по файлу сверяем со сводом по дням и с отчётом о закрытии смены в кабинете ОФД. Если не сходится — ищем причину до передачи файла.</p>
+        </article>
+        <article class="card">
+          <h3>Нет дублей и пропусков</h3>
+          <p class="muted small" style="margin:0">Проверяем уникальность пары ФН+ФД, полноту дат в периоде, пустые суммы. Дубли обычно появляются, когда выгрузку делали в два захода и склеивали файлы.</p>
+        </article>
+        <article class="card">
+          <h3>Типы документов на месте</h3>
+          <p class="muted small" style="margin:0">Приход и возврат прихода — не одно и то же: если возвраты потерялись, выручка завышена. В файле тип документа отдельной колонкой, как в ФФД.</p>
+        </article>
+        <article class="card">
+          <h3>Кодировка и разделитель</h3>
+          <p class="muted small" style="margin:0">CSV отдаём в UTF-8 (с BOM, чтобы Excel не ломал кириллицу) и с разделителем «;» — иначе в русской локали всё склеивается в одну колонку.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="wrap">
+      <article class="prose">
+        <h2 id="razdel-1">Почему здесь нет отзывов и логотипов клиентов</h2>
+        <p>Выгрузка чеков — это данные о продажах: суммы, точки, время покупок. Публиковать чужие чеки и названия магазинов нельзя, даже если клиент не против, — а отзыв без подтверждения ничего не доказывает. Поэтому вместо отзывов показываем то, что можно проверить до оплаты: сам файл (выше), состав колонок, формулы сводов, порядок работы и <a href="o-sebe.html">гарантии</a>.</p>
+        <p>Если сомневаетесь, подойдёт ли формат: пришлите ОФД, число касс и период — соберём короткий пример по вашим вводным или сразу скажем, что ваш тариф отдаёт только шапки чеков, без позиций. Это бесплатно и без обязательств.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="card">
+        <h2 style="font-size:22px;margin:0 0 6px">Быстрая заявка: два поля</h2>
+        <p class="small muted" style="margin:0 0 12px">Контакт и пара слов о задаче — этого хватит, чтобы назвать цену и срок. Дальше один клик: заявка откроется в вашей почте уже заполненной (Яндекс, Gmail или почтовая программа). Сайт работает без сервера, данные остаются у вас и в письме.</p>
+        <form class="lead-form" id="quick-lead" name="quick-zayavka">
+          <input type="hidden" name="source" value="primer">
+          <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="ql-contact">Куда ответить *</label>
+              <input id="ql-contact" name="contact" type="text" required maxlength="120" placeholder="+7… / @nickname / mail@…">
+            </div>
+            <div class="field">
+              <label for="ql-task">Что нужно</label>
+              <input id="ql-task" name="task" type="text" maxlength="200" placeholder="ОФД, кассы, период — в двух словах">
+            </div>
+          </div>
+          <label class="form-consent"><input type="checkbox" name="consent" value="да" required> Согласен на обработку контактных данных для ответа на заявку. <a href="politika.html">Политика обработки данных</a></label>
+          <div class="tool-actions">
+            <button class="btn btn-primary" type="submit">Отправить в 2 поля</button>
+          </div>
+          <p class="form-status" role="status"></p>
+        </form>
+        <p class="small muted" style="margin:12px 0 0">Если удобнее отвечать на вопросы по пунктам — <a href="zayavka.html">полная форма заявки</a>, её принимает Яндекс.Формы (работает из РФ без VPN).</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Посмотрели пример — посчитаем вашу задачу</h2>
+        <p>Напишите ОФД, количество касс и период. Ответим в течение рабочего дня, назовём цену и срок. Ориентир: <b>от 1 500 ₽</b> за кассу за месяц, 1–3 рабочих дня. Если ОФД не отдаёт данные за период — вернём предоплату.</p>
+        <div class="hero-actions" style="margin-bottom:0">
+          <a class="btn btn-primary btn-lg" href="zayavka.html">Оставить заявку</a>
+          <a class="btn btn-ghost btn-lg" href="uslugi.html">Услуги и цены</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/ai-katalog.html">ИИ-каталог</a>
+      <a href="uslugi.html">Услуги</a>
+      <a href="primer-vygruzki-chekov.html">Пример выгрузки</a>
+      <a href="zayavka.html">Заявка</a>
+      <a href="o-sebe.html">О проекте</a>
+      <a href="sravnenie-ofd.html">Сравнение ОФД</a>
+      <a href="politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script src="assets/app.js?v=20261114"></script>
+</body>
+</html>
+
