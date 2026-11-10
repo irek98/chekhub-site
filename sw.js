@@ -12,7 +12,7 @@
    Файл лежит в корне сайта, значит область действия — весь сайт.
    После правок поднимаем VERSION: старые кэши удалятся при активации. */
 
-var VERSION = 'v1';
+var VERSION = 'v2';
 var STATIC_CACHE = 'chekhub-static-' + VERSION;
 var PAGE_CACHE = 'chekhub-pages-' + VERSION;
 var OFFLINE = '/offline.html';

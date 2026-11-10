@@ -438,13 +438,25 @@
           return;
         }
 
-        // 2) Есть адрес приёма заявок (Formspree) — отправляем на него.
+        // 2) Есть адрес приёма заявок (Web3Forms / Formspree) — отправляем на него.
         var payload = {};
         new FormData(form).forEach(function (value, key) {
           if (key === "bot-field") return;
           payload[key] = String(value == null ? "" : value);
         });
-        payload._subject = "Заявка с сайта " + location.hostname;
+        payload.subject = "Заявка с сайта " + location.hostname;
+        payload._subject = payload.subject;          // Formspree понимает _subject
+        payload.page = location.pathname + location.search;  // с какой страницы пришли
+
+        // Web3Forms: ключ доступа передаётся в теле запроса (это публичный ключ).
+        var isW3f = /web3forms\.com/i.test(cfg.formEndpoint);
+        if (isW3f) {
+          if (cfg.formKey) payload.access_key = cfg.formKey;
+          payload.from_name = "ЧекХаб — заявка с сайта";
+          payload.botcheck = "";                     // своя ловушка для ботов
+          // Если в «Связи» указан e-mail — на него можно ответить одним кликом.
+          if (/@/.test(payload.contact || "") && !payload.email) payload.replyto = payload.contact;
+        }
 
         if (status) { status.className = "form-status"; status.textContent = "Отправляем…"; }
 
@@ -454,6 +466,9 @@
           body: JSON.stringify(payload)
         }).then(function (r) {
           if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json().catch(function () { return {}; });
+        }).then(function (res) {
+          if (res && res.success === false) throw new Error(res.message || "отказ сервиса");
           if (status) {
             status.className = "form-status ok";
             status.textContent = "Заявка отправлена. Ответим в течение рабочего дня.";
