@@ -381,6 +381,10 @@
           : "Данные заявки готовы. Выберите способ отправки — текст уже подставлен:";
       }
 
+      // Показ резервных способов — отдельная цель: видно, сколько людей
+      // не смогли отправить заявку обычным путём.
+      goal("lead_form_fallback");
+
       var links = mailLinks(text);
 
       function addLink(href, label, cls, goalName) {
@@ -394,7 +398,11 @@
         return a;
       }
 
-      addLink(links.yandex, "Отправить с Яндекс.Почты", "btn-primary");
+      // Первым — рабочая форма на Яндекс.Формах: она принимает заявки из РФ без VPN.
+      if (cfg.backupFormUrl) {
+        addLink(cfg.backupFormUrl, "Заполнить форму заявки", "btn-primary", "lead_form_backup");
+      }
+      addLink(links.yandex, "Отправить с Яндекс.Почты", cfg.backupFormUrl ? "btn-ghost" : "btn-primary");
       addLink(links.gmail, "Отправить с Gmail");
       addLink(links.client, "Почтовая программа");
 
