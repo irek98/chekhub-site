@@ -242,7 +242,7 @@
   </url>
   <url>
     <loc>https://chekhub.ru/articles/gde-najti-elektronnyj-chek.html</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -253,6 +253,11 @@
   <url>
     <loc>https://chekhub.ru/articles/chek-korrekcii-v-ofd.html</loc>
     <lastmod>2026-11-14</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/articles/chek-ne-prishel-na-pochtu.html</loc>
+    <lastmod>2026-11-15</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
