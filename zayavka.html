@@ -104,6 +104,7 @@
       <h1>Оставить заявку</h1>
       <p class="lead">Опишите задачу в двух словах: какой ОФД, сколько касс, за какой период и в каком виде нужны чеки. Ответим в течение рабочего дня и назовём точную цену — доступ к кабинету на этом шаге не нужен.</p>
       <ul class="hero-facts" style="margin-top:4px">
+        <li>Цена известна заранее: Excel и CSV от 1 500 ₽ за кассу, загрузка в 1С от 3 000 ₽</li>
         <li>Ответ обычно за 1–3 часа в рабочее время (пн–пт, 9:00–19:00 МСК)</li>
         <li>Предоплата 50%; вернём её, если ваш ОФД не отдаёт данные за период</li>
         <li>Правки к файлу — 3 дня после сдачи</li>
@@ -116,8 +117,8 @@
       <div class="lead-page">
         <div class="card">
           <div class="quick-lead-box" style="margin:0 0 22px">
-            <h2 style="font-size:20px;margin:0 0 6px">Или без анкеты: два поля</h2>
-            <p class="small muted" style="margin:0 0 12px">Контакт и пара слов о задаче. Нажмёте «Отправить» — заявка уйдёт с сайта сразу, без почтовых программ и лишних кликов; ответим в течение рабочего дня. Форма ниже — если удобнее отвечать на вопросы по пунктам.</p>
+            <h2 style="font-size:20px;margin:0 0 6px">Быстрая заявка — два поля</h2>
+            <p class="small muted" style="margin:0 0 12px">Контакт и пара слов о задаче. Нажмёте «Отправить» — заявка уйдёт с сайта сразу, без почтовых программ и лишних кликов; ответим в течение рабочего дня. Нужно рассказать подробнее? Ниже — анкета, но её можно и не заполнять.</p>
             <form class="lead-form" id="quick-lead" name="quick-zayavka">
               <input type="hidden" name="source" value="quick">
               <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
@@ -143,6 +144,9 @@
                     data-src="https://forms.yandex.ru/u/6ae4061349af474be7cfc37a/"
                     referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
+          <details class="lead-details" style="margin-top:6px">
+            <summary style="cursor:pointer;font-weight:600;padding:6px 0">Заполнить подробно — анкета из 6 полей</summary>
+            <p class="small muted" style="margin:6px 0 12px">Если удобнее ответить по пунктам: ОФД, кассы, период и формат. Всё, кроме имени и способа связи, можно пропустить — уточним сами.</p>
           <form class="lead-form" id="lead-form" name="zayavka">
             <input type="hidden" name="source" value="">
             <input type="hidden" name="plan" value="">
@@ -201,6 +205,7 @@
             <p class="form-status" role="status"></p>
             <p class="small muted" style="margin:0">Заявка уходит через Яндекс.Формы — сервис работает из РФ без VPN. Если форма не открылась, напишите на почту или в Telegram: контакты в подвале. Отвечаем в течение рабочего дня.</p>
           </form>
+          </details>
           <div class="tg-alt">
             <a class="btn btn-ghost" href="https://t.me/CheckHab" target="_blank" rel="noopener" data-tg>Написать в Telegram</a>
             <p class="small muted">Короткий вопрос можно задать в чате <span data-tg-label>@CheckHab</span> — так отвечаем быстрее. Важно: Telegram в РФ часто не открывается без VPN. Если он у вас не работает — напишите на <a href="mailto:startq182@gmail.com" data-email>startq182@gmail.com</a> или оставьте заявку через форму выше: почта и форма работают всегда.</p>
@@ -247,7 +252,7 @@
 </footer>
 
 <script src="assets/config.js?v=20261113"></script>
-<script src="assets/app.js?v=20261113"></script>
+<script src="assets/app.js?v=20261121"></script>
 </body>
 </html>
 

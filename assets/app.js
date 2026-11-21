@@ -735,10 +735,22 @@
     })[0];
     if (!form) return;
 
+    // Переход по якорю #lead-form (ссылки «оставить заявку» из статей и калькулятора)
+    // должен показывать поля: анкета в <details>, поэтому раскрываем её.
+    if (window.location.hash === "#lead-form") {
+      var hashBox = form.closest("details");
+      if (hashBox) hashBox.open = true;
+    }
+
     var params;
     try { params = new URLSearchParams(window.location.search); } catch (e) { return; }
     var keys = ["kass", "months", "format", "sum", "urgent", "task"];
     if (!keys.some(function (k) { return params.get(k); })) return;
+
+    // Анкета на /zayavka.html живёт в <details>: если пришли из калькулятора,
+    // раскрываем её, иначе предзаполненные поля останутся невидимыми.
+    var box = form.closest("details");
+    if (box) box.open = true;
 
     var cashboxes = parseInt(params.get("kass") || "", 10);
     var months = parseInt(params.get("months") || "", 10);
