@@ -64,7 +64,8 @@
         { "@type": "ListItem", "position": 18, "url": "https://chekhub.ru/articles/skolko-hranyatsya-cheki-v-ofd.html", "name": "Сколько хранятся чеки в ОФД" },
         { "@type": "ListItem", "position": 19, "url": "https://chekhub.ru/articles/chek-korrekcii-v-ofd.html", "name": "Чек коррекции в ОФД" },
         { "@type": "ListItem", "position": 20, "url": "https://chekhub.ru/articles/chek-ne-prishel-na-pochtu.html", "name": "Чек не пришёл на почту" },
-        { "@type": "ListItem", "position": 21, "url": "https://chekhub.ru/articles/otchet-v-ofd.html", "name": "Отчёт в ОФД" }
+        { "@type": "ListItem", "position": 21, "url": "https://chekhub.ru/articles/otchet-v-ofd.html", "name": "Отчёт в ОФД" },
+        { "@type": "ListItem", "position": 22, "url": "https://chekhub.ru/articles/kak-vygruzit-cheki-iz-e-ofd.html", "name": "Как выгрузить чеки из е-ОФД" }
       ]
     }
   }
@@ -126,7 +127,7 @@
       </div>
 
       <div class="chips" id="ofd-filter" role="group" aria-label="Фильтр инструкций по оператору ОФД">
-        <button class="chip" type="button" data-ofd="all" aria-pressed="true">Все <span class="chip-count">21</span></button>
+        <button class="chip" type="button" data-ofd="all" aria-pressed="true">Все <span class="chip-count">22</span></button>
         <button class="chip" type="button" data-ofd="universal" aria-pressed="false">Общие <span class="chip-count">14</span></button>
         <button class="chip" type="button" data-ofd="platform" aria-pressed="false">Платформа ОФД <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="taxcom" aria-pressed="false">Такском <span class="chip-count">1</span></button>
@@ -135,6 +136,7 @@
         <button class="chip" type="button" data-ofd="evotor" aria-pressed="false">Эвотор <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="yandex" aria-pressed="false">Яндекс <span class="chip-count">1</span></button>
         <button class="chip" type="button" data-ofd="astral" aria-pressed="false">Астрал <span class="chip-count">1</span></button>
+        <button class="chip" type="button" data-ofd="eofd" aria-pressed="false">е-ОФД <span class="chip-count">1</span></button>
       </div>
       <p class="filter-note small muted" id="ofd-note">По этому фильтру инструкций пока нет. Выберите «Общие» — там разборы по форматам и проблемам, которые не зависят от оператора, — или <a href="../zayavka.html">оставьте заявку</a>: сделаем выгрузку за вас.</p>
 
@@ -239,6 +241,10 @@
         <a class="article-item" data-ofd="universal" href="otchet-v-ofd.html">
           <h3>Отчёт в ОФД</h3>
           <p class="muted small" style="margin:0">Четыре вида отчётов, шесть шагов в кабинете, поиск у разных операторов, причины пустой выборки и лимиты тарифов.</p>
+        </a>
+        <a class="article-item" data-ofd="eofd" href="kak-vygruzit-cheki-iz-e-ofd.html">
+          <h3>Как выгрузить чеки из е-ОФД</h3>
+          <p class="muted small" style="margin:0">Вход по ИНН, «Мои чеки», фильтры, выгрузка в ZIP с CSV, PDF поштучно, права пользователей, API.</p>
         </a>
       </div>
 
