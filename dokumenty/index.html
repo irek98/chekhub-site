@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Документы и файлы: разбор, проверка подписи, конвертация | ЧекХаб</title>
+  <meta name="description" content="Файл не открывается? Разбор форматов: .sig и .p7s (электронная подпись), PDF и сканы, MXL, EML, «кракозябры» в CSV. Проверка подписи, документ в читаемый PDF или Word.">
+  <link rel="canonical" href="https://chekhub.ru/dokumenty/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/dokumenty/">
+  <meta property="og:title" content="Документы и файлы: разбор, проверка подписи, конвертация">
+  <meta property="og:description" content="Файл не открывается? Разбор форматов: .sig и .p7s (электронная подпись), PDF и сканы, MXL, EML, «кракозябры» в CSV. Проверка подписи, документ в читаемый PDF или Word.">
+  <meta property="og:image" content="https://chekhub.ru/assets/covers/sig-fajl-chem-otkryt.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Разбор документов и файлов на ЧекХабе">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Документы и файлы: разбор, проверка подписи, конвертация">
+  <meta name="twitter:description" content="Файл не открывается? Разбор форматов: .sig и .p7s (электронная подпись), PDF и сканы, MXL, EML, «кракозябры» в CSV. Проверка подписи, документ в читаемый PDF или Word.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/covers/sig-fajl-chem-otkryt.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="../assets/style.css?v=20261125a">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Документы и файлы: разбор и конвертация",
+        "description": "Файл не открывается? Разбор форматов: .sig и .p7s (электронная подпись), PDF и сканы, MXL, EML, «кракозябры» в CSV. Проверка подписи, документ в читаемый PDF или Word.",
+        "datePublished": "2026-11-25",
+        "dateModified": "2026-11-25",
+        "inLanguage": "ru",
+        "mainEntityOfPage": "https://chekhub.ru/dokumenty/",
+        "image": { "@type": "ImageObject", "url": "https://chekhub.ru/assets/covers/sig-fajl-chem-otkryt.png", "width": 1200, "height": 630 },
+        "author": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
+        "publisher": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/", "logo": { "@type": "ImageObject", "url": "https://chekhub.ru/icon-512.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Это бесплатно?", "acceptedAnswer": {"@type": "Answer", "text": "Разбор файла .sig на странице /razbor-sig.html — бесплатный и без регистрации. Платная часть — когда нужен человек: проверить подпись по документу, достать содержимое, распознать скан, собрать читаемый PDF или Word."}},
+          {"@type": "Question", "name": "Файлы куда-то отправляются?", "acceptedAnswer": {"@type": "Answer", "text": "Разбор подписи идёт в браузере: файл не покидает ваше устройство. Если присылаете файл на заявку — он используется только для работы и удаляется после неё."}},
+          {"@type": "Question", "name": "С какими форматами работаете?", "acceptedAnswer": {"@type": "Answer", "text": "Подписи (sig, p7s, sgn), PDF, сканы, Word, Excel, CSV, XML и MXL из ведомственных систем, письма eml. Если формат редкий — напишите, посмотрим."}},
+          {"@type": "Question", "name": "Можно ли по .sig восстановить сам документ?", "acceptedAnswer": {"@type": "Answer", "text": "Нет: в подписи только сертификат и криптографический хеш, самого документа там нет. Документ нужно взять у отправителя или в личном кабинете ведомства."}}
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://chekhub.ru/" },
+      { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://chekhub.ru/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Документы и файлы", "item": "https://chekhub.ru/dokumenty/" }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <svg class="logo-mark" viewBox="0 0 64 64" width="32" height="32" aria-hidden="true" focusable="false"><defs><linearGradient id="ch-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6fb3ff"/><stop offset="1" stop-color="#2f7cf6"/></linearGradient></defs><rect x="12.5" y="12.5" width="39" height="39" rx="13" fill="none" stroke="url(#ch-mark)" stroke-width="5"/><path d="M23 32.5 29.5 39 41.5 26" fill="none" stroke="url(#ch-mark)" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="/">Главная</a>
+      <a href="/proverka-cheka-po-qr.html" data-goal="qr_open">Проверить чек</a>
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/" aria-current="page">Инструкции</a>
+      <a href="/lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/uslugi.html">Услуги и цены</a>
+      <a href="/#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="/zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Главная</a> / <a href="/articles/">Инструкции</a> / Документы</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Документы и файлы: разбор, проверка подписи, конвертация</h1>
+        <p class="lead">Прислали файл, который не открывается ни в Word, ни в PDF-просмотрщике? Здесь — что это за формат, чем открыть, как проверить электронную подпись и как получить читаемый документ. Часть разбора работает прямо в браузере, без отправки файла.</p>
+
+        <figure class="article-cover">
+          <img src="../assets/covers/sig-fajl-chem-otkryt.png" alt="Документы и файлы: разбор, проверка подписи, конвертация" width="1200" height="630" decoding="async">
+        </figure>
+
+        <blockquote>
+          Правило, которое экономит время: сначала определить формат, потом искать программу. Половина «неоткрывающихся» файлов — это подписи к документу, а не сам документ.
+        </blockquote>
+
+        <div class="card" style="margin:0 0 22px">
+          <h3>Если файл пришёл, а что с ним делать — непонятно</h3>
+          <p class="muted small" style="margin:0 0 6px"><b>от 500 ₽ за файл</b>: посмотрим, что внутри .sig, проверим подпись, скажем, кем и когда подписан документ и цел ли он.</p>
+          <p class="muted small" style="margin:0 0 6px">Нужен читаемый PDF или Word из присланного документа — соберём. Срок <b>1 рабочий день</b>.</p>
+          <p class="muted small" style="margin:0 0 12px">Файлы не публикуем и не передаём третьим лицам; после работы удаляем.</p>
+          <div class="hero-actions" style="margin:0">
+            <a class="btn btn-primary" href="../zayavka.html">Прислать файл на разбор</a>
+            <a class="btn btn-ghost" href="../uslugi.html">Что входит и сколько стоит</a>
+          </div>
+        </div>
+
+        <h2>С чего начать</h2>
+        <p>Если файл не открывается, сначала определите, что это. Три частых случая разобраны полностью:</p>
+        <div class="cards cards-3">
+          <a class="card article-item" href="/razbor-sig.html">
+            <h3>Разбор .sig онлайн</h3>
+            <p class="small muted">Перетащите файл — увидите подписанта, сертификат и время подписания. Файл не покидает браузер.</p>
+          </a>
+          <a class="card article-item" href="/articles/sig-fajl-chem-otkryt.html">
+            <h3>Файл .sig: что это</h3>
+            <p class="small muted">Подпись или документ, чем открыть, проверка без КриптоПро, разбор ошибок.</p>
+          </a>
+          <a class="card article-item" href="/zayavka.html">
+            <h3>Разобрать за вас</h3>
+            <p class="small muted">Пришлите файл — ответим, что внутри, и сделаем читаемый PDF или Word. От 500 ₽.</p>
+          </a>
+        </div>
+
+        <h2>Форматы и задачи</h2>
+        <p>Разбираем по порядку. У готовых тем есть страница, остальные — в работе: если вашего случая нет, напишите,
+        приоритет зависит от запросов.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Что за файл или задача</th><th>Статус</th><th>Что делать</th></tr></thead>
+            <tbody>
+              <tr><td><code>.sig</code>, <code>.p7s</code> — электронная подпись</td><td>Готово</td><td><a href="/articles/sig-fajl-chem-otkryt.html">Инструкция</a> и <a href="/razbor-sig.html">разбор онлайн</a></td></tr>
+              <tr><td>PDF: разделить, объединить, убрать страницы</td><td>В работе</td><td><a href="/zayavka.html">Прислать файл</a> — сделаем вручную</td></tr>
+              <tr><td>PDF или скан → Word (с распознаванием)</td><td>В работе</td><td><a href="/zayavka.html">Прислать файл</a>, срок 1 рабочий день</td></tr>
+              <tr><td><code>.mxl</code> — обмен с ФНС и «1С»</td><td>В работе</td><td><a href="/zayavka.html">Написать</a>, конвертация в xlsx</td></tr>
+              <tr><td><code>.eml</code> — письмо целиком, с вложениями</td><td>В работе</td><td><a href="/zayavka.html">Прислать</a> — достанем вложения</td></tr>
+              <tr><td>«Кракозябры» в txt и csv</td><td>В работе</td><td><a href="/zayavka.html">Прислать</a> — восстановим кодировку</td></tr>
+              <tr><td>Подписанный документ от ведомства (СФР, ФНС, суд)</td><td>Готово частично</td><td>Разбор .sig + поиск самого документа: <a href="/articles/sig-fajl-chem-otkryt.html">как это устроено</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Что делаем за вас</h2>
+        <ul>
+          <li><b>Разбор файла подписи</b> — от 500 ₽: кто подписал, каким сертификатом, когда, цел ли документ.</li>
+          <li><b>Документ в читаемый вид</b> — от 500 до 1 500 ₽: PDF, Word, таблица из скана или XML.</li>
+          <li><b>Пакет документов</b> — считаем по объёму: сшивка, переименование по реестру, разделение по контрагентам.</li>
+        </ul>
+        <p>Срок — <b>1 рабочий день</b> на небольшую задачу. Файлы не публикуем, не передаём третьим лицам и удаляем после работы.
+        Если нужен договор о конфиденциальности — подпишем.</p>
+
+        <h2>Чего не делаем</h2>
+        <p>Не восстанавливаем удалённые файлы с дисков и флешек, не подбираем пароли к архивам и не «расшифровываем»
+        документы без ключа, не подписываем документы за клиента. Если задача из этого списка — скажем сразу, а не после оплаты.</p>
+
+
+        <h2>Частые вопросы</h2>
+        <h3>Это бесплатно?</h3>
+        <p>Разбор файла .sig на странице /razbor-sig.html — бесплатный и без регистрации. Платная часть — когда нужен человек: проверить подпись по документу, достать содержимое, распознать скан, собрать читаемый PDF или Word.</p>
+        <h3>Файлы куда-то отправляются?</h3>
+        <p>Разбор подписи идёт в браузере: файл не покидает ваше устройство. Если присылаете файл на заявку — он используется только для работы и удаляется после неё.</p>
+        <h3>С какими форматами работаете?</h3>
+        <p>Подписи (sig, p7s, sgn), PDF, сканы, Word, Excel, CSV, XML и MXL из ведомственных систем, письма eml. Если формат редкий — напишите, посмотрим.</p>
+        <h3>Можно ли по .sig восстановить сам документ?</h3>
+        <p>Нет: в подписи только сертификат и криптографический хеш, самого документа там нет. Документ нужно взять у отправителя или в личном кабинете ведомства.</p>
+      </article>
+
+      <div class="card" style="margin-top:22px">
+        <h3>Нужна помощь с документом?</h3>
+        <p class="muted small">Разберём файл .sig, проверим подпись и сертификат, найдём нужный документ и переведём его в читаемый PDF или Word. Плюс выгрузка чеков из ОФД — от 1 500 ₽.</p>
+        <div class="hero-actions" style="margin:0">
+          <a class="btn btn-primary" href="../zayavka.html">Оставить заявку</a>
+          <a class="btn btn-ghost" href="../uslugi.html">Услуги и цены</a>
+          <a class="btn btn-ghost" href="#" data-email>Написать на почту</a>
+        </div>
+      </div>
+
+        <div class="related" id="related">
+          <h2>Читайте также</h2>
+          <div class="cards cards-3">
+            <a class="card article-item" href="/razbor-sig.html">
+              <h3>Разбор .sig онлайн</h3>
+              <p class="small muted">Что внутри подписи: кто, когда, каким сертификатом.</p>
+            </a>
+            <a class="card article-item" href="/articles/sig-fajl-chem-otkryt.html">
+              <h3>Файл .sig: что это</h3>
+              <p class="small muted">Полная инструкция по подписям.</p>
+            </a>
+            <a class="card article-item" href="/articles/kak-vygruzit-cheki-iz-ofd-v-excel.html">
+              <h3>Чеки из ОФД в Excel</h3>
+              <p class="small muted">Если нужен реестр чеков, а не документы.</p>
+            </a>
+          </div>
+          <div class="chips related-links">
+            <a class="chip" href="/uslugi.html">Услуги и цены</a>
+            <a class="chip" href="/zayavka.html">Оставить заявку</a>
+            <a class="chip" href="/articles/">Все инструкции</a>
+          </div>
+        </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="/dokumenty/">Документы</a>
+      <a href="../lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/ai-katalog.html">ИИ-каталог</a>
+      <a href="../uslugi.html">Услуги</a>
+      <a href="../zayavka.html">Заявка</a>
+      <a href="../o-sebe.html">О проекте</a>
+      <a href="../sravnenie-ofd.html">Сравнение ОФД</a>
+      <a href="../politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/config.js"></script>
+<script src="../assets/app.js?v=20261125a"></script>
+</body>
+</html>

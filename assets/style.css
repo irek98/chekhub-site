@@ -878,6 +878,40 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus
    (перелинковка статья → статья, статья → «Где найти чек», статья → калькуляторы) */
 .related { margin-top: 26px; }
 .related h2 { margin: 0 0 14px; font-size: 22px; }
+
+/* --- разбор файла .sig (страница /razbor-sig.html) --- */
+.sig-drop {
+  border: 2px dashed rgba(111, 179, 255, .45);
+  border-radius: 14px;
+  padding: 26px 18px;
+  text-align: center;
+  background: rgba(17, 27, 44, .5);
+  transition: border-color .15s ease, background .15s ease;
+  cursor: pointer;
+}
+.sig-drop.sig-over,
+.sig-drop:hover {
+  border-color: var(--accent, #6fb3ff);
+  background: rgba(47, 124, 246, .10);
+}
+.sig-drop input[type="file"] { display: none; }
+.sig-drop .sig-drop-title { font-weight: 600; margin: 0 0 6px; }
+.sig-drop .sig-drop-note { margin: 0; font-size: 13px; color: var(--muted, #9db0cb); }
+.sig-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
+.sig-table th,
+.sig-table td { padding: 9px 12px; border-bottom: 1px solid rgba(255, 255, 255, .08); vertical-align: top; text-align: left; }
+.sig-table th { width: 38%; color: var(--muted, #9db0cb); font-weight: 500; }
+.sig-h3 { margin: 18px 0 6px; font-size: 17px; }
+.sig-verdict { padding: 12px 14px; border-radius: 12px; border-left: 4px solid; margin: 0 0 8px; font-size: 15px; }
+.sig-ok { border-color: #3ddc9a; background: rgba(61, 220, 154, .08); }
+.sig-warn { border-color: #f2c14e; background: rgba(242, 193, 78, .08); }
+.sig-bad { border-color: #ef6b6b; background: rgba(239, 107, 107, .08); }
+.sig-note { margin-top: 16px; padding: 12px 14px; border-radius: 12px; background: rgba(111, 179, 255, .07); font-size: 14px; }
+@media (max-width: 700px) {
+  .sig-table th, .sig-table td { padding: 8px 8px; font-size: 14px; }
+  .sig-table th { width: 42%; }
+}
+
 .related .cards { gap: 14px; }
 .related .article-item { padding: 16px 18px; }
 .related .article-item h3 { font-size: 16.5px; line-height: 1.35; }

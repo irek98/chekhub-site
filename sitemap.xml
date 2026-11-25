@@ -270,4 +270,19 @@
     <lastmod>2026-11-24</lastmod>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://chekhub.ru/razbor-sig.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/dokumenty/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chekhub.ru/articles/sig-fajl-chem-otkryt.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>

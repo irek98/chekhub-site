@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>Разбор файла .sig онлайн: что внутри и кто подписал | ЧекХаб</title>
+  <meta name="description" content="Загрузите файл .sig и посмотрите, что внутри: подпись присоединённая или отсоединённая, кто подписал, каким сертификатом и когда. Разбор идёт в браузере, файл никуда не отправляется.">
+  <link rel="canonical" href="https://chekhub.ru/razbor-sig.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ЧекХаб">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://chekhub.ru/razbor-sig.html">
+  <meta property="og:title" content="Разбор файла .sig: что внутри и кто подписал">
+  <meta property="og:description" content="Загрузите файл .sig и посмотрите, что внутри: подпись присоединённая или отсоединённая, кто подписал, каким сертификатом и когда. Разбор идёт в браузере, файл никуда не отправляется.">
+  <meta property="og:image" content="https://chekhub.ru/assets/covers/sig-fajl-chem-otkryt.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Разбор файла .sig в браузере">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Разбор файла .sig: что внутри и кто подписал">
+  <meta name="twitter:description" content="Загрузите файл .sig и посмотрите, что внутри: подпись присоединённая или отсоединённая, кто подписал, каким сертификатом и когда. Разбор идёт в браузере, файл никуда не отправляется.">
+  <meta name="twitter:image" content="https://chekhub.ru/assets/covers/sig-fajl-chem-otkryt.png">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/assets/style.css?v=20261125a">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Разбор файла .sig онлайн",
+        "description": "Загрузите файл .sig и посмотрите, что внутри: подпись присоединённая или отсоединённая, кто подписал, каким сертификатом и когда. Разбор идёт в браузере, файл никуда не отправляется.",
+        "datePublished": "2026-11-25",
+        "dateModified": "2026-11-25",
+        "inLanguage": "ru",
+        "mainEntityOfPage": "https://chekhub.ru/razbor-sig.html",
+        "image": { "@type": "ImageObject", "url": "https://chekhub.ru/assets/covers/sig-fajl-chem-otkryt.png", "width": 1200, "height": 630 },
+        "author": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/" },
+        "publisher": { "@type": "Organization", "name": "ЧекХаб", "url": "https://chekhub.ru/", "logo": { "@type": "ImageObject", "url": "https://chekhub.ru/icon-512.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type": "Question", "name": "Безопасно ли загружать .sig на эту страницу?", "acceptedAnswer": {"@type": "Answer", "text": "Файл никуда не загружается: его читает браузер локально, код разбора работает на вашем устройстве. Это видно в исходнике assets/sig-tool.js — там нет ни одного сетевого запроса."}},
+          {"@type": "Question", "name": "Можно ли по .sig узнать, кто подписал документ?", "acceptedAnswer": {"@type": "Answer", "text": "Да, если внутри есть сертификат: разбор покажет имя или организацию, ИНН или СНИЛС, удостоверяющий центр и срок действия сертификата."}},
+          {"@type": "Question", "name": "Проверяет ли страница, что подпись верна?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. Для криптографической проверки нужен ГОСТ-провайдер, которого в браузере нет. Проверка подписи — на Госуслугах или в Контур.Крипто, куда загружаются документ и файл подписи."}},
+          {"@type": "Question", "name": "Что делать, если у меня только .sig, а документа нет?", "acceptedAnswer": {"@type": "Answer", "text": "Проверить подпись невозможно: она относится к конкретному файлу. Запросите документ у отправителя или найдите его в личном кабинете ведомства, из которого пришло письмо."}}
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://chekhub.ru/" },
+      { "@type": "ListItem", "position": 2, "name": "Инструкции", "item": "https://chekhub.ru/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Разбор файла .sig", "item": "https://chekhub.ru/razbor-sig.html" }
+    ]
+  }
+  </script>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(113762680, "init", {webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/113762680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">
+      <svg class="logo-mark" viewBox="0 0 64 64" width="32" height="32" aria-hidden="true" focusable="false"><defs><linearGradient id="ch-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6fb3ff"/><stop offset="1" stop-color="#2f7cf6"/></linearGradient></defs><rect x="12.5" y="12.5" width="39" height="39" rx="13" fill="none" stroke="url(#ch-mark)" stroke-width="5"/><path d="M23 32.5 29.5 39 41.5 26" fill="none" stroke="url(#ch-mark)" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-site-name>ЧекХаб</span>
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="main-nav">☰</button>
+    <nav class="nav" id="main-nav" aria-label="Основное меню">
+      <a href="/">Главная</a>
+      <a href="/proverka-cheka-po-qr.html" data-goal="qr_open">Проверить чек</a>
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/" aria-current="page">Инструкции</a>
+      <a href="/lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/uslugi.html">Услуги и цены</a>
+      <a href="/#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn-primary" href="/zayavka.html" title="Оставить заявку">Оставить заявку</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Главная</a> / <a href="/articles/">Инструкции</a> / Разбор .sig</div>
+  </div>
+
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <article class="prose">
+        <h1 style="font-size:32px">Разбор файла .sig: что внутри и кто подписал</h1>
+        <p class="lead">Файл .sig — это подпись, а не документ, и «открыть» его обычными программами нельзя. Но можно за минуту посмотреть, что внутри: кто подписал, каким сертификатом, когда и есть ли внутри сам документ.</p>
+
+        <figure class="article-cover">
+          <img src="/assets/covers/sig-fajl-chem-otkryt.png" alt="Разбор файла .sig: что внутри и кто подписал" width="1200" height="630" decoding="async">
+        </figure>
+
+        <blockquote>
+          Разбор показывает, кто подписал и когда, но не подтверждает подпись: криптографию проверяют на Госуслугах или в Контур.Крипто. Файл при этом остаётся у вас — страница работает локально в браузере.
+        </blockquote>
+
+        <div class="card" style="margin:0 0 22px">
+          <h3>Если файл пришёл, а что с ним делать — непонятно</h3>
+          <p class="muted small" style="margin:0 0 6px"><b>от 500 ₽ за файл</b>: посмотрим, что внутри .sig, проверим подпись, скажем, кем и когда подписан документ и цел ли он.</p>
+          <p class="muted small" style="margin:0 0 6px">Нужен читаемый PDF или Word из присланного документа — соберём. Срок <b>1 рабочий день</b>.</p>
+          <p class="muted small" style="margin:0 0 12px">Файлы не публикуем и не передаём третьим лицам; после работы удаляем.</p>
+          <div class="hero-actions" style="margin:0">
+            <a class="btn btn-primary" href="/zayavka.html">Прислать файл на разбор</a>
+            <a class="btn btn-ghost" href="/uslugi.html">Что входит и сколько стоит</a>
+          </div>
+        </div>
+
+        <div class="card" style="margin:0 0 20px">
+          <label class="sig-drop" id="sig-drop" for="sig-file">
+            <p class="sig-drop-title">Перетащите файл .sig сюда или нажмите, чтобы выбрать</p>
+            <p class="sig-drop-note">Файл не отправляется на сервер — разбор идёт в вашем браузере.
+            Поддерживаются .sig, .p7s, .sgn, .der в двоичном виде (DER) и в текстовом (PEM/Base64).</p>
+            <input type="file" id="sig-file" accept=".sig,.p7s,.sgn,.der,.bin">
+          </label>
+          <div id="sig-result" aria-live="polite" style="margin-top:16px"></div>
+        </div>
+
+        <h2>Что показывает разбор</h2>
+        <ul>
+          <li><b>Тип подписи:</b> присоединённая (внутри есть документ) или отсоединённая (документ лежит отдельно).</li>
+          <li><b>Кто подписал:</b> имя или организация из сертификата, ИНН или СНИЛС, если они есть в сертификате.</li>
+          <li><b>Кем выдан сертификат</b> и до какой даты он действовал.</li>
+          <li><b>Когда подписали</b> — время из подписи (signingTime).</li>
+          <li><b>Алгоритмы:</b> ГОСТ 2012 или ГОСТ 2001, размер подписи, серийный номер сертификата.</li>
+        </ul>
+
+        <h2>Чего разбор не делает</h2>
+        <p>Он <b>не проверяет криптографию</b>: браузер не умеет ГОСТ, а рисовать «зелёную галочку» без проверки мы не будем.
+        Разбор отвечает на вопрос «что это за файл и кто его подписал», а не «подпись верна».
+        Проверить саму подпись можно на <a href="https://e-trust.gosuslugi.ru/check/sign" target="_blank" rel="noopener">Госуслугах</a>
+        или в <a href="https://crypto.kontur.ru/" target="_blank" rel="noopener">Контур.Крипто</a> — туда загружаются
+        документ и файл подписи вместе.</p>
+
+        <h2>Если файл не разобрался</h2>
+        <p>Значит внутри не CMS/PKCS#7: это может быть подпись почтового клиента (S/MIME, PGP),
+        служебный файл программы или подпись в закрытом формате ведомства. Такой файл мы разбираем вручную —
+        <a href="/zayavka.html">пришлите его на заявку</a>, ответим, что внутри и что с ним делать.
+        Подробная инструкция по всем вариантам — в статье
+        <a href="/articles/sig-fajl-chem-otkryt.html">«Файл .sig — что это и чем открыть»</a>.</p>
+
+        <script src="/assets/sig-tool.js?v=20261125a"></script>
+
+
+        <h2>Частые вопросы</h2>
+        <h3>Безопасно ли загружать .sig на эту страницу?</h3>
+        <p>Файл никуда не загружается: его читает браузер локально, код разбора работает на вашем устройстве. Это видно в исходнике assets/sig-tool.js — там нет ни одного сетевого запроса.</p>
+        <h3>Можно ли по .sig узнать, кто подписал документ?</h3>
+        <p>Да, если внутри есть сертификат: разбор покажет имя или организацию, ИНН или СНИЛС, удостоверяющий центр и срок действия сертификата.</p>
+        <h3>Проверяет ли страница, что подпись верна?</h3>
+        <p>Нет. Для криптографической проверки нужен ГОСТ-провайдер, которого в браузере нет. Проверка подписи — на Госуслугах или в Контур.Крипто, куда загружаются документ и файл подписи.</p>
+        <h3>Что делать, если у меня только .sig, а документа нет?</h3>
+        <p>Проверить подпись невозможно: она относится к конкретному файлу. Запросите документ у отправителя или найдите его в личном кабинете ведомства, из которого пришло письмо.</p>
+      </article>
+
+      <div class="card" style="margin-top:22px">
+        <h3>Нужна помощь с документом?</h3>
+        <p class="muted small">Разберём файл .sig, проверим подпись и сертификат, найдём нужный документ и переведём его в читаемый PDF или Word. Плюс выгрузка чеков из ОФД — от 1 500 ₽.</p>
+        <div class="hero-actions" style="margin:0">
+          <a class="btn btn-primary" href="/zayavka.html">Оставить заявку</a>
+          <a class="btn btn-ghost" href="/uslugi.html">Услуги и цены</a>
+          <a class="btn btn-ghost" href="#" data-email>Написать на почту</a>
+        </div>
+      </div>
+
+        <div class="related" id="related">
+          <h2>Читайте также</h2>
+          <div class="cards cards-3">
+            <a class="card article-item" href="/articles/sig-fajl-chem-otkryt.html">
+              <h3>Файл .sig: что это и чем открыть</h3>
+              <p class="small muted">Полная инструкция: проверка без программ, КриптоПро, ошибки, как получить PDF.</p>
+            </a>
+            <a class="card article-item" href="/articles/chek-ne-prishel-na-pochtu.html">
+              <h3>Документ не пришёл</h3>
+              <p class="small muted">Что делать, если письмо или вложение потерялось.</p>
+            </a>
+            <a class="card article-item" href="/articles/kak-vygruzit-cheki-iz-ofd-v-excel.html">
+              <h3>Чеки из ОФД в Excel</h3>
+              <p class="small muted">Если нужны не документы, а реестр чеков для бухгалтерии.</p>
+            </a>
+          </div>
+          <div class="chips related-links">
+            <a class="chip" href="/uslugi.html">Услуги и цены</a>
+            <a class="chip" href="/zayavka.html">Оставить заявку</a>
+            <a class="chip" href="/glossarij-ffd.html">Глоссарий ФФД</a>
+          </div>
+        </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <div style="color:var(--text);font-weight:600;margin-bottom:4px"><span data-site-name>ЧекХаб</span></div>
+      <div>Выгрузка чеков из ОФД, автоматизация отчётности. © <span data-year>2026</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="/gde-chek/">Где найти чек</a>
+      <a href="/kalkulyatory/">Калькуляторы</a>
+      <a href="/articles/">Инструкции</a>
+      <a href="/dokumenty/">Документы</a>
+      <a href="/lichnyj-kabinet-ofd.html">Кабинеты ОФД</a>
+      <a href="/ai-katalog.html">ИИ-каталог</a>
+      <a href="/uslugi.html">Услуги</a>
+      <a href="/zayavka.html">Заявка</a>
+      <a href="/o-sebe.html">О проекте</a>
+      <a href="/sravnenie-ofd.html">Сравнение ОФД</a>
+      <a href="/politika.html">Политика</a>
+      <a href="#" data-tg>Telegram</a>
+      <a href="#" data-email>Почта</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/config.js"></script>
+<script src="/assets/app.js?v=20261125a"></script>
+</body>
+</html>
