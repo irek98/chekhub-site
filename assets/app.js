@@ -723,7 +723,7 @@
     });
   })();
 
-  // 2.75 Заявка из калькулятора: /zayavka.html?kass=3&months=2&format=1c&urgent=1&sum=6000
+  // 2.75 Заявка из калькулятора: /zayavka.html?kass=3&months=2&format=1c&urgent=1&sum=3000
   // Человек не вводит второй раз то, что уже выбрал в расчёте.
   (function leadPrefill() {
     // форму ищем по-разному: на заявке это <form name="zayavka" id="lead-form">
@@ -993,8 +993,8 @@
       var out = label(outEl);
       var cashboxes = kassEl ? (kassEl.value === "6+" ? 6 : kassEl.value === "2-5" ? 3 : 1) : 1;
 
-      var sum = (prices.base || 1500) + (cashboxes - 1) * (prices.perCashbox || 500);
-      if (outEl && outEl.value === "1c") sum += prices.format1c || 1500;
+      var sum = (prices.base || 750) + (cashboxes - 1) * (prices.perCashbox || 250);
+      if (outEl && outEl.value === "1c") sum += prices.format1c || 750;
 
       var fmtParam = outEl && outEl.value === "1c" ? "1c" : outEl && outEl.value === "csv" ? "csv" :
         outEl && outEl.value === "sheets" ? "sheets" : "excel";
@@ -1292,9 +1292,9 @@
     var urgentEl = $("#calc-urgent");
     var urgent = urgentEl ? urgentEl.checked : false;
 
-    var price = (p.base || 1500) + (cashboxes - 1) * (p.perCashbox || 500);
+    var price = (p.base || 750) + (cashboxes - 1) * (p.perCashbox || 250);
     price = price * (1 + Math.max(0, months - 1) * (p.perMonthCoef || 0.15));
-    if (format === "1c") price += (p.format1c || 1500);
+    if (format === "1c") price += (p.format1c || 750);
     if (urgent) price = price * (p.urgentCoef || 1.5);
     price = Math.round(price / 100) * 100;
 
