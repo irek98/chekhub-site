@@ -1296,7 +1296,7 @@
     price = price * (1 + Math.max(0, months - 1) * (p.perMonthCoef || 0.15));
     if (format === "1c") price += (p.format1c || 750);
     if (urgent) price = price * (p.urgentCoef || 1.5);
-    price = Math.round(price / 100) * 100;
+    price = Math.round(price / 50) * 50;
 
     if (out) out.textContent = "от " + price.toLocaleString("ru-RU") + " ₽";
     var text = buildRequest(price, cashboxes, months, format, urgent);
