@@ -133,13 +133,14 @@
   function timeVal(bytes, node) {
     var s = text(bytes, node).replace(/[^0-9Z+\-]/g, '');
     var m;
+    // формат для читателя: 20.11.2026 08:54:15 (ISO 2026-11-20 08:54:15 читается хуже)
     if (node.tag === 0x17 && (m = /^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})?Z?$/.exec(s))) {
       var yy = parseInt(m[1], 10);
       var year = yy < 50 ? 2000 + yy : 1900 + yy;
-      return year + '-' + m[2] + '-' + m[3] + ' ' + m[4] + ':' + m[5] + ':' + (m[6] || '00');
+      return m[3] + '.' + m[2] + '.' + year + ' ' + m[4] + ':' + m[5] + ':' + (m[6] || '00');
     }
     if (node.tag === 0x18 && (m = /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})?Z?$/.exec(s))) {
-      return m[1] + '-' + m[2] + '-' + m[3] + ' ' + m[4] + ':' + m[5] + ':' + (m[6] || '00');
+      return m[3] + '.' + m[2] + '.' + m[1] + ' ' + m[4] + ':' + m[5] + ':' + (m[6] || '00');
     }
     return text(bytes, node);
   }
