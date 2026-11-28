@@ -163,6 +163,35 @@
 
   <section>
     <div class="wrap">
+      <div class="card">
+        <h2 style="font-size:22px;margin:0 0 6px">Быстрая заявка: два поля</h2>
+        <p class="small muted" style="margin:0 0 12px">Контакт и пара слов о задаче — этого хватит, чтобы назвать цену и срок. Заявка уходит с сайта сразу, без почтовых программ: ответим на указанный контакт в течение рабочего дня.</p>
+        <form class="lead-form" id="quick-lead" name="quick-zayavka">
+          <input type="hidden" name="source" value="primer">
+          <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="ql-contact">Куда ответить *</label>
+              <input id="ql-contact" name="contact" type="text" required maxlength="120" placeholder="+7… / @nickname / mail@…">
+            </div>
+            <div class="field">
+              <label for="ql-task">Что нужно</label>
+              <input id="ql-task" name="task" type="text" maxlength="200" placeholder="ОФД, кассы, период">
+            </div>
+          </div>
+          <label class="form-consent"><input type="checkbox" name="consent" value="да" required> Согласен на обработку контактных данных для ответа на заявку. <a href="politika.html">Политика обработки данных</a></label>
+          <div class="tool-actions">
+            <button class="btn btn-primary" type="submit">Отправить в 2 поля</button>
+          </div>
+          <p class="form-status" role="status"></p>
+        </form>
+        <p class="small muted" style="margin:12px 0 0">Если удобнее отвечать на вопросы по пунктам — <a href="zayavka.html">полная форма заявки</a>, её принимает Яндекс.Формы (работает из РФ без VPN).</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
       <div class="section-head">
         <h2>Что лежит на листах</h2>
         <p class="muted">Excel-пример — не только список чеков: в нём сразу есть своды, чтобы бухгалтерии не собирать их руками.</p>
@@ -252,34 +281,6 @@
     </div>
   </section>
 
-  <section>
-    <div class="wrap">
-      <div class="card">
-        <h2 style="font-size:22px;margin:0 0 6px">Быстрая заявка: два поля</h2>
-        <p class="small muted" style="margin:0 0 12px">Контакт и пара слов о задаче — этого хватит, чтобы назвать цену и срок. Заявка уходит с сайта сразу, без почтовых программ: ответим на указанный контакт в течение рабочего дня.</p>
-        <form class="lead-form" id="quick-lead" name="quick-zayavka">
-          <input type="hidden" name="source" value="primer">
-          <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-          <div class="form-grid">
-            <div class="field">
-              <label for="ql-contact">Куда ответить *</label>
-              <input id="ql-contact" name="contact" type="text" required maxlength="120" placeholder="+7… / @nickname / mail@…">
-            </div>
-            <div class="field">
-              <label for="ql-task">Что нужно</label>
-              <input id="ql-task" name="task" type="text" maxlength="200" placeholder="ОФД, кассы, период — в двух словах">
-            </div>
-          </div>
-          <label class="form-consent"><input type="checkbox" name="consent" value="да" required> Согласен на обработку контактных данных для ответа на заявку. <a href="politika.html">Политика обработки данных</a></label>
-          <div class="tool-actions">
-            <button class="btn btn-primary" type="submit">Отправить в 2 поля</button>
-          </div>
-          <p class="form-status" role="status"></p>
-        </form>
-        <p class="small muted" style="margin:12px 0 0">Если удобнее отвечать на вопросы по пунктам — <a href="zayavka.html">полная форма заявки</a>, её принимает Яндекс.Формы (работает из РФ без VPN).</p>
-      </div>
-    </div>
-  </section>
 
   <section>
     <div class="wrap">
