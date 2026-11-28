@@ -140,6 +140,27 @@
             <a class="btn btn-primary" href="../zayavka.html">Оставить заявку</a>
             <a class="btn btn-ghost" href="../uslugi.html">Цены и калькулятор</a>
           </div>
+
+          <!-- quick-lead-form -->
+          <form class="lead-form" id="quick-lead-article" name="quick-zayavka" style="margin-top:16px">
+            <input type="hidden" name="source" value="article-zakaz">
+            <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="qa-contact">Куда ответить *</label>
+                <input id="qa-contact" name="contact" type="text" required maxlength="120" placeholder="+7… / @nickname / mail@…">
+              </div>
+              <div class="field">
+                <label for="qa-task">Что выгрузить</label>
+                <input id="qa-task" name="task" type="text" maxlength="200" placeholder="ОФД, кассы, период — в двух словах">
+              </div>
+            </div>
+            <label class="form-consent"><input type="checkbox" name="consent" value="да" required> Согласен на обработку контактных данных для ответа на заявку. <a href="../politika.html">Политика обработки данных</a></label>
+            <div class="tool-actions">
+              <button class="btn btn-primary" type="submit">Отправить заявку — ответим в течение дня</button>
+            </div>
+            <p class="form-status" role="status"></p>
+          </form>
         </div>
 
         <h2>Когда проще заказать, чем делать самому</h2>
@@ -331,28 +352,6 @@
           <a class="btn btn-ghost" href="../zayavka.html">Оставить заявку</a>
           <a class="btn btn-ghost" href="#" data-email>Написать на почту</a>
         </div>
-
-        <!-- quick-lead-form -->
-        <form class="lead-form" id="quick-lead-article" name="quick-zayavka" style="margin-top:16px">
-          <input type="hidden" name="source" value="article-zakaz">
-          <p class="form-hp" aria-hidden="true"><label>Не заполняйте это поле <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-          <div class="form-grid">
-            <div class="field">
-              <label for="qa-contact">Куда ответить *</label>
-              <input id="qa-contact" name="contact" type="text" required maxlength="120" placeholder="+7… / @nickname / mail@…">
-            </div>
-            <div class="field">
-              <label for="qa-task">Что выгрузить</label>
-              <input id="qa-task" name="task" type="text" maxlength="200" placeholder="ОФД, кассы, период — в двух словах">
-            </div>
-          </div>
-        <label class="form-consent"><input type="checkbox" name="consent" value="да" required> Согласен на обработку контактных данных для ответа на заявку. <a href="../politika.html">Политика обработки данных</a></label>
-          <div class="tool-actions">
-            <button class="btn btn-primary" type="submit">Отправить заявку — ответим в течение дня</button>
-          </div>
-          <p class="form-status" role="status"></p>
-          <p class="small muted" style="margin:8px 0 0">Не хотите заполнять? <a href="../zayavka.html">Анкета из 6 полей</a> или <a href="#" data-email>почта</a>.</p>
-        </form>
       </div>
 
         <div class="related" id="related">
